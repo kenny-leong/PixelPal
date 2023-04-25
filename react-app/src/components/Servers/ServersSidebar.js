@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { getServers } from "../../store/server";
 import { NavLink } from 'react-router-dom';
 import ServersSidebarItem from "./ServerSidebarItem";
-import './ServerSidebar.css'
 import OpenModalButton from "../OpenModalButton";
 import ServerCreateModal from "../ServerCreateModal";
+import './ServerSidebar.css'
 
 const ServersSidebar = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
+  const [selectedServer, setSelectedServer] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -20,6 +21,10 @@ const ServersSidebar = () => {
   let servers = useSelector(state => state.server.orderedList)
   if (!servers) return null;
   servers = Object.values(servers);
+
+  const handleServerSelect = (server) => {
+    setSelectedServer(server.id)
+  }
 
   return (
     <>
@@ -34,8 +39,16 @@ const ServersSidebar = () => {
               <div className='server-sidebar-server-group'>
                 {
                   servers.map(server => (
-                    < NavLink style={{ textDecoration: 'none' }} key={`server-${server.id}`} to={`/channels/${server.id}/${server.channels[0].id}`}>
-                      <ServersSidebarItem server={server} />
+                    <NavLink
+                      style={{ textDecoration: 'none' }}
+                      key={`server-${server.id}`}
+                      to={`/channels/${server.id}/${server.channels[0].id}`}
+                    >
+                      <div className={`server-icon-container ${selectedServer === server.id ? "selected" : ""}`}
+                      onClick={() => handleServerSelect(server)}
+                      >
+                        <ServersSidebarItem server={server} />
+                      </div>
                     </NavLink>
                   ))
                 }

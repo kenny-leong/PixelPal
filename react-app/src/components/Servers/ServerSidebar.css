@@ -24,7 +24,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    max-width: 68px;
+    max-width: 88px;
     display: flex;
     background-color: #1e1f22;
     overflow-y: auto;
@@ -54,6 +54,16 @@
     transition-duration: 0.15s, 0.15s, 0.15s;
     transition-timing-function: ease-out, ease-out, ease-out;
     transition-delay: 0s, 0s, 0s;
+}
+
+
+.server-icon-container {
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.server-icon-container.selected {
+    border-left: 3px solid rgb(93, 116, 200);
 }
 
 .server-sidebar-icon:hover {
