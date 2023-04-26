@@ -21,7 +21,7 @@ def seed_servers():
         Server(
             owner_id=2,
             name="Maplestory",
-            server_picture="https://static.wikia.nocookie.net/maplestory/images/0/0f/Mob_Guardian_Angel_Slime.png/revision/latest?cb=20210805090938"
+            server_picture="https://e7.pngegg.com/pngimages/240/77/png-clipart-maplestory-mushroom-music-tutor-sight-reading-mushrooms-maple-hat.png"
         ),
 
         Server(
@@ -75,7 +75,7 @@ def seed_servers():
         Server(
             owner_id=3,
             name='Bloomberg',
-            server_picture='https://play-lh.googleusercontent.com/_qTb7fdtj18tYn1AyKLX1-kGvhzgJctx9sHpxk95ktK0hn9ruGnkJZCRp39Asp1kG4A'
+            server_picture='https://e7.pngegg.com/pngimages/405/172/png-clipart-bloomberg-terminal-bloomberg-markets-bloomberg-television-bloomberg-businessweek-others-miscellaneous-purple.png'
         ),
 
         Server(
@@ -87,7 +87,7 @@ def seed_servers():
         Server(
             owner_id=4,
             name='TikTok',
-            server_picture='https://1000logos.net/wp-content/uploads/2019/06/Tiktok_Logo.png'
+            server_picture='https://static.vecteezy.com/system/resources/previews/006/057/996/original/tiktok-logo-on-transparent-background-free-vector.jpg'
         ),
 
         Server(
@@ -104,9 +104,8 @@ def seed_servers():
     # first_group = list(users) #demo bobbie marnie
     # second_group = list(users[0:3]) #demo bobbie marnie ak
 
-
-    servers[0].members.extend(users)
-    servers[1].members.extend(users)
+    for i in range(0, len(servers)):
+        servers[i].members.extend(users)
 
 
     db.session.add_all(servers)

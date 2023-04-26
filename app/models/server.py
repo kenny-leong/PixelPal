@@ -28,6 +28,7 @@ class Server(db.Model):
             "server_picture": self.server_picture,
             "channels": [channel.to_dict() for channel in self.channels],
             "members": [member.to_dict() for member in self.members],
+            'status': self.status
         }
 
 

@@ -22,8 +22,8 @@ const ServersSidebar = () => {
   if (!servers) return null;
 
 
-  servers = Object.values(servers);
-  console.log(servers)
+  // sort servers by id
+  servers = servers.sort((a, b) => a.id - b.id);
 
   const handleServerSelect = (server) => {
     setSelectedServer(server.id)
@@ -31,7 +31,6 @@ const ServersSidebar = () => {
 
   return (
     <>
-      {user !== null ? (
         <>
           <div className="server-sidebar">
             <ul className='server-sidebar-ul'>
@@ -68,8 +67,6 @@ const ServersSidebar = () => {
             </ul>
           </div >
         </>
-      ) : ''
-      }
     </>
   )
 }
