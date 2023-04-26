@@ -20,7 +20,10 @@ const ServersSidebar = () => {
 
   let servers = useSelector(state => state.server.orderedList)
   if (!servers) return null;
+
+
   servers = Object.values(servers);
+  console.log(servers)
 
   const handleServerSelect = (server) => {
     setSelectedServer(server.id)
@@ -46,6 +49,7 @@ const ServersSidebar = () => {
                     >
                       <div className={`server-icon-container ${selectedServer === server.id ? "selected" : ""}`}
                       onClick={() => handleServerSelect(server)}
+                      title={server.name}
                       >
                         <ServersSidebarItem server={server} />
                       </div>

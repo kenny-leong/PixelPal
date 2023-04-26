@@ -7,12 +7,15 @@ class Friend(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    friendId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    friendId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    status = db.Column(db.String(20), nullable=False, default='pending')
+
 
     def to_dict(self):
         return {
             'id': self.id,
             'friendId': self.friendId,
-            'userId': self.userId
+            'userId': self.userId,
+            'status': self.status
         }

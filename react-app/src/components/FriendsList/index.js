@@ -36,9 +36,6 @@ export default function FriendsList() {
   return (
     <div>
       <div className='friendslist-channel-container'>
-        <div className='friendslist-search-div'>
-          <input placeholder='Find or start a conversation' id='friendslist-search'></input>
-        </div>
         <div className='friendslist-channel-friendscontainer'>
           <i className="fa-solid fa-user-group" />
           <div className='friendslist-channel-item'> Friends </div>

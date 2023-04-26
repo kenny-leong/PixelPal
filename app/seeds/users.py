@@ -14,13 +14,13 @@ def seed_users():
     User(
         username='Bobbie#2121', email='bobbie@aa.io', password='password', prof_pic='https://ih1.redbubble.net/image.2279664396.6679/st,small,507x507-pad,600x600,f8f8f8.jpg'), #3
     User(
-        username='akim#7070', email='aileenkim@gmail.com', password='password1', prof_pic='https://preview.redd.it/sed7j1wryt741.jpg?auto=webp&s=efccc659f3693ade42f6b247934cb4fdfc41edd7'), #4
+        username='akim#7070', email='aileenkim@gmail.com', password='password', prof_pic='https://preview.redd.it/sed7j1wryt741.jpg?auto=webp&s=efccc659f3693ade42f6b247934cb4fdfc41edd7'), #4
     User(
-        username='zmarediya#0206', email='zainebmarediya@gmail.com', password='password2', prof_pic='https://i.redd.it/6jupfeilyhx71.jpg'),#5
+        username='zmarediya#0206', email='zainebmarediya@gmail.com', password='password', prof_pic='https://i.redd.it/6jupfeilyhx71.jpg'),#5
     User(
-        username='rgoggin#0001', email='ryangoggin@gmail.com', password='password3', prof_pic='https://ih1.redbubble.net/image.1580724210.1236/st,small,507x507-pad,600x600,f8f8f8.jpg'), #6
+        username='rgoggin#0001', email='ryangoggin@gmail.com', password='password', prof_pic='https://ih1.redbubble.net/image.1580724210.1236/st,small,507x507-pad,600x600,f8f8f8.jpg'), #6
     User(
-        username='kleong#0666', email='kenleong@gmail.com', password='password4', prof_pic='https://i.redd.it/6jupfeilyhx71.jpg') #7
+        username='kleong#0666', email='kennyleong@gmail.com', password='password', prof_pic='https://i.redd.it/6jupfeilyhx71.jpg') #7
     ]
 
     db.session.add_all(users)

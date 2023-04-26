@@ -13,6 +13,8 @@ class Server(db.Model):
     name = db.Column(db.String(80), nullable=False)
     server_picture = db.Column(db.String(500))
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    status = db.Column(db.Boolean, nullable=False, default=False)
+
 
     #Relationship Attributes
     channels = db.relationship('Channel', backref='server', lazy=True, cascade='all, delete-orphan')
