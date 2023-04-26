@@ -1,10 +1,13 @@
 import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import './SplashPage.css';
 import backgroundTop from '../../static/SplashPage/splash-top-background.jpg';
-import pixelPalLogoWhite from '../../static/SplashPage/pixel-pal-logo-white.png';
 import { login } from '../../store/session';
+import logo from '../../static/phantasmal-logo-trans.png';
+import topbg from '../../static/fantasy-bg.png';
+
+
+import './SplashPage.css';
 
 function SplashPage() {
 	const sessionUser = useSelector(state => state.session.user);
@@ -97,20 +100,12 @@ function SplashPage() {
 		<>
 			<div className="splash-container">
                 <div className='splash-top'>
-                    <img className='splash-top-background' src={backgroundTop} alt="splash top background" />
+                    <img className='splash-top-background' src={topbg} alt="splash top background" />
                     <div className='splash-top-nav'>
                         <div className='splash-top-nav-left'>
-                            <img className='pixel-pal-logo-white' src={pixelPalLogoWhite} alt="pixel pal white logo" />
-                            <h3 className='pixel-pal-logo-text'>PixelPal</h3>
+                            <img className='pixel-pal-logo-white' src={logo} alt="pixel pal white logo" />
+                            <h3 className='pixel-pal-logo-text'>Phantasmal</h3>
                         </div>
-                        {/* <div className='splash-top-nav-center'>
-                            <button className='demo-login-button' onClick={handleDemoLogin1}>
-                                Login as Guest User 1
-                            </button>
-                            <button className='demo-login-button' onClick={handleDemoLogin2}>
-                            Login as Guest User 2
-                            </button>
-                        </div> */}
                         <div className='splash-top-nav-right'>
                             <button className='splash-login-button signup' onClick={handleSignup}>Sign Up</button>
                             <button className='splash-login-button' onClick={handleLoginClick}>Log In</button>
@@ -126,9 +121,10 @@ function SplashPage() {
                              out more often. somewhere you can go with just a click of
                              a button.
                         </p>
-                        <button className='splash-open-button' onClick={handleLoginClick}>
-                         Launch PixelPal 👾
-                        </button>
+                        <div className='splash-open-button' onClick={handleLoginClick}>
+                            <span>Launch Phantasmal</span>
+                            <img className='launch-btn-img' src={logo} />
+                        </div>
                     </div>
                 </div>
                 <div className="splash-middle">

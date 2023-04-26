@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import ServersSidebarItem from "./ServerSidebarItem";
 import OpenModalButton from "../OpenModalButton";
 import ServerCreateModal from "../ServerCreateModal";
+import logo from '../../static/phantasmal-logo-trans.png';
 import './ServerSidebar.css'
 
 const ServersSidebar = () => {
@@ -18,12 +19,11 @@ const ServersSidebar = () => {
     }
   }, [user, dispatch])
 
-  let servers = useSelector(state => state.server.orderedList)
+  const servers = useSelector(state => state.server.allUserServers)
   if (!servers) return null;
 
+  const serverArr = Object.values(servers);
 
-  // sort servers by id
-  servers = servers.sort((a, b) => a.id - b.id);
 
   const handleServerSelect = (server) => {
     setSelectedServer(server.id)
@@ -35,12 +35,12 @@ const ServersSidebar = () => {
           <div className="server-sidebar">
             <ul className='server-sidebar-ul'>
               <NavLink key='Direct Messages' to={'/channels/@me'}>
-                <img className='server-sidebar-icon' src='https://i.redd.it/6jupfeilyhx71.jpg' alt='preview'></img>
+                <img className='server-sidebar-icon' src={logo} alt='preview'></img>
               </NavLink>
 
               <div className='server-sidebar-server-group'>
                 {
-                  servers.map(server => (
+                  serverArr.map(server => (
                     <NavLink
                       style={{ textDecoration: 'none' }}
                       key={`server-${server.id}`}
