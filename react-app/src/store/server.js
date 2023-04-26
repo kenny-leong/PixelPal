@@ -8,55 +8,54 @@ const ADD_SERVER_MEMBER = 'servers/members/add'
 const DELETE_SERVER_MEMBER = 'servers/members/add'
 
 // ----------------------------------- action creators ----------------------------------------
-const loadServers = (list, user) => ({
+const loadServers = (servers, user) => ({
   type: LOAD_SERVERS,
-  list: list,
-  user: user
-})
+  servers,
+  user
+});
 
 const loadServer = server => ({
   type: LOAD_SERVER,
   server
-})
+});
 
 const createServer = server => ({
   type: ADD_SERVER,
   server
-})
+});
 
 const updateServer = server => ({
   type: EDIT_SERVER,
   server
-})
+});
 
 const removeServer = (id) => ({
   type: DELETE_SERVER,
   serverId: id
-
-})
+});
 
 const createServerMember = () => ({
   type: ADD_SERVER_MEMBER
-})
+});
 
 const removeServerMember = () => ({
   type: DELETE_SERVER_MEMBER
-})
+});
 
 
 // ----------------------------------- thunk action creators ----------------------------------------
 
-// GET ALL SERVERS //
+// GET ALL SERVERS
 export const getServers = (user) => async (dispatch) => {
   const response = await fetch('/api/servers');
 
   if (response.ok) {
-    const list = await response.json();
-    dispatch(loadServers(list, user));
+    const servers = await response.json();
+    dispatch(loadServers(servers, user));
   }
 };
 
-// GET SINGLE SERVER BY ID //
+// GET SINGLE SERVER BY ID
 export const getServer = (id) => async (dispatch) => {
   const response = await fetch(`/api/servers/${id}`);
 
@@ -148,7 +147,7 @@ export const deleteServer = (serverId) => async (dispatch) => {
 }
 
 
-// ADD SERVER MEMEBER // 
+// ADD SERVER MEMEBER //
 
 export const addServerMember = (serverId, user) => async (dispatch) => {
   const response = await fetch(`/api/servers/${serverId}/members`, {
@@ -170,7 +169,7 @@ export const addServerMember = (serverId, user) => async (dispatch) => {
   }
 }
 
-// REMOVE SERVER MEMEBER // 
+// REMOVE SERVER MEMEBER //
 
 export const deleteServerMember = (serverId, user) => async (dispatch) => {
   const response = await fetch(`/api/servers/${serverId}/members`, {
@@ -199,32 +198,16 @@ let initialState = {}
 
 export default function serverReducer(state = initialState, action) {
   switch (action.type) {
+
     case LOAD_SERVERS: {
       const allUserServers = {};
-      let myServers = [];
-
-      for (let server of action.list) {
-        if (server.owner_id === action.user.id) {
-          myServers.push(server);
-        }
-
-        for (let member of server.members) {
-          if (member.username === action.user.username) {
-            myServers.push(server);
-          }
-        }
-      }
-
-      myServers.forEach(server => {
-        allUserServers[server.id] = server
+      const serverArr = action.servers;
+      serverArr.forEach(server => {
+        allUserServers[server.id] = server;
       })
-
-      const orderedList = Object.values(allUserServers).reverse();
-
       return {
         ...state,
-        allUserServers,
-        orderedList
+        allUserServers: allUserServers
       }
     }
 

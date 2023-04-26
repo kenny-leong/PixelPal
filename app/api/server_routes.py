@@ -1,7 +1,5 @@
 from flask import Blueprint, jsonify, request, session
-from flask_login import login_required
-# from models.server import db, Server
-# breakpoint()
+from flask_login import current_user, login_required
 from app.models import db, Server, User
 
 server_routes = Blueprint('servers', __name__)
