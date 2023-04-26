@@ -1,8 +1,8 @@
-# Unity
+# Phantasmal
 
-Unity is a web application inspired by Discord that allows users to create servers where they can interact in real time with other users in their communities. This project aims to replicate Discord's ease of use and the ability to share content with other Unity clients running at the same time instantaneously through the use of WebSockets. Unity is built with a Python/Flask backend and a React/Redux frontend for responsiveness.
+Phantasmal is a web application inspired by Discord that allows users to create servers where they can interact in real time with other users in their communities. This project aims to replicate Discord's ease of use and the ability to share content with other Phantasmal clients running at the same time instantaneously through the use of WebSockets. Phantasmal is built with a Python/Flask backend and a React/Redux frontend for responsiveness.
 
-[Click here to view Unity's Live Site](https://pixelpal.onrender.com/)
+[Click here to view Phantasmal's Live Site](https://pixelpal.onrender.com/)
 
 ![landing](https://user-images.githubusercontent.com/47682357/233813848-f7a1d32e-a5b7-4774-bb04-c9fa3b0d245a.png)
 
@@ -41,7 +41,7 @@ Unity is a web application inspired by Discord that allows users to create serve
 ## Demo User Implementation:
 
 * Feel free to test the site features through clicking the "Demo User" button which will directly log you in
-* There are exactly TWO different guest logins built for users looking to test the real-time messaging capabilities of Unity
+* There are exactly TWO different guest logins built for users looking to test the real-time messaging capabilities of Phantasmal
 
 ![demo-user](https://user-images.githubusercontent.com/47682357/233805234-93ea9d85-540f-4178-b560-683a4708b6de.gif)
 
@@ -65,9 +65,9 @@ Unity is a web application inspired by Discord that allows users to create serve
 ![login-demo](https://user-images.githubusercontent.com/47682357/233807303-f5dfe268-f669-478e-9ea1-338921a77bf0.gif)
 
 
-## Live Messaging Between Unity Clients:
+## Live Messaging Between Phantasmal Clients:
 
-* You are able to send messages to other Unity clients as long as they are within the same server and channel
+* You are able to send messages to other Phantasmal clients as long as they are within the same server and channel
 * You must be logged in to use the live messaging feature
 
 ![live-messaging](https://user-images.githubusercontent.com/47682357/233807618-de6efc72-f64e-40fa-9101-6ff0d2418e9f.gif)
