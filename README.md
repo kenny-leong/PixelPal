@@ -2,7 +2,7 @@
 
 Phantasmal is a web application inspired by Discord that allows users to create servers where they can interact in real time with other users in their communities. This project aims to replicate Discord's ease of use and the ability to share content with other Phantasmal clients running at the same time instantaneously through the use of WebSockets. Phantasmal is built with a Python/Flask backend and a React/Redux frontend for responsiveness.
 
-[Click here to view Phantasmal's Live Site](https://pixelpal.onrender.com/)
+[Click here to view Phantasmal's Live Site](https://phantasmal.onrender.com/)
 
 ![landing](https://user-images.githubusercontent.com/47682357/233813848-f7a1d32e-a5b7-4774-bb04-c9fa3b0d245a.png)
 
