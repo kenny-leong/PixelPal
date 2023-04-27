@@ -46,7 +46,7 @@ function ServerEditModal({ server, serverId }) {
 		try {
 			let edittedServer = await dispatch(editServer(server.id, newServer));
 			if (edittedServer) {
-				await dispatch(getServers(user));
+				await dispatch(getServers());
 				await dispatch(getServer(serverId));
 				closeModal();
 			}

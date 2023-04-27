@@ -3,10 +3,6 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import logo from '../../static/phantasmal-logo-trans.png';
 import gif from '../../static/bg-gif-2k.gif';
-import ryan from '../../static/ryan.jpeg';
-import aileen from '../../static/aileen.jpeg';
-import kenny from '../../static/kenny.jpeg';
-import zaineb from '../../static/zaineb.jpeg';
 import './SplashPage.css';
 
 function SplashPage() {

@@ -8,15 +8,19 @@ const ADD_SERVER_MEMBER = 'servers/members/add'
 const DELETE_SERVER_MEMBER = 'servers/members/add'
 
 // ----------------------------------- action creators ----------------------------------------
-const loadServers = (servers, user) => ({
+const loadServers = (servers) => ({
   type: LOAD_SERVERS,
-  servers,
-  user
+  servers
 });
 
-const loadServer = server => ({
+const loadServer = (server) => ({
   type: LOAD_SERVER,
   server
+});
+
+const loadUserServers = (serverArr) => ({
+  type: 'LOAD_USER_SERVERS',
+  serverArr
 });
 
 const createServer = server => ({
@@ -46,12 +50,12 @@ const removeServerMember = () => ({
 // ----------------------------------- thunk action creators ----------------------------------------
 
 // GET ALL SERVERS
-export const getServers = (user) => async (dispatch) => {
+export const getServers = () => async (dispatch) => {
   const response = await fetch('/api/servers');
 
   if (response.ok) {
     const servers = await response.json();
-    dispatch(loadServers(servers, user));
+    dispatch(loadServers(servers));
   }
 };
 
@@ -67,16 +71,34 @@ export const getServer = (id) => async (dispatch) => {
   }
 }
 
-// ADD A NEW SERVER //
-export const addServer = (server, username) => async (dispatch) => {
+// GET ALL SERVERS USER IS A PART OF
+export const getUserServers = (userId) => async (dispatch) => {
+  const res = await fetch(`/api/servers/users/${userId}/servers`);
+
+  if (res.ok) {
+    const serverArr = await res.json();
+    dispatch(loadUserServers(serverArr));
+    return serverArr;
+  }
+}
+
+
+
+// ADD A NEW SERVER
+export const addServer = (name, owner_id, status, username, server_picture) => async (dispatch) => {
   const response = await fetch('/api/servers', {
     method: 'POST',
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(server)
+    body: JSON.stringify({
+      name,
+      owner_id,
+      status,
+      server_picture
+    })
   })
 
   if (response.ok) {
-    const data = await response.json();
+    const newServer = await response.json();
 
     const responseChannels = await fetch('/api/channels', {
       method: 'POST',
@@ -84,14 +106,14 @@ export const addServer = (server, username) => async (dispatch) => {
       body: JSON.stringify({
         description: "General dicussion",
         name: "general",
-        server_id: data.id
+        server_id: newServer.id
       })
     })
 
     if (responseChannels.ok) {
-      const data = await responseChannels.json();
+      const newChannel = await responseChannels.json();
 
-      const responseMembers = await fetch(`/api/servers/${data.serverId}/members`, {
+      const responseMembers = await fetch(`/api/servers/${newChannel.serverId}/members`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -101,6 +123,62 @@ export const addServer = (server, username) => async (dispatch) => {
 
       if (responseMembers.ok) {
         const data = await responseMembers.json();
+        dispatch(createServer(data));
+        return data;
+      }
+    }
+  }
+}
+
+
+
+// ADD A NEW PRIVATE SERVER
+export const addPrivateServer = (name, owner_id, status, username, friendUsername, server_picture) => async (dispatch) => {
+  const response = await fetch('/api/servers', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name,
+      owner_id,
+      status,
+      server_picture
+    })
+  })
+
+  if (response.ok) {
+    const newServer = await response.json();
+
+    const responseChannels = await fetch('/api/channels', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        description: "General dicussion",
+        name: "general",
+        server_id: newServer.id
+      })
+    })
+
+    if (responseChannels.ok) {
+      const newChannel = await responseChannels.json();
+
+      const responseMember1 = await fetch(`/api/servers/${newChannel.serverId}/members`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username
+        })
+      })
+
+      const responseMember2 = await fetch(`/api/servers/${newChannel.serverId}/members`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: friendUsername
+        })
+      })
+
+      if (responseMember2.ok) {
+        const data = await responseMember2.json();
         dispatch(createServer(data));
         return data;
       }
@@ -195,13 +273,25 @@ export default function serverReducer(state = initialState, action) {
       return { ...state, currentServer: { ...action.server } };
     }
 
+
+    case 'LOAD_USER_SERVERS':
+      const userServers = {};
+      const serverArr = action.serverArr;
+      serverArr.forEach(server => {
+        userServers[server.id] = server;
+      });
+      return {
+        ...state,
+        userServers: userServers
+      }
+
     case ADD_SERVER: {
-      const newState = { ...state };
-      const allUserServers = { ...state.allUserServers };
-      const orderedList = [...state.orderedList];
-      allUserServers[action.server.id] = action.server;
-      orderedList.unshift(action.server);
-      return { ...newState, allUserServers, orderedList };
+      return {
+        ...state,
+        newServer: {
+          ...action.server
+        }
+      }
     }
 
     case EDIT_SERVER: {

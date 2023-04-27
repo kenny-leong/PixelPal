@@ -1,31 +1,79 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllFriendsThunk } from "../../store/friends";
+import { getServers, addPrivateServer } from "../../store/server";
+import { useHistory } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import './FriendsList.css'
 
 export default function FriendsList() {
   const dispatch = useDispatch()
 
   const currentUser = useSelector(state => state.session.user)
-
-  let currentUserId;
-  if (currentUser) currentUserId = currentUser.id;
-
   const allFriends = useSelector(state => state.friends)
-  const friendsArr = Object.values(allFriends)
+  const { closeModal } = useModal();
+  const history = useHistory();
+  const allServers = useSelector(state => state.server.allUserServers)
 
   useEffect(() => {
-    dispatch(getAllFriendsThunk(currentUserId))
-  }, [dispatch, currentUserId])
+    dispatch(getAllFriendsThunk(currentUser.id))
+    dispatch(getServers())
+  }, [dispatch, currentUser.id])
+
+
+  if (!currentUser || !allFriends || !allServers) {
+    return (
+      <div className='loading-animation'>
+        <div className="center">
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+        </div>
+      </div>
+    )
+  }
+
+
+
+  const serverArr = Object.values(allServers);
+  const privateServerArr = serverArr.filter(server => server.status === true);
+  const friendsArr = Object.values(allFriends);
+  console.log(privateServerArr);
+
 
   const handleFriendOptions = (e) => {
     e.preventDefault();
     window.alert('Friend Request Feature Coming Soon!');
   }
 
-  const handleDM = (e) => {
-    e.preventDefault();
-    window.alert('Private Messages Feature Coming Soon!');
+  const handleDM = async (friendUsername, friendPic) => {
+
+    const index = friendUsername.indexOf("#");
+    const slicedUsername = friendUsername.slice(0, index);
+
+    for (let server of privateServerArr) {
+      if (server.name === slicedUsername) {
+        return history.push(`/private-messages/${server.id}/${server.channels[0].id}`)
+      }
+    }
+
+		await dispatch(addPrivateServer(`${slicedUsername}`, currentUser.id, true, currentUser.username, friendUsername, friendPic))
+			.then((res) => {
+				history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
+				closeModal();
+			})
+  }
+
+
+  const handleDMOpen = (server) => {
+    history.push(`/private-messages/${server.id}/${server.channels[0].id}`);
   }
 
   const handleOptions = (e) => {
@@ -42,8 +90,16 @@ export default function FriendsList() {
         </div>
 
         <div className='friendslist-channel-dm-container'>
-          <div className='friendslist-channel-dm'> Direct Messages </div>
-          <i className="fa-solid fa-plus" onClick={handleDM} />
+          <div className="direct-message-tab">
+            <div className='friendslist-channel-dm'> DIRECT MESSAGES </div>
+            <i className="fa-solid fa-plus" onClick={handleDM} />
+          </div>
+          {privateServerArr.map(server => (
+              <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
+                <img src={server.server_picture} alt='private-dm-pic' className="dm-picture"/>
+                <span className="dm-name">{server.name}</span>
+              </div>
+          ))}
         </div>
       </div>
 
@@ -51,14 +107,15 @@ export default function FriendsList() {
         <div className='friendslist-header-container'>
           <i className="fa-solid fa-user-group" />
           <div className='friendslist-friends'> Friends </div>
-          <div className='friendslist-online'> Online </div>
-          <div className='friendslist-all' onClick={handleFriendOptions}> All </div>
-          <div className='friendslist-all' onClick={handleFriendOptions}> Pending </div>
-          <div className='friendslist-all' onClick={handleFriendOptions}> Blocked </div>
+          <div className="friendlist-opts">
+            <div className='friendslist-all' onClick={handleFriendOptions}> All </div>
+            <div className='friendslist-pending' onClick={handleFriendOptions}> Pending </div>
+            <div className='friendslist-sugg' onClick={handleFriendOptions}>Suggestions</div>
+            <div className='friendslist-blocked' onClick={handleFriendOptions}> Blocked </div>
+          </div>
         </div>
-        <div className='friendslist-user-container-1'> Online - {friendsArr.length} </div>
-        {friendsArr.map(friend => {
-          return (
+        <div className='friendslist-user-container-1'> All Friends — {friendsArr.length} </div>
+        {friendsArr.map(friend => (
             <div className='friendslist-user-container' key={`friend${friend.id}`}>
               <div className='friendslist-pic-username'>
                 <div> <img className='friendslist-profile-image' src={friend.prof_pic} alt='profile_pic_user' /> </div>
@@ -67,13 +124,12 @@ export default function FriendsList() {
               </div>
 
               <div className='friendslist-chat-icon'>
-                <div className='icon-hover' onClick={handleDM}> <i class="fa-solid fa-message" /> </div>
+                <div className='icon-hover' onClick={() => handleDM(friend.username, friend.prof_pic)}> <i class="fa-solid fa-message" /> </div>
                 <div className='icon-hover' onClick={handleOptions}> <i class="fa-solid fa-ellipsis-vertical" /></div>
               </div>
-              {/* on hover it should show their tag */}
             </div>
           )
-        })}
+        )}
 
       </div>
     </div>

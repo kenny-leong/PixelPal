@@ -17,50 +17,14 @@ function ServerCreateModal() {
 
 	const user = useSelector(state => state.session.user);
 
-	const validateForm = (newServer) => {
-		let err = {};
-
-		if (newServer.name === '') {
-			err.name = 'Server Name is required';
-		}
-
-		if (newServer.server_picture === null) {
-			newServer.server_picture = "";
-		}
-
-		if (newServer.server_picture !== "" && !(newServer.server_picture.endsWith('.jpg') || newServer.server_picture.endsWith('.jpeg') || newServer.server_picture.endsWith('.png'))) {
-			err.serverImage = 'Server Image must end in .jpg, .jpeg, or .png';
-		}
-
-		setFormErrors({ ...err });
-		return (Object.keys(err).length === 0);
-	}
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		let newServer = {
-			"name": name,
-			"owner_id": user.id,
-			"server_picture": server_picture
-		}
-
-		if (!validateForm(newServer)) {
-			return;
-		};
-
-		try {
-			let createdServer = await dispatch(addServer(newServer, user.username));
-			if (createdServer) {
-				history.push(`/channels/${createdServer.id}/${createdServer.channels[0].id}`)
+		await dispatch(addServer(name, user.id, false, user.username, server_picture))
+			.then((res) => {
+				history.push(`/channels/${res.id}/${res.channels[0].id}`)
 				closeModal();
-			}
-		}
-		catch (response) {
-			const data = await response.json();
-			if (data && data.errors) setErrors(data.errors);
-		}
-
+			})
 	};
 
 	return (

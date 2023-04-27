@@ -22,15 +22,10 @@ const ServerMembersSidebar = () => {
     const handleDelete = async (e, member) => {
         e.preventDefault();
 
-        const data = await dispatch(deleteServerMember(server.id, member));
-
-        if (data) {
-            setErrors(data);
-        } else {
-            dispatch(getServers(user));
-            dispatch(getServer(server.id));
-            dispatch(getServerChannels(server.id));
-        }
+        await dispatch(deleteServerMember(server.id, member))
+            .then(() => {
+                dispatch(getServer(server.id));
+            })
     }
 
 

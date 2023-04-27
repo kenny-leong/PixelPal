@@ -48,6 +48,13 @@ function App() {
                 <UserMenu />
                 <ServersSidebar />
               </Route>
+              <Route exact path="/private-messages/:serverId/:channelId">
+                <ChannelSideBar />
+                <ChannelTopBar />
+                <MessageForm />
+                <UserMenu />
+                <ServersSidebar />
+              </Route>
               <Route>
                 <NotFound />
               </Route>

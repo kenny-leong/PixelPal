@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { getServers } from "../../store/server";
+import { getUserServers } from "../../store/server";
 import { NavLink } from 'react-router-dom';
 import ServersSidebarItem from "./ServerSidebarItem";
 import OpenModalButton from "../OpenModalButton";
@@ -10,16 +10,15 @@ import './ServerSidebar.css'
 
 const ServersSidebar = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session.user)
   const [selectedServer, setSelectedServer] = useState(null);
+  const servers = useSelector(state => state.server.allUserServers)
 
   useEffect(() => {
-    if (user) {
-      dispatch(getServers(user))
-    }
-  }, [user, dispatch])
+    dispatch(getUserServers(sessionUser.id))
+  }, [dispatch, sessionUser])
 
-  const servers = useSelector(state => state.server.allUserServers)
+
   if (!servers) {
     return (
       <div className='loading-animation'>
@@ -40,6 +39,8 @@ const ServersSidebar = () => {
   }
 
   const serverArr = Object.values(servers);
+  const privateServerArr = serverArr.filter(server => server.status === false);
+
 
 
   const handleServerSelect = (server) => {
@@ -57,7 +58,7 @@ const ServersSidebar = () => {
 
               <div className='server-sidebar-server-group'>
                 {
-                  serverArr.map(server => (
+                  privateServerArr.map(server => (
                     <NavLink
                       style={{ textDecoration: 'none' }}
                       key={`server-${server.id}`}

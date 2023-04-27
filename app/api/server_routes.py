@@ -27,9 +27,10 @@ def create_server():
     # description = data.get('description')
     owner_id = data.get('owner_id')
     server_picture = data.get('server_picture')
+    status = data.get('status')
 
     # create a new server object
-    server = Server(name=name, owner_id=owner_id, server_picture=server_picture)
+    server = Server(name=name, owner_id=owner_id, server_picture=server_picture, status=status)
     # add the server to the database
     db.session.add(server)
     db.session.commit()
@@ -80,6 +81,25 @@ def get_server(id):
 
     # otherwise, return the server as JSON
     return jsonify(server.to_dict()), 200
+
+
+# GET /users/:userId/servers - get all servers that a user is a member of
+@server_routes.route('/users/<int:userId>/servers', methods=['GET'])
+@login_required
+def get_servers_for_user(userId):
+    '''get all servers that a user is a member of'''
+    # get the user from the database by ID
+    user = User.query.get(userId)
+    # if the user doesn't exist, return an error message
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+
+    # get all servers that the user is a member of
+    servers = user.servers
+
+    # convert each server to a dictionary and return as JSON
+    return jsonify([server.to_dict() for server in servers]), 200
+
 
 
 # route to update a specific server by ID

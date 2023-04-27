@@ -17,10 +17,9 @@ function ServerDeleteModal({ server }) {
 
 		try {
 			await dispatch(deleteServer(server.id));
-			await dispatch(getServers(user));
+			await dispatch(getServers());
 			closeModal();
 			history.push(`/channels/@me`);
-
 		}
 		catch (response) {
 			const data = await response.json();
