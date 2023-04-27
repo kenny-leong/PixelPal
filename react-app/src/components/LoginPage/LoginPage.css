@@ -85,7 +85,7 @@
 .form-input {
   margin-bottom: 15px;
   padding-left: 10px;
-  background-color:#171819;
+  background-color:#00000098;
   border: none;
   border-radius: 3px;
   font-size: 18px;
@@ -99,7 +99,7 @@
 .form-label {
   font-family: 'Discord Bold';
   font-size: 14px;
-  color: #000000;
+  color: #ffffff9d;
 }
 
 #emailOrPhone {

@@ -61,13 +61,13 @@
 }
 
 .signup-input-label, .signup-dob-label {
-    color: rgb(0, 0, 0);
+    color: rgba(255, 255, 255, 0.73);
     font-family: 'Discord Bold';
 }
 
 .signup-input {
     font-size: 18px;
-    color: rgba(245, 245, 245, 0.886);
+    color: rgba(245, 245, 245, 0.951);
     padding-left: 10px;
 }
 
@@ -81,7 +81,7 @@
 }
 
 #signup-email, #signup-username, #signup-password {
-    background-color:#171819;
+    background-color:#00000090;
     border: none;
     border-radius: 3px;
     margin-top: 5px;
@@ -100,7 +100,7 @@
 }
 
 .signup-dob-select {
-    background-color:#171819;
+    background-color:#0000007c;
     color: rgba(245, 245, 245, 0.431);
     font-family: 'PixelPal';
     font-size: 15px;
