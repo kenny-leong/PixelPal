@@ -72,8 +72,9 @@
 }
 
 .error-msgs {
-  color: rgba(44, 125, 192, 0.837);
+  color: rgb(237, 18, 18);
   font-family: 'PixelPal';
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.669);
 }
 
 .login-form {
