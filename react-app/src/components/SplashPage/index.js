@@ -5,6 +5,7 @@ import backgroundTop from '../../static/SplashPage/splash-top-background.jpg';
 import { login } from '../../store/session';
 import logo from '../../static/phantasmal-logo-trans.png';
 import topbg from '../../static/fantasy-bg.png';
+import gif from '../../static/bg-gif-2k.gif';
 
 
 import './SplashPage.css';
@@ -24,27 +25,6 @@ function SplashPage() {
         e.preventDefault();
         history.push(`/register`);
     }
-
-	const handleDemoLogin1 = async (e) => {
-		e.preventDefault();
-		await dispatch(login('demo@aa.io', 'password'))
-			.catch(
-				async (res) => {
-					const errData = await res.json();
-					console.log(errData)
-				}
-			)
-	};
-	const handleDemoLogin2 = async (e) => {
-		e.preventDefault();
-		await dispatch(login('marnie@aa.io', 'password'))
-			.catch(
-				async (res) => {
-					const errData = await res.json();
-					console.log(errData)
-				}
-			)
-	};
 
     function handleRyanLinkedIn() {
         window.open("https://www.linkedin.com/in/ryangoggin20/", "_blank");
@@ -100,10 +80,10 @@ function SplashPage() {
 		<>
 			<div className="splash-container">
                 <div className='splash-top'>
-                    <img className='splash-top-background' src={topbg} alt="splash top background" />
+                    <img className='splash-top-background' src={gif} alt="splash top background" />
                     <div className='splash-top-nav'>
                         <div className='splash-top-nav-left'>
-                            <img className='pixel-pal-logo-white' src={logo} alt="pixel pal white logo" />
+                            {/* <img className='pixel-pal-logo-white' src={logo} alt="pixel pal white logo" /> */}
                             <h3 className='pixel-pal-logo-text'>Phantasmal</h3>
                         </div>
                         <div className='splash-top-nav-right'>

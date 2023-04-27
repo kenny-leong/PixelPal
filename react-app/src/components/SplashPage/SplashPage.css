@@ -98,9 +98,10 @@ body {
 }
 
 .splash-login-button {
-    background-color: rgb(25, 25, 25);
+    background-color: rgba(34, 64, 183, 0.297);
     font-size: 17px;
-    color: rgb(121, 222, 146);
+    color: rgb(249, 249, 249);
+    text-shadow: 0 0 10px rgba(113, 218, 216, 0.807);
     font-family: 'PixelPal';
 
     padding-left: 50px;
@@ -109,13 +110,13 @@ body {
     padding-bottom: 10px;
     margin-right: 40px;
 
-    border: 1px solid rgba(255, 255, 255, 0);
+    border: 1px solid rgba(0, 0, 0, 0.869);
     border-radius: 40px;
 }
 
 .splash-login-button:hover {
     cursor: pointer;
-    box-shadow: 0 8px 15px rgba(100, 209, 132, 0.2);
+    box-shadow: 0 5px 5px rgba(255, 255, 255, 0.166);
 }
 
 .splash-top-center {
@@ -131,7 +132,7 @@ body {
     color: rgb(219, 219, 219);
     font-weight: bold;
     font-size: 56px;
-    text-shadow: 0 0 10px rgba(111, 206, 107, 0.5);
+    text-shadow: 0 0 10px rgba(113, 218, 216, 0.807);
 
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     border-right: .15em solid rgb(210, 210, 210); /* The typwriter cursor */
@@ -163,14 +164,14 @@ body {
     text-align: center;
     margin-bottom: 40px;
     text-shadow: 0 0 10px rgba(26, 26, 26, 0.5);
-    background-color: #0000000d;
+    background-color: #00000003;
     border-radius: 5px;
     line-height: 1.75;
 }
 
 .splash-open-button {
     font-family: "PixelPal";
-    color: rgb(101, 215, 150);
+    color: rgb(98, 157, 208);
     font-size: 20px;
     display: flex;
     align-items: center;
