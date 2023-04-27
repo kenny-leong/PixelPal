@@ -52,8 +52,8 @@ const ServersSidebar = () => {
         <>
           <div className="server-sidebar">
             <ul className='server-sidebar-ul'>
-              <NavLink key='Direct Messages' to={'/channels/@me'}>
-                <img className='server-sidebar-icon' src={logo} alt='preview'></img>
+              <NavLink key='Direct Messages' to={'/channels/@me'} className='home-server'>
+                <img className='server-sidebar-icon home' src={logo} alt='preview'></img>
               </NavLink>
 
               <div className='server-sidebar-server-group'>

@@ -161,5 +161,8 @@
     display: flex;
     padding-left: 0px;
     width: 100%;
+}
 
+.home-server {
+    border-top: 2px solid rgba(163, 163, 163, 0.698);
 }

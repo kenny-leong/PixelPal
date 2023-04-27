@@ -1,4 +1,5 @@
 import { React } from "react";
+import placeholder from '../../static/placeholder.webp';
 import './ServerSidebar.css'
 
 const ServersSidebarItem = ({ server }) => {
@@ -21,12 +22,13 @@ const ServersSidebarItem = ({ server }) => {
     return (
         // each item will redirect to channel component
         <div className={className}>
-            {hasImage ?
-                <img src={server.server_picture} alt='preview'></img> :
-                <p>{serverName}</p>
-            }
+            {hasImage ? <img src={server.server_picture} alt='preview' onError={(e) => {
+                e.target.onerror = null; // reset the event handler to prevent infinite loop
+                e.target.src = placeholder;
+          }} /> : <p>{serverName}</p>}
         </div>
     )
+
 }
 
 
