@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { signUp } from "../../store/session";
-import wallpaper from "../../static/pixelpal-wallpaper.png";
+import gif from '../../static/bg-gif-2k.gif';
 import './SignupForm.css';
 
 function SignupPage() {
@@ -33,7 +33,7 @@ function SignupPage() {
 
   return (
     <div className="signup-page-container">
-      <img className='wallpaper' src={wallpaper} alt="wallpaper" />
+      <img className='wallpaper' src={gif} alt="wallpaper" />
       <div className="signup-container">
         <div className="signup-heading">
           <span className="signup-header">Create an account</span>

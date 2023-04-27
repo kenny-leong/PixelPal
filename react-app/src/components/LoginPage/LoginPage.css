@@ -40,7 +40,7 @@
 
 
 .login-box {
-  background-color: #2C2F33;
+  background-color: transparent;
   padding-left: 60px;
   padding-right: 60px;
   padding-top: 40px;
@@ -60,14 +60,14 @@
 .login-title {
   font-size: 28px;
   font-weight: bolder;
-  color: whitesmoke;
+  color: rgb(255, 255, 255);
   margin-bottom: 8px;
 }
 
 .login-subtitle {
   font-size: 16px;
   font-weight: bold;
-  color: rgb(214, 214, 214);
+  color: rgb(255, 255, 255);
   margin-bottom: 15px;
 }
 
@@ -99,7 +99,7 @@
 .form-label {
   font-family: 'Discord Bold';
   font-size: 14px;
-  color: #acacac;
+  color: #000000;
 }
 
 #emailOrPhone {
@@ -118,7 +118,7 @@
 .login-button, .demo-button {
   height: 45px;
   width: 100%;
-  background-color: #5865F2;
+  background-color: #5865f293;
   border: none;
   border-radius: 3px;
   font-family: 'PixelPal';

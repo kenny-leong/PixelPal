@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import './LoginPage.css';
-import wallpaper from "../../static/pixelpal-wallpaper.png";
 import { login } from '../../store/session';
+import gif from '../../static/bg-gif-2k.gif';
+import './LoginPage.css';
 
 function LoginPage() {
 	const [errors, setErrors] = useState([]);
@@ -45,7 +45,7 @@ function LoginPage() {
 
 	return (
 		<>
-			<img className='wallpaper' src={wallpaper} alt="wallpaper" />
+			<img className='wallpaper' src={gif} alt="wallpaper" />
 			<div className="login-page">
 				<div className="login-box">
 					<div className="login-headings">
@@ -58,7 +58,7 @@ function LoginPage() {
 					<form className="login-form" onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label className="form-label" htmlFor="emailOrPhone">
-								EMAIL OR USERNAME
+								EMAIL
 							</label>
 							<br></br>
 							<input
@@ -85,8 +85,8 @@ function LoginPage() {
 							/>
 						</div>
 						<button className="login-button" type="submit">Log In</button>
-						<button className="demo-button" onClick={handleDemoLogin}>Demo User 1</button>
-						<button className="demo-button" onClick={handleDemoLogin2}>Demo User 2</button>
+						<button className="demo-button" onClick={handleDemoLogin}>Login as Guest User 1</button>
+						<button className="demo-button" onClick={handleDemoLogin2}>Login as Guest User 2</button>
 						<div className="register-group">
 							<span className="label-register">Need an account?</span>
 							<Link to='/register' className="register">Register</Link>
