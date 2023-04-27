@@ -1,13 +1,12 @@
 import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import backgroundTop from '../../static/SplashPage/splash-top-background.jpg';
-import { login } from '../../store/session';
 import logo from '../../static/phantasmal-logo-trans.png';
-import topbg from '../../static/fantasy-bg.png';
 import gif from '../../static/bg-gif-2k.gif';
-
-
+import ryan from '../../static/ryan.jpeg';
+import aileen from '../../static/aileen.jpeg';
+import kenny from '../../static/kenny.jpeg';
+import zaineb from '../../static/zaineb.jpeg';
 import './SplashPage.css';
 
 function SplashPage() {
@@ -102,7 +101,7 @@ function SplashPage() {
                              a button.
                         </p>
                         <div className='splash-open-button' onClick={handleLoginClick}>
-                            <span>Launch Phantasmal</span>
+                            <span>Enter Phantasmal</span>
                             <img className='launch-btn-img' src={logo} />
                         </div>
                     </div>

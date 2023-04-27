@@ -202,6 +202,7 @@ body {
 
 .splash-middle {
     background-color: rgb(21, 21, 21);
+    /* background-image: url('../../static/fantasy-realm.png'); */
     width: 100%;
     padding-bottom: 70px;
     padding-top: 20px;
@@ -214,7 +215,8 @@ body {
 .meet-developers-text {
     font-family: "PixelPal";
     font-size: 48px;
-    color: #dbdbdb;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(231, 231, 231, 0.5);
 
     padding: 20px 0px 20px;
     margin: 0;
@@ -255,25 +257,25 @@ body {
 .ryan-button:hover {
     cursor: pointer;
     -webkit-box-shadow: 0 0 20px #ec459e;
-        box-shadow: 0 0 20px #ec459e;
+        box-shadow: 0 0 20px #8a1a9b;
 }
 
 .aileen-button:hover {
     cursor: pointer;
     -webkit-box-shadow: 0 0 20px #5865f2;
-        box-shadow: 0 0 20px #5865f2;
+        box-shadow: 0 0 20px #57c1e4;
 }
 
 .zaineb-button:hover {
     cursor: pointer;
     -webkit-box-shadow: 0 0 20px #3442d9;
-        box-shadow: 0 0 20px #3442d9;
+        box-shadow: 0 0 20px #e4d54a;
 }
 
 .kenny-button:hover {
     cursor: pointer;
     -webkit-box-shadow: 0 0 20px #fee75b;
-        box-shadow: 0 0 20px #fee75b;
+        box-shadow: 0 0 20px #e62a27;
 }
 
 .dev-container {
@@ -286,7 +288,7 @@ body {
 }
 
 .ryan-container {
-    background-image: url("../../static/SplashPage/splash-ryan.jpg");
+    background-image: url("../../static/ryan.jpeg");
     background-size: cover;
 
     display: flex;
@@ -296,7 +298,7 @@ body {
 }
 
 .aileen-container {
-    background-image: url("../../static/SplashPage/splash-aileen.jpg");
+    background-image: url("../../static/aileen.jpeg");
     background-size: cover;
 
     display: flex;
@@ -306,7 +308,7 @@ body {
 }
 
 .zaineb-container {
-    background-image: url("../../static/SplashPage/splash-zaineb.jpg");
+    background-image: url("../../static/zaineb.jpeg");
     background-size: cover;
 
     display: flex;
@@ -316,7 +318,7 @@ body {
 }
 
 .ken-container {
-    background-image: url("../../static/SplashPage/splash-ken.jpg");
+    background-image: url("../../static/kenny.jpeg");
     background-size: cover;
 
     display: flex;
@@ -332,7 +334,7 @@ body {
 }
 
 .ryan-text {
-    color: #fee75b;
+    color: #aa5de4;
 }
 
 .aileen-text {
@@ -340,11 +342,11 @@ body {
 }
 
 .zaineb-text {
-    color: #29cc7b;
+    color: #dac03c;
 }
 
 .kenny-text {
-    color: #ff78ba;
+    color: #ea343a;
 }
 
 .dev-social-media-container {
