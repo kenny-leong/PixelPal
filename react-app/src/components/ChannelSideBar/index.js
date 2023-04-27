@@ -115,7 +115,7 @@ function ChannelSideBar() {
               <span className={`channel-text-name${channel.id === currChannel?.id ? ' selected' : ''}`}>{channel.name}</span>
             </div>
             <OpenModalButton
-              buttonText={<i class="fa-solid fa-gear"></i>}
+              buttonText={<i className="fa-solid fa-gear"></i>}
               modalComponent={<UpdateChannel channelId={channel.id} serverId={serverId} />}
             />
           </Link>

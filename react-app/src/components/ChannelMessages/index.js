@@ -23,12 +23,8 @@ function ChannelMessages({ messages }) {
         return () => dispatch(clearMessages())
     }, [dispatch, channelId]);
 
-
-
     if (!allMessages) return null;
     const allMessagesArr = Object.values(allMessages);
-
-    console.log(allMessagesArr)
 
     return (
         <div className='channel-messages-container'>
