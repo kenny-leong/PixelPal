@@ -10,8 +10,8 @@ export default function FriendsList() {
   const dispatch = useDispatch()
 
   const currentUser = useSelector(state => state.session.user)
-  const allFriends = useSelector(state => state.friends)
   const userServers = useSelector(state => state.server.userServers)
+  const allFriends = useSelector(state => state.friends)
   const { closeModal } = useModal();
   const history = useHistory();
 
@@ -113,7 +113,7 @@ export default function FriendsList() {
         </div>
         <div className='friendslist-user-container-1'> All Friends — {friendsArr.length} </div>
         {friendsArr.map(friend => (
-            <div className='friendslist-user-container' key={`friend${friend.id}`}>
+            <div className='friendslist-user-container' key={`friend${friend.id}`} onClick={() => handleDM(friend.username, friend.prof_pic)} >
               <div className='friendslist-pic-username'>
                 <div> <img className='friendslist-profile-image' src={friend.prof_pic} alt='profile_pic_user' /> </div>
                 <div className='friendslist-username'> {friend.username.split("#")[0]} </div>

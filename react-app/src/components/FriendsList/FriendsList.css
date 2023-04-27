@@ -31,8 +31,9 @@
   left: 298px;
   right: 0px;
   bottom: 0px;
-
 }
+
+
 
 .friendslist-header-container {
   display: flex;
@@ -59,10 +60,13 @@
   padding-top: 3px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   border-bottom: thin rgb(57,59,65) solid;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .friendslist-user-container:hover {
