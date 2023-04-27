@@ -1,19 +1,21 @@
 """empty message
 
-Revision ID: 1b84d562e0d1
+Revision ID: 3cd8cb3ef561
 Revises:
-Create Date: 2023-03-16 16:50:04.759037
+Create Date: 2023-04-26 22:06:47.564760
 
 """
 from alembic import op
 import sqlalchemy as sa
 
+
 import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = '1b84d562e0d1'
+revision = '3cd8cb3ef561'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,8 +41,9 @@ def upgrade():
 
     op.create_table('friends',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('friendId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('friendId', sa.Integer(), nullable=False),
+    sa.Column('status', sa.String(length=20), nullable=False),
     sa.ForeignKeyConstraint(['friendId'], ['users.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -49,17 +52,20 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE friends SET SCHEMA {SCHEMA};")
 
+
     op.create_table('server',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.Column('server_picture', sa.String(length=500), nullable=True),
     sa.Column('owner_id', sa.Integer(), nullable=False),
+    sa.Column('status', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
 
     if environment == "production":
         op.execute(f"ALTER TABLE server SET SCHEMA {SCHEMA};")
+
 
     op.create_table('server_members',
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -82,6 +88,7 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
+
 
     op.create_table('emojis',
     sa.Column('id', sa.Integer(), nullable=False),
