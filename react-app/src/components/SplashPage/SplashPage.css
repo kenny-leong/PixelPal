@@ -249,31 +249,35 @@ body {
 .portfolio-button {
     padding: 0;
     margin: 15px 30px 15px;
-
+    transition: transform 250ms;
     border: none;
     border-radius: 20px;
 }
 
 .ryan-button:hover {
     cursor: pointer;
+    transform: translateY(-5px);
     -webkit-box-shadow: 0 0 20px #ec459e;
         box-shadow: 0 0 20px #8a1a9b;
 }
 
 .aileen-button:hover {
     cursor: pointer;
+    transform: translateY(-5px);
     -webkit-box-shadow: 0 0 20px #5865f2;
         box-shadow: 0 0 20px #57c1e4;
 }
 
 .zaineb-button:hover {
     cursor: pointer;
+    transform: translateY(-5px);
     -webkit-box-shadow: 0 0 20px #3442d9;
         box-shadow: 0 0 20px #e4d54a;
 }
 
 .kenny-button:hover {
     cursor: pointer;
+    transform: translateY(-5px);
     -webkit-box-shadow: 0 0 20px #fee75b;
         box-shadow: 0 0 20px #e62a27;
 }
