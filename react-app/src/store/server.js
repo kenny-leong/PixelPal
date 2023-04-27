@@ -135,15 +135,7 @@ export const deleteServer = (serverId) => async (dispatch) => {
   if (response.ok) {
     dispatch(removeServer(serverId));
     return null;
-  } else if (response.status < 500) {
-    const data = await response.json();
-    if (data.errors) {
-      return data.errors;
-    }
-  } else {
-    return ['An error occurred. Please try again.'];
   }
-
 }
 
 
@@ -159,13 +151,6 @@ export const addServerMember = (serverId, user) => async (dispatch) => {
   if (response.ok) {
     dispatch(createServerMember());
     return null;
-  } else if (response.status < 500) {
-    const data = await response.json();
-    if (data.errors) {
-      return data.errors;
-    }
-  } else {
-    return ['An error occurred. Please try again.'];
   }
 }
 
@@ -181,13 +166,6 @@ export const deleteServerMember = (serverId, user) => async (dispatch) => {
   if (response.ok) {
     dispatch(removeServerMember());
     return null;
-  } else if (response.status < 500) {
-    const data = await response.json();
-    if (data.errors) {
-      return data.errors;
-    }
-  } else {
-    return ['An error occurred. Please try again.'];
   }
 }
 

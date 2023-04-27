@@ -14,6 +14,7 @@ function LoginPage() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		// null
 	}, [errors]);
 
 	const handleSubmit = async (e) => {

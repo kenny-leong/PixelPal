@@ -20,7 +20,24 @@ const ServersSidebar = () => {
   }, [user, dispatch])
 
   const servers = useSelector(state => state.server.allUserServers)
-  if (!servers) return null;
+  if (!servers) {
+    return (
+      <div className='loading-animation'>
+        <div className="center">
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+        </div>
+      </div>
+    )
+  }
 
   const serverArr = Object.values(servers);
 

@@ -2,7 +2,6 @@ import { useState, useRef, useEffect  } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEmojisThunk } from "../../store/emojis";
 import { createReactionThunk } from "../../store/message";
-// import GetAllEmojis from "./index";
 import '../EmojisModal/GetAllEmojis.css'
 
 export default function EmojisModal({ props: {messageId, sessionUserId} }) {

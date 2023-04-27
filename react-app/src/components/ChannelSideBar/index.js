@@ -20,7 +20,6 @@ function ChannelSideBar() {
   let allChannels = useSelector(state => state.channels.currServerChannels);
   let currChannel = useSelector(state => state.channels.oneChannel);
   let currServer = useSelector(state => state.server.currentServer);
-
   let isServerOwner;
 
   useEffect(() => {
@@ -31,25 +30,41 @@ function ChannelSideBar() {
 
   useEffect(() => {
     if (!showMenu) return;
-
     const closeMenu = (e) => {
       if (!serverSetting.current.contains(e.target)) {
         setShowMenu(false);
       }
-    };
-
+    }
     document.addEventListener('click', closeMenu);
-
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
+
+
+
 
   if (!allChannels) allChannels = [];
   else allChannels = Object.values(allChannels);
 
-  if (!user) return null;
-  if (!currChannel) return null;
-  if (!currServer) return null;
-  else isServerOwner = (user.id === currServer.owner_id);
+  if (!user || !currChannel || !currServer) {
+    return (
+      <div className='loading-animation'>
+        <div className="center">
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+        </div>
+      </div>
+    )
+  }
+
+  isServerOwner = (user.id === currServer.owner_id);
 
   let serverSettingClassName;
   if (showMenu) serverSettingClassName = "server-dropdown-content";
@@ -89,7 +104,7 @@ function ChannelSideBar() {
         </div>
       </div>
       {allChannels.map(channel => (
-        <div className='channel-mapping'>
+        <div className='channel-mapping' key={`channel-${channel.id}`}>
           <Link
             key={`channel-${channel.id}`}
             to={`/channels/${channel.serverId}/${channel.id}`}
