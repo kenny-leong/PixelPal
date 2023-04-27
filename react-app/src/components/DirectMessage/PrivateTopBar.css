@@ -1,0 +1,13 @@
+
+
+
+.at-symbol {
+    color: rgb(157, 157, 157);
+    font-family: 'PixelPal';
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.channel-topbar-name.private {
+    font-size: 18px;
+}

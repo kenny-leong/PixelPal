@@ -240,7 +240,7 @@
     height: 100px;
     background: linear-gradient(45deg, rgb(139, 139, 139), #fff);
     margin: 10px;
-    animation: wave 0.3s linear infinite;
+    animation: wave 1s linear infinite;
     border-radius: 20px;
 }
 .wave:nth-child(2) {

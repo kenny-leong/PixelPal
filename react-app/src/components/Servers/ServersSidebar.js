@@ -12,7 +12,7 @@ const ServersSidebar = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user)
   const [selectedServer, setSelectedServer] = useState(null);
-  const servers = useSelector(state => state.server.allUserServers)
+  const servers = useSelector(state => state.server.userServers)
 
   useEffect(() => {
     dispatch(getUserServers(sessionUser.id))

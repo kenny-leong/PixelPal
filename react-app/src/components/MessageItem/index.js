@@ -11,7 +11,7 @@ function MessageItem({ message }) {
     const dispatch = useDispatch()
 
     // select data from the Redux store
-    const allServers = useSelector((state) => state.server.allUserServers);
+    const allServers = useSelector((state) => state.server.allServers);
     const sessionUser = useSelector((state) => state.session.user);
     const { serverId } = useParams();
 

@@ -12,6 +12,9 @@ import MessageForm from "./components/MessageForm";
 import ChannelTopBar from "./components/ChannelTopBar";
 import UserMenu from "./components/UserMenu";
 import NotFound from "./components/NotFound";
+import DirectMessageBar from "./components/DirectMessage";
+import PrivateMessageForm from "./components/DirectMessage/PrivateMessageForm";
+import PrivateTopBar from "./components/DirectMessage/PrivateTopBar";
 
 
 
@@ -49,9 +52,9 @@ function App() {
                 <ServersSidebar />
               </Route>
               <Route exact path="/private-messages/:serverId/:channelId">
-                <ChannelSideBar />
-                <ChannelTopBar />
-                <MessageForm />
+                <DirectMessageBar />
+                <PrivateTopBar />
+                <PrivateMessageForm />
                 <UserMenu />
                 <ServersSidebar />
               </Route>

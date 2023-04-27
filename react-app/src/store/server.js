@@ -256,14 +256,14 @@ export default function serverReducer(state = initialState, action) {
   switch (action.type) {
 
     case LOAD_SERVERS: {
-      const allUserServers = {};
+      const allServers = {};
       const serverArr = action.servers;
       serverArr.forEach(server => {
-        allUserServers[server.id] = server;
+        allServers[server.id] = server;
       })
       return {
         ...state,
-        allUserServers: allUserServers
+        allServers: allServers
       }
     }
 

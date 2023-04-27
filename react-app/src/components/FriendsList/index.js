@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllFriendsThunk } from "../../store/friends";
-import { getServers, addPrivateServer } from "../../store/server";
+import { getUserServers, getServers, addPrivateServer } from "../../store/server";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import './FriendsList.css'
@@ -11,17 +11,17 @@ export default function FriendsList() {
 
   const currentUser = useSelector(state => state.session.user)
   const allFriends = useSelector(state => state.friends)
+  const userServers = useSelector(state => state.server.userServers)
   const { closeModal } = useModal();
   const history = useHistory();
-  const allServers = useSelector(state => state.server.allUserServers)
 
   useEffect(() => {
     dispatch(getAllFriendsThunk(currentUser.id))
-    dispatch(getServers())
+    dispatch(getUserServers(currentUser.id))
   }, [dispatch, currentUser.id])
 
 
-  if (!currentUser || !allFriends || !allServers) {
+  if (!currentUser || !allFriends || !userServers) {
     return (
       <div className='loading-animation'>
         <div className="center">
@@ -40,12 +40,9 @@ export default function FriendsList() {
     )
   }
 
-
-
-  const serverArr = Object.values(allServers);
+  const serverArr = Object.values(userServers);
   const privateServerArr = serverArr.filter(server => server.status === true);
   const friendsArr = Object.values(allFriends);
-  console.log(privateServerArr);
 
 
   const handleFriendOptions = (e) => {
