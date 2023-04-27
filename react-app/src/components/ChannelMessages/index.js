@@ -14,8 +14,6 @@ function ChannelMessages({ messages }) {
 
     const dispatch = useDispatch();
 
-
-
     //populate store with channelMessages on render and when channel.id changes
     //trying to remove allMessages from dependency array (ADD BACK IN IF NEEDED)
     useEffect(() => {
@@ -23,12 +21,14 @@ function ChannelMessages({ messages }) {
 
         // clear state every time channel Id changes
         return () => dispatch(clearMessages())
-    }, [dispatch, channelId]); //allMessages
+    }, [dispatch, channelId]);
 
 
 
     if (!allMessages) return null;
     const allMessagesArr = Object.values(allMessages);
+
+    console.log(allMessagesArr)
 
     return (
         <div className='channel-messages-container'>
@@ -40,13 +40,11 @@ function ChannelMessages({ messages }) {
                 <p className="channel-messages-start">This is the start of the #{channel.name} channel.</p>
             </div>
             <div id='scroller'>
-                {allMessagesArr.map((message) => {
-                    return (
-                        <div key={`message${message.id}`} className='message-item-container'>
-                            <MessageItem message={message} />
-                        </div>
-                    );
-                })}
+                {allMessagesArr.map(message => (
+                    <div key={`message${message.id}`} className='message-item-container'>
+                        <MessageItem message={message} />
+                    </div>
+                ))}
                 <div id='anchor'></div>
             </div>
         </div>

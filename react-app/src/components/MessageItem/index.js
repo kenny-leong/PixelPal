@@ -11,8 +11,8 @@ function MessageItem({ message }) {
     const dispatch = useDispatch()
 
     // select data from the Redux store
-    const allServers = useSelector((state) => state.server.allServers);
-    const sessionUser = useSelector((state) => state.session.user);
+    const userServers = useSelector(state => state.server.userServers);
+    const sessionUser = useSelector(state => state.session.user);
     const { serverId } = useParams();
 
     /*
@@ -25,15 +25,15 @@ function MessageItem({ message }) {
 
     // memoize the server members array to prevent unnecessary recomputations
     const serverMembersArr = useMemo(() => {
-        if (!allServers) return [];
-        const currentServer = allServers[serverId];
+        if (!userServers) return [];
+        const currentServer = userServers[serverId];
 
         if (!currentServer) return [];
 
         const { members } = currentServer;
 
         return members || [];
-    }, [allServers, serverId]);
+    }, [userServers, serverId]);
 
     // normalize serverMembers to allow for keying to get sending user
     const serverMembers = useMemo(() => {
