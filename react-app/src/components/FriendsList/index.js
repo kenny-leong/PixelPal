@@ -89,7 +89,7 @@ export default function FriendsList() {
         <div className='friendslist-channel-dm-container'>
           <div className="direct-message-tab">
             <div className='friendslist-channel-dm'> DIRECT MESSAGES </div>
-            <i className="fa-solid fa-plus" onClick={handleDM} />
+            <i className="fa-solid fa-plus" />
           </div>
           {privateServerArr.map(server => (
               <div className="private-dm-container" onClick={() => handleDMOpen(server)}>

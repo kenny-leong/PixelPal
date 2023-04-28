@@ -4,7 +4,7 @@ import './NotFoundPageLoggedIn.css';
 import notFoundGif from '../../static/portal.gif';
 import logo from '../../static/phantasmal-logo-trans.png';
 
-function NotFound ({sessionUser}) {
+function NotFound ({ sessionUser }) {
     const history = useHistory();
 
     const returnHome = async (e) => {
