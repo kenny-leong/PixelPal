@@ -12,8 +12,6 @@ function ServerCreateModal() {
 
 	const [name, setName] = useState("");
 	const [server_picture, setServerPicture] = useState("");
-	const [errors, setErrors] = useState([]);
-	const [formErrors, setFormErrors] = useState({});
 
 	const user = useSelector(state => state.session.user);
 
@@ -33,11 +31,6 @@ function ServerCreateModal() {
 				<form className='create-server-form' onSubmit={handleSubmit}>
 					<h1 className='create-server-header'>Create A Server </h1>
 					<p className='create-server-para'>Your server is where your and your friends hang out. Make yours and start talking. </p>
-					<ul>
-						{errors.map((error, idx) => (
-							<li key={idx}>{error}</li>
-						))}
-					</ul>
 					<div className='create-server-form-group'>
 						<span className='create-server-form-label'>
 							Server Name
@@ -49,7 +42,6 @@ function ServerCreateModal() {
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 						/>
-						<div className='create-server-error'>{formErrors.name}</div>
 					</div>
 					<br></br>
 					<div className='create-server-form-group'>
@@ -64,7 +56,6 @@ function ServerCreateModal() {
 							value={server_picture}
 							onChange={(e) => setServerPicture(e.target.value)}
 						/>
-						<div className='create-server-error'>{formErrors.serverImage}</div>
 					</div>
 					<br></br>
 					<div>

@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import ServerMembersSidebar from '../ServerMembersSidebar';
-import { useModal } from "../../context/Modal";
 import { useParams } from 'react-router-dom';
 import { getServer } from '../../store/server';
 import './PrivateTopBar.css';
@@ -9,7 +7,6 @@ import './PrivateTopBar.css';
 
 function PrivateTopBar() {
     const dispatch = useDispatch();
-    const { setModalContent } = useModal();
     const { serverId } = useParams();
     const server = useSelector(state => state.server.currentServer);
 
@@ -52,11 +49,6 @@ function PrivateTopBar() {
     //     e.preventDefault();
     //     window.alert('Pinned Messages Feature Coming Soon...');
     // }
-
-    //opens the server members sidebar component
-    const openServerMemberSideBar = () => {
-        setModalContent(<ServerMembersSidebar />);
-    }
 
 
     return (

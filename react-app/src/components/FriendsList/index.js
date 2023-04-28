@@ -93,7 +93,7 @@ export default function FriendsList() {
             <i className="fa-solid fa-plus" />
           </div>
           {privateServerArr.map(server => (
-              <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
+              <div className="private-dm-container" key={`dm${server.id}`} onClick={() => handleDMOpen(server)}>
                 <img src={server.server_picture} alt='private-dm-pic' className="dm-picture"/>
                 <span className="dm-name">{server.name}</span>
               </div>
@@ -122,8 +122,8 @@ export default function FriendsList() {
               </div>
 
               <div className='friendslist-chat-icon'>
-                <div className='icon-hover' onClick={() => handleDM(friend.user.username, friend.user.prof_pic)}> <i class="fa-solid fa-message" /> </div>
-                <div className='icon-hover' onClick={handleOptions}> <i class="fa-solid fa-ellipsis-vertical" /></div>
+                <div className='icon-hover' onClick={() => handleDM(friend.user.username, friend.user.prof_pic)}> <i className="fa-solid fa-message" /> </div>
+                <div className='icon-hover' onClick={handleOptions}> <i className="fa-solid fa-ellipsis-vertical" /></div>
               </div>
             </div>
           )

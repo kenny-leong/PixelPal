@@ -161,7 +161,7 @@ export const addPrivateServer = (name, owner_id, status, username, friendUsernam
     if (responseChannels.ok) {
       const newChannel = await responseChannels.json();
 
-      const responseMember1 = await fetch(`/api/servers/${newChannel.serverId}/members`, {
+      await fetch(`/api/servers/${newChannel.serverId}/members`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -78,7 +78,7 @@ function ChannelSideBar() {
             <span className='server-name-text'>{currServer.name}</span>
             {isServerOwner && (
               <div>
-                <span type='button' className='server-setting-btn'><i ref={serverSetting} onClick={() => setShowMenu(!showMenu)} class="fa-solid fa-gear server-btn"></i></span>
+                <span type='button' className='server-setting-btn'><i ref={serverSetting} onClick={() => setShowMenu(!showMenu)} className="fa-solid fa-gear server-btn"></i></span>
                 <div className='server-setting-dropdown'>
                   <div id="server-dropdown" className={serverSettingClassName}>
                     <div>

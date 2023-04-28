@@ -7,7 +7,7 @@ import { clearMessages, getChannelMessages } from "../../store/message";
 import "./PrivateChannelMessages.css";
 
 function PrivateChannelMessages({ messages }) {
-    const channel = useSelector(state => state.channels.oneChannel)
+
     const allMessages = useSelector(state => state.messages);
     // if the incoming msg has a channelId, rewrite it in state so that we aren't rendering same data twice
     if (messages?.channelId) allMessages[messages.id] = messages
@@ -26,7 +26,7 @@ function PrivateChannelMessages({ messages }) {
         dispatch(getServer(serverId))
         // clear state every time channel Id changes
         return () => dispatch(clearMessages())
-    }, [dispatch, channelId]); //allMessages
+    }, [dispatch, channelId, serverId]); //allMessages
 
 
 
@@ -37,7 +37,7 @@ function PrivateChannelMessages({ messages }) {
         <div className='channel-messages-container'>
             <div className="channel-messages-top">
                 <div className="channel-icon-container">
-                    <img src={server.server_picture} className="dm-picture-icon" />
+                    <img src={server.server_picture} className="dm-picture-icon" alt='dm-icon'/>
                 </div>
                 <h2 className="channel-messages-welcome">{server.name}</h2>
                 <p className="channel-messages-start">This is the beginning of your direct message history with {server.name}.</p>

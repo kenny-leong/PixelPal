@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import OpenModalButton from "../OpenModalButton";
 import ServerMemberAdd from "../ServerMemberAdd";
-import { getServers, getServer, deleteServerMember } from "../../store/server";
-import { getServerChannels } from "../../store/channels";
+import { getServer, deleteServerMember } from "../../store/server";
 import "./ServerMemberSidebar.css";
 
 const ServerMembersSidebar = () => {
@@ -11,8 +9,6 @@ const ServerMembersSidebar = () => {
     let user = useSelector(state => state.session.user);
     let server = useSelector(state => state.server.currentServer);
     let members = server.members;
-
-    const [errors, setErrors] = useState([]);
 
     const handleDM = (e) => {
         e.preventDefault();
@@ -42,11 +38,6 @@ const ServerMembersSidebar = () => {
                 :
                 ""
             }
-            {errors.length > 0 && (
-                <ul className='modal-errors'>
-                    {errors.map((error, idx) => <li key={idx} className='modal-error'>{error}</li>)}
-                </ul>
-            )}
             <p className='create-server-para'>Check out which cool cats are hanging out here!</p>
             <div className='server-members-list-container'>
                 {members.map(member => (

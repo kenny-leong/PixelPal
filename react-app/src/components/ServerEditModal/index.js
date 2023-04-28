@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { editServer, getServer, getServers } from "../../store/server";
 import "./EditServer.css";
 
 function ServerEditModal({ server, serverId }) {
 	const dispatch = useDispatch();
-	const user = useSelector(state => state.session.user);
 
 	const [newServer, setNewServer] = useState({ ...server })
-	const [errors, setErrors] = useState([]);
 	const [formErrors, setFormErrors] = useState({});
 	const { closeModal } = useModal();
 
@@ -43,18 +41,13 @@ function ServerEditModal({ server, serverId }) {
 			return;
 		};
 
-		try {
-			let edittedServer = await dispatch(editServer(server.id, newServer));
-			if (edittedServer) {
-				await dispatch(getServers());
-				await dispatch(getServer(serverId));
-				closeModal();
-			}
-		}
-		catch (response) {
-			const data = await response.json();
-			if (data && data.errors) setErrors(data.errors);
-		}
+		await dispatch(editServer(server.id, newServer))
+		.then(() => {
+			dispatch(getServers());
+			dispatch(getServer(serverId));
+			closeModal();
+		});
+
 	};
 
 	return (
@@ -63,11 +56,6 @@ function ServerEditModal({ server, serverId }) {
 				<form className='edit-server-form' onSubmit={handleSubmit}>
 					<h1 className='edit-server-header'>Edit A Server </h1>
 					<p className='edit-server-para'>Your server is where your and your pals hang out. Personalize it to make it yours. </p>
-					<ul>
-						{errors.map((error, idx) => (
-							<li key={idx}>{error}</li>
-						))}
-					</ul>
 					<div className='edit-server-form-group'>
 						<span className='edit-server-form-label'>
 							Server Name

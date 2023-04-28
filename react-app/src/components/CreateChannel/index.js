@@ -11,7 +11,6 @@ function NewChannel({ serverId }) {
 
     const [name, setName] = useState('');
     const [channelType, setChannelType] = useState('text');
-    const [errors, setErrors] = useState([]);
     const history = useHistory();
 
     const { closeModal } = useModal();
@@ -33,11 +32,6 @@ function NewChannel({ serverId }) {
                 <form className="create-channel-form" onSubmit={handleSubmit}>
                     <span className='modal-header'>Create Channel</span>
                     <span className="subheading-modal">in Text Channels</span>
-                    {errors.length > 0 && (
-                        <ul className='modal-errors'>
-                            {errors.map((error, idx) => <li key={idx} className='modal-error'>{error}</li>)}
-                        </ul>
-                    )}
                     <span className="channel-type">CHANNEL TYPE</span>
                     <div className="radio-buttons-container">
                         <div className="radio-button">

@@ -33,7 +33,7 @@ export const getUserFriends = (userId) => async dispatch => {
 
 
 
-// reducer
+// ************************** Friend Reducer ****************************
 
 let initialState = {}
 

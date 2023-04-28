@@ -1,14 +1,12 @@
 import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import logo from '../../static/phantasmal-logo-trans.png';
 import gif from '../../static/bg-gif-2k.gif';
 import './SplashPage.css';
 
 function SplashPage() {
 	const sessionUser = useSelector(state => state.session.user);
-
-	const dispatch = useDispatch();
     const history = useHistory();
 
     const handleLoginClick = async (e) => {
@@ -98,7 +96,7 @@ function SplashPage() {
                         </p>
                         <div className='splash-open-button' onClick={handleLoginClick}>
                             <span>Enter Phantasmal</span>
-                            <img className='launch-btn-img' src={logo} />
+                            <img className='launch-btn-img' src={logo} alt='logo' />
                         </div>
                     </div>
                 </div>

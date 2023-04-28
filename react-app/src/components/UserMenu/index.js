@@ -32,7 +32,7 @@ function UserMenu() {
         </div>
         <div className='user-menu-right-side'>
             <form onSubmit={handleLogout}>
-                <button className='logout-button' type='submit'>Log Out <i class="fa-solid fa-right-from-bracket"></i> </button>
+                <button className='logout-button' type='submit'>Log Out <i className="fa-solid fa-right-from-bracket"></i> </button>
             </form>
         </div>
     </div>
