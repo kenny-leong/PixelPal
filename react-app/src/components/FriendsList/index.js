@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllFriendsThunk } from "../../store/friends";
-import { getUserServers, getServers, addPrivateServer } from "../../store/server";
+import { getUserFriends } from "../../store/friends";
+import { getUserServers, addPrivateServer } from "../../store/server";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import './FriendsList.css'
@@ -11,17 +11,17 @@ export default function FriendsList() {
 
   const currentUser = useSelector(state => state.session.user)
   const userServers = useSelector(state => state.server.userServers)
-  const allFriends = useSelector(state => state.friends)
+  const userFriends = useSelector(state => state.friends.userFriends)
   const { closeModal } = useModal();
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(getAllFriendsThunk(currentUser.id))
+    dispatch(getUserFriends(currentUser.id))
     dispatch(getUserServers(currentUser.id))
   }, [dispatch, currentUser.id])
 
 
-  if (!currentUser || !allFriends || !userServers) {
+  if (!currentUser || !userFriends || !userServers) {
     return (
       <div className='loading-animation'>
         <div className="center">
@@ -42,7 +42,8 @@ export default function FriendsList() {
 
   const serverArr = Object.values(userServers);
   const privateServerArr = serverArr.filter(server => server.status === true);
-  const friendsArr = Object.values(allFriends);
+
+  console.log(userFriends)
 
 
   const handleFriendOptions = (e) => {
@@ -111,17 +112,17 @@ export default function FriendsList() {
             <div className='friendslist-blocked' onClick={handleFriendOptions}> Blocked </div>
           </div>
         </div>
-        <div className='friendslist-user-container-1'> All Friends — {friendsArr.length} </div>
-        {friendsArr.map(friend => (
-            <div className='friendslist-user-container' key={`friend${friend.id}`} onClick={() => handleDM(friend.username, friend.prof_pic)} >
+        <div className='friendslist-user-container-1'> All Friends — {userFriends.length} </div>
+        {userFriends.map(friend => (
+            <div className='friendslist-user-container' key={`friend${friend.user.id}`} onClick={() => handleDM(friend.user.username, friend.user.prof_pic)} >
               <div className='friendslist-pic-username'>
-                <div> <img className='friendslist-profile-image' src={friend.prof_pic} alt='profile_pic_user' /> </div>
-                <div className='friendslist-username'> {friend.username.split("#")[0]} </div>
-                <div className='friendslist-tag'> #{friend.username.split("#")[1]} </div>
+                <div> <img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' /> </div>
+                <div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
+                <div className='friendslist-tag'> #{friend.user.username.split("#")[1]} </div>
               </div>
 
               <div className='friendslist-chat-icon'>
-                <div className='icon-hover' onClick={() => handleDM(friend.username, friend.prof_pic)}> <i class="fa-solid fa-message" /> </div>
+                <div className='icon-hover' onClick={() => handleDM(friend.user.username, friend.user.prof_pic)}> <i class="fa-solid fa-message" /> </div>
                 <div className='icon-hover' onClick={handleOptions}> <i class="fa-solid fa-ellipsis-vertical" /></div>
               </div>
             </div>
