@@ -43,8 +43,6 @@ export default function FriendsList() {
   const serverArr = Object.values(userServers);
   const privateServerArr = serverArr.filter(server => server.status === true);
 
-  console.log(userFriends)
-
 
   const handleFriendOptions = (e) => {
     e.preventDefault();
@@ -65,6 +63,7 @@ export default function FriendsList() {
 		await dispatch(addPrivateServer(`${slicedUsername}`, currentUser.id, true, currentUser.username, friendUsername, friendPic))
 			.then((res) => {
 				history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
+        dispatch(getUserServers(currentUser.id))
 				closeModal();
 			})
   }
@@ -102,14 +101,19 @@ export default function FriendsList() {
       </div>
 
       <div className='friendslist-container'>
-        <div className='friendslist-header-container'>
-          <i className="fa-solid fa-user-group" />
-          <div className='friendslist-friends'> Friends </div>
-          <div className="friendlist-opts">
-            <div className='friendslist-all' onClick={handleFriendOptions}> All </div>
-            <div className='friendslist-pending' onClick={handleFriendOptions}> Pending </div>
-            <div className='friendslist-sugg' onClick={handleFriendOptions}>Suggestions</div>
-            <div className='friendslist-blocked' onClick={handleFriendOptions}> Blocked </div>
+        <div className="spacing-add-friend">
+          <div className='friendslist-header-container'>
+            <i className="fa-solid fa-user-group" />
+            <div className='friendslist-friends'> Friends </div>
+            <div className="friendlist-opts">
+              <div className='friendslist-all' onClick={handleFriendOptions}> All </div>
+              <div className='friendslist-pending' onClick={handleFriendOptions}> Pending </div>
+              <div className='friendslist-sugg' onClick={handleFriendOptions}>Suggestions</div>
+              <div className='friendslist-blocked' onClick={handleFriendOptions}> Blocked </div>
+            </div>
+          </div>
+          <div className="add-friend-btn">
+            <span className="add-friend-txt">Add Friend</span>
           </div>
         </div>
         <div className='friendslist-user-container-1'> All Friends — {userFriends.length} </div>

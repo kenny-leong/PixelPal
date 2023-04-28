@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import MessageItem from "../MessageItem";
 import { getServer } from '../../store/server';
 import { clearMessages, getChannelMessages } from "../../store/message";
+import placeholder from '../../static/placeholder.webp';
 import "./PrivateChannelMessages.css";
 
 function PrivateChannelMessages({ messages }) {
@@ -37,7 +38,7 @@ function PrivateChannelMessages({ messages }) {
         <div className='channel-messages-container'>
             <div className="channel-messages-top">
                 <div className="channel-icon-container">
-                    <img src={server.server_picture} className="dm-picture-icon" alt='dm-icon'/>
+                    <img src={server.server_picture ? server.server_picture : placeholder} className="dm-picture-icon" alt='dm-icon'/>
                 </div>
                 <h2 className="channel-messages-welcome">{server.name}</h2>
                 <p className="channel-messages-start">This is the beginning of your direct message history with {server.name}.</p>
