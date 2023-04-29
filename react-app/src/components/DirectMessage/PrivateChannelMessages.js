@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import MessageItem from "../MessageItem";
 import { getUserFriends } from "../../store/friends";
 import { getServer } from '../../store/server';
-import { clearMessages } from "../../store/message";
 import placeholder from '../../static/placeholder.webp';
 import "./PrivateChannelMessages.css";
 

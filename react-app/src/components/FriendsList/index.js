@@ -4,7 +4,10 @@ import { getUserFriends } from "../../store/friends";
 import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import { io } from 'socket.io-client';
 import './FriendsList.css'
+
+let socket;
 
 export default function FriendsList() {
   const dispatch = useDispatch()
@@ -12,13 +15,25 @@ export default function FriendsList() {
   const currentUser = useSelector(state => state.session.user)
   const userServers = useSelector(state => state.server.userServers)
   const userFriends = useSelector(state => state.friends.userFriends)
-  const { closeModal } = useModal();
   const history = useHistory();
 
   useEffect(() => {
     dispatch(getUserFriends(currentUser.id))
     dispatch(getUserServers(currentUser.id))
-  }, [dispatch, currentUser.id])
+  }, [dispatch, currentUser])
+
+  useEffect(() => {
+    socket = io();
+
+    if (socket && currentUser) {
+        socket.on("newServer", (server) => {
+          dispatch(getUserServers(currentUser.id))
+        })
+    }
+    // when component unmounts, disconnect
+    return (() => socket.disconnect() )
+  }, [dispatch, currentUser])
+
 
 
   if (!currentUser || !userFriends || !userServers) {
@@ -88,6 +103,7 @@ export default function FriendsList() {
 
       await dispatch(addPrivateServer(`${privateServerName}`, currentUser.id, true, currentUser.username, friend.username))
         .then((res) => {
+          socket.emit('newServer', res)
           history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
           dispatch(getUserServers(currentUser.id))
         })

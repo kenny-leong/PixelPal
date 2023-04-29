@@ -3,8 +3,12 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserServers, deleteServer } from "../../store/server";
 import { getUserFriends } from "../../store/friends";
+import { io } from 'socket.io-client';
 import placeholder from '../../static/placeholder.webp';
 import './DirectMessageBar.css';
+
+
+let socket;
 
 function DirectMessageBar() {
 
@@ -17,7 +21,20 @@ function DirectMessageBar() {
     useEffect(() => {
         dispatch(getUserServers(currentUser.id))
         dispatch(getUserFriends(currentUser.id))
-      }, [dispatch, currentUser.id])
+    }, [dispatch, currentUser.id])
+
+
+    useEffect(() => {
+    socket = io();
+
+    if (socket) {
+        socket.on("newServer", (server) => {
+            dispatch(getUserServers(currentUser.id))
+        })
+    }
+    // when component unmounts, disconnect
+    return (() => socket.disconnect() )
+    }, [dispatch])
 
 
 
@@ -51,8 +68,9 @@ function DirectMessageBar() {
 
     const deleteDM = (server) => {
         dispatch(deleteServer(server.id))
-            .then(() => {
+            .then((res) => {
                 dispatch(getUserServers(currentUser.id))
+                socket.emit('newServer', res)
                 history.push(`/channels/@me`)
             })
     }

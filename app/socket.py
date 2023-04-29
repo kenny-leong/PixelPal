@@ -33,8 +33,13 @@ def on_join(data):
 
     emit("welcome", f"{username}", room=room)
 
-
 # handle chat messages
 @socketio.on("chat")
 def handle_chat(data):
     emit("chat", data, broadcast=True)
+
+
+# handle new server
+@socketio.on('newServer')
+def handle_new_server(server_data):
+    emit("newServer", server_data, broadcast=True)

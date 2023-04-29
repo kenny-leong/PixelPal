@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
 import MessageItem from "../MessageItem";
-import { clearMessages, getChannelMessages } from "../../store/message";
 import "./ChannelMessages.css";
+
 
 function ChannelMessages({ messages }) {
     const channel = useSelector(state => state.channels.oneChannel)
