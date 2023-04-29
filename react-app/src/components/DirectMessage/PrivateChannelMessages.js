@@ -9,16 +9,15 @@ import "./PrivateChannelMessages.css";
 
 function PrivateChannelMessages({ messages }) {
 
+    const { channelId, serverId } = useParams();
     const allMessages = useSelector(state => state.messages);
     // if the incoming msg has a channelId, rewrite it in state so that we aren't rendering same data twice
-    if (messages?.channelId) allMessages[messages.id] = messages
-    const { channelId, serverId } = useParams();
+    if (messages?.channelId === channelId) {
+        allMessages[messages.id] = messages;
+    }
+
     const server = useSelector(state => state.server.currentServer);
-
-
     const dispatch = useDispatch();
-
-
 
     //populate store with channelMessages on render and when channel.id changes
     //trying to remove allMessages from dependency array (ADD BACK IN IF NEEDED)
@@ -31,7 +30,24 @@ function PrivateChannelMessages({ messages }) {
 
 
 
-    if (!allMessages) return null;
+    if (!allMessages || !server) {
+        return (
+            <div className='loading-animation'>
+              <div className="center">
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+              </div>
+            </div>
+          )
+    }
     const allMessagesArr = Object.values(allMessages);
 
     return (

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserFriends } from "../../store/friends";
-import { getUserServers, addPrivateServer } from "../../store/server";
+import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import './FriendsList.css'
@@ -52,29 +52,49 @@ export default function FriendsList() {
 
 
   // Starts or reopens a DM if previously opened
-  const handleDM = async (friendUsername, friendPic) => {
+  const handleDM = async (friend) => {
 
-    const index = friendUsername.indexOf("#");
-    const slicedUsername = friendUsername.slice(0, index);
+    const friendServers = await dispatch(getFriendServers(friend.id));
+    const friendServerArr = Object.values(friendServers);
+    const friendPrivateServers = friendServerArr.filter(server => server.status === true);
 
-    for (let server of privateServerArr) {
-      if (server.name === slicedUsername) {
-        return history.push(`/private-messages/${server.id}/${server.channels[0].id}`)
+
+    if (friendServers) {
+
+      const index = friend.username.indexOf("#");
+      const slicedFriendUsername = friend.username.slice(0, index);
+
+      const index2 = currentUser.username.indexOf('#')
+      const sessionUsername = currentUser.username.slice(0, index2);
+
+      const privateServerName = `${slicedFriendUsername}-${sessionUsername}`;
+
+      // Check if there is an existing server with the current user and the friend as the members
+      for (let server of privateServerArr) {
+        const members = server.members.map(member => member.id);
+        if (members.includes(currentUser.id) && members.includes(friend.id)) {
+          return history.push(`/private-messages/${server.id}/${server.channels[0].id}`);
+        }
       }
+
+      for (let server of friendPrivateServers) {
+        const members = server.members.map(member => member.id);
+        if (members.includes(currentUser.id) && members.includes(friend.id)) {
+          return history.push(`/private-messages/${server.id}/${server.channels[0].id}`);
+        }
+      }
+
+      await dispatch(addPrivateServer(`${privateServerName}`, currentUser.id, true, currentUser.username, friend.username))
+        .then((res) => {
+          history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
+          dispatch(getUserServers(currentUser.id))
+        })
     }
 
-		await dispatch(addPrivateServer(`${slicedUsername}`, currentUser.id, true, currentUser.username, friendUsername, friendPic))
-			.then((res) => {
-				history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
-        dispatch(getUserServers(currentUser.id))
-				closeModal();
-			})
+
+
   }
 
-  // open DM in Direct Message Bar
-  const handleDMOpen = (server) => {
-    history.push(`/private-messages/${server.id}/${server.channels[0].id}`);
-  }
 
 
   // handles getting all friends
@@ -108,7 +128,7 @@ export default function FriendsList() {
         </div>
         <div className='friendslist-user-container-1'> All Friends — {userFriends.length} </div>
         {userFriends.map(friend => (
-            <div className='friendslist-user-container' key={`friend${friend.user.id}`} onClick={() => handleDM(friend.user.username, friend.user.prof_pic)} >
+            <div className='friendslist-user-container' key={`friend${friend.user.id}`} onClick={() => handleDM(friend.user)} >
               <div className='friendslist-pic-username'>
                 <div> <img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' /> </div>
                 <div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
@@ -116,7 +136,7 @@ export default function FriendsList() {
               </div>
 
               <div className='friendslist-chat-icon'>
-                <div className='icon-hover' onClick={() => handleDM(friend.user.username, friend.user.prof_pic)}> <i className="fa-solid fa-message" /> </div>
+                <div className='icon-hover' onClick={() => handleDM(friend.user)}> <i className="fa-solid fa-message" /> </div>
                 <div className='icon-hover' onClick={handleOptions}> <i className="fa-solid fa-ellipsis-vertical" /></div>
               </div>
             </div>

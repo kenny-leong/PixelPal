@@ -82,6 +82,16 @@ export const getUserServers = (userId) => async (dispatch) => {
   }
 }
 
+// GET ALL SERVERS FRIEND IS A PART OF
+export const getFriendServers = (userId) => async (dispatch) => {
+  const res = await fetch(`/api/servers/users/${userId}/servers`);
+
+  if (res.ok) {
+    const serverArr = await res.json();
+    return serverArr;
+  }
+}
+
 
 
 // ADD A NEW SERVER

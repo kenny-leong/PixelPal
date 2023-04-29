@@ -314,17 +314,10 @@
   flex-direction: row;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-radius: 10px;
   width: 95%;
-  margin-bottom: 5px;
-  cursor: pointer;
   align-items: center;
 }
 
-
-.private-dm-container:hover {
-  background-color: #9797973e;
-}
 
 .dm-name {
   font-family: 'PixelPal';

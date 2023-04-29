@@ -45,9 +45,6 @@ function Suggestions() {
     )
   }
 
-  console.log(strangers)
-
-
   const serverArr = Object.values(userServers);
   const privateServerArr = serverArr.filter(server => server.status === true);
 

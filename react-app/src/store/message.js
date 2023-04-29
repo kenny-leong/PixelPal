@@ -63,10 +63,6 @@ export const createMessage = (message) => async dispatch => {
   }
 };
 
-// export const updateMessage = (message, messageId) => async dispatch => {
-
-// };
-
 export const createReactionThunk = (emoji, messageId, userId) => async dispatch => {
   const response = await fetch("/api/emojis", {
     method: "POST",
