@@ -1,9 +1,14 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
+from faker import Faker
+from random import randint
+
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
+
+    fake = Faker()
 
 
     users = [
@@ -23,9 +28,20 @@ def seed_users():
         username='kleong#0666', email='kennyleong@gmail.com', password='password', prof_pic='https://i.redd.it/6jupfeilyhx71.jpg') #7
     ]
 
+    for i in range(100):
+        username = f"{fake.user_name()}#{randint(1000, 9999)}"
+        while User.query.filter_by(username=username).first() is not None:
+            username = f"{fake.user_name()}#{randint(1000, 9999)}"
+        email = fake.email()
+        while User.query.filter_by(email=email).first() is not None:
+            email = fake.email()
+        password = 'password'
+        users.append(User(username=username, email=email, password=password))
+
+
+
     db.session.add_all(users)
     db.session.commit()
-    return users
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't

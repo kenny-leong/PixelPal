@@ -40,15 +40,18 @@ export default function FriendsList() {
     )
   }
 
+
   const serverArr = Object.values(userServers);
   const privateServerArr = serverArr.filter(server => server.status === true);
 
-
-  const handleFriendOptions = (e) => {
+  // placeholder function
+  const handleOptions = (e) => {
     e.preventDefault();
-    window.alert('Friend Request Feature Coming Soon!');
+    window.alert('More Options Feature Coming Soon!');
   }
 
+
+  // Starts or reopens a DM if previously opened
   const handleDM = async (friendUsername, friendPic) => {
 
     const index = friendUsername.indexOf("#");
@@ -68,48 +71,35 @@ export default function FriendsList() {
 			})
   }
 
-
+  // open DM in Direct Message Bar
   const handleDMOpen = (server) => {
     history.push(`/private-messages/${server.id}/${server.channels[0].id}`);
   }
 
-  const handleOptions = (e) => {
-    e.preventDefault();
-    window.alert('More Options Feature Coming Soon!');
+
+  // handles getting all friends
+  const openAllFriends = () => {
+    history.push(`/channels/@me`);
   }
+
+  // handles getting all friends
+  const openSuggestions = () => {
+    history.push(`/friends/suggestions`);
+  }
+
 
   return (
     <div>
-      <div className='friendslist-channel-container'>
-        <div className='friendslist-channel-friendscontainer'>
-          <i className="fa-solid fa-user-group" />
-          <div className='friendslist-channel-item'> Friends </div>
-        </div>
-
-        <div className='friendslist-channel-dm-container'>
-          <div className="direct-message-tab">
-            <div className='friendslist-channel-dm'> DIRECT MESSAGES </div>
-            <i className="fa-solid fa-plus" />
-          </div>
-          {privateServerArr.map(server => (
-              <div className="private-dm-container" key={`dm${server.id}`} onClick={() => handleDMOpen(server)}>
-                <img src={server.server_picture} alt='private-dm-pic' className="dm-picture"/>
-                <span className="dm-name">{server.name}</span>
-              </div>
-          ))}
-        </div>
-      </div>
-
       <div className='friendslist-container'>
         <div className="spacing-add-friend">
           <div className='friendslist-header-container'>
             <i className="fa-solid fa-user-group" />
             <div className='friendslist-friends'> Friends </div>
             <div className="friendlist-opts">
-              <div className='friendslist-all' onClick={handleFriendOptions}> All </div>
-              <div className='friendslist-pending' onClick={handleFriendOptions}> Pending </div>
-              <div className='friendslist-sugg' onClick={handleFriendOptions}>Suggestions</div>
-              <div className='friendslist-blocked' onClick={handleFriendOptions}> Blocked </div>
+              <div className='friendslist-all' onClick={openAllFriends}> All </div>
+              <div className='friendslist-pending'>Pending</div>
+              <div className='friendslist-sugg' onClick={openSuggestions}>Suggestions</div>
+              <div className='friendslist-blocked'> Blocked </div>
             </div>
           </div>
           <div className="add-friend-btn">

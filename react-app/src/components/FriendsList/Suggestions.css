@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'PixelPal';
+    src: url('../../static/ggsans-Normal.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+  @font-face {
+    font-family: 'Discord Thin';
+    src: url('../../static/Uni\ Sans\ Thin.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+  @font-face {
+    font-family: 'Discord Bold';
+    src: url('../../static/Uni\ Sans\ Heavy.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.friendslist-user-container-1.sugg {
+    font-family: 'Discord Bold';
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.friendslist-all.sugg {
+    background-color: transparent;
+}
+
+.friendslist-sugg.sugg {
+    background-color: rgb(66,68,74);
+}

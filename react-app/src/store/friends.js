@@ -4,7 +4,12 @@
 const getFriends = (friends) => ({
   type: "GET_ALL_FRIENDS",
   friends
-})
+});
+
+const getStrangers = (strangers) => ({
+  type: "GET_NON_FRIENDS",
+  strangers
+});
 
 // const  addFriend = (friend) => ({
 //   type: ADD_FRIEND,
@@ -30,6 +35,17 @@ export const getUserFriends = (userId) => async dispatch => {
 }
 
 
+export const getNonFriends = () => async dispatch => {
+  const response = await fetch(`/api/friends/users/not_friends`)
+
+  if (response.ok) {
+    const nonFriends = await response.json();
+    dispatch(getStrangers(nonFriends.non_friends));
+    return nonFriends.non_friends;
+  }
+}
+
+
 
 
 
@@ -43,6 +59,11 @@ export default function friendsReducer( state = initialState, action) {
       return {
         ...state,
         userFriends: action.friends
+      }
+    case 'GET_NON_FRIENDS':
+      return {
+        ...state,
+        strangers: action.strangers
       }
     default:
       return state;

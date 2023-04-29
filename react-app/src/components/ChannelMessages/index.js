@@ -24,6 +24,10 @@ function ChannelMessages({ messages }) {
     }, [dispatch, channelId]);
 
     if (!allMessages) return null;
+
+
+    console.log(allMessages, channelId)
+
     const allMessagesArr = Object.values(allMessages);
 
     return (

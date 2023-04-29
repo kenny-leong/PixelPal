@@ -37,6 +37,7 @@ zipp = "==3.15.0"
 gevent = "==22.10.2"
 "zope.event" = "==4.6"
 "zope.interface" = "==6.0"
+faker = "==6.5.2"
 
 [dev-packages]
 pylint = "*"

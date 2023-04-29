@@ -30,6 +30,7 @@ font-style: normal;
     box-sizing: border-box;
     width: 230px;
     padding: 5px;
+    z-index: 1;
 }
 
 .user-menu-left-side {

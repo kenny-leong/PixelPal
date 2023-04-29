@@ -45,6 +45,26 @@ def get_friend_requests():
     return jsonify({'friend_requests': friend_requests_list})
 
 
+
+@friend_routes.route("/users/not_friends", methods=['GET'])
+@login_required
+def get_non_friends():
+    current_user_id = current_user.id
+
+    # Get all friend ids for the current user
+    friend_ids = [f.friendId for f in Friend.query.filter_by(userId=current_user_id).all()]
+    friend_ids.extend([f.userId for f in Friend.query.filter_by(friendId=current_user_id).all()])
+
+    # Get all user ids that are not friends of the current user
+    non_friend_ids = [user.id for user in User.query.filter(User.id != current_user_id).all() if user.id not in friend_ids]
+
+    # Get the list of non-friend users
+    non_friends = [User.query.get(id).to_dict() for id in non_friend_ids]
+
+    return jsonify({'non_friends': non_friends})
+
+
+
 # ADD A NEW FRIEND BY FRIEND ID (SEND A FRIEND REQUEST)
 @friend_routes.route("/users/<int:friend_id>/add", methods=['POST'])
 @login_required

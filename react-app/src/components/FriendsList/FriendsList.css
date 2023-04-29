@@ -23,18 +23,6 @@
   font-size: 30px;
 }
 
-.friendslist-container {
-  background-color: rgb(49,51,56);
-  left: 20px;
-  position: fixed;
-  top: 0px;
-  left: 298px;
-  right: 0px;
-  bottom: 0px;
-}
-
-
-
 .friendslist-header-container {
   display: flex;
   align-items: center;
@@ -123,7 +111,8 @@
   width: auto;
   padding: 5px;
   font-family: 'PixelPal';
-  color: rgb(238,239,242)
+  color: rgb(238,239,242);
+  cursor: pointer;
 }
 
 .add-friend-btn {
@@ -199,6 +188,11 @@
   margin-right: 10px;
 }
 
+.friendslist-container {
+  position: absolute;
+  left: 310px;
+}
+
 .friendslist-chat-icon div {
   background-color: rgb(43,45,49);
   border-radius: 30px;
@@ -217,13 +211,14 @@
 }
 
 .friendslist-channel-container {
-
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 68px;
   width: 230px;
-  height: 100%;
-  background-color: #2B2D31
+  background-color: #2B2D31;
+  z-index: 0;
 }
 
 .friendslist-channel-item  {

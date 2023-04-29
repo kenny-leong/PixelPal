@@ -69,6 +69,8 @@ def update_user(user_id):
 
     return jsonify(user.to_dict())
 
+
+
 # DELETE /users/:id - delete a specific user by ID
 @user_routes.route('/<int:user_id>', methods=['DELETE'])
 @login_required

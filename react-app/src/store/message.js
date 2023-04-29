@@ -28,11 +28,6 @@ const deleteReaction = (reactionId, messageId) => ({
   messageId
 })
 
-// const editMessage = message => ({
-//     type: EDIT_MESSAGE,
-//     message
-// });
-
 export const clearMessages = () => ({
   type: CLEAR_MESSAGES
 })
