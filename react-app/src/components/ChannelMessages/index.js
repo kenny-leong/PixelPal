@@ -7,29 +7,6 @@ import "./ChannelMessages.css";
 
 function ChannelMessages({ messages }) {
     const channel = useSelector(state => state.channels.oneChannel)
-    const allMessages = useSelector(state => state.messages);
-    const { channelId } = useParams();
-    // if the incoming msg has a channelId, rewrite it in state so that we aren't rendering same data twice
-    if (messages?.channelId === channelId) {
-        allMessages[messages.id] = messages;
-    }
-
-
-
-    const dispatch = useDispatch();
-
-    //populate store with channelMessages on render and when channel.id changes
-    //trying to remove allMessages from dependency array (ADD BACK IN IF NEEDED)
-    useEffect(() => {
-        dispatch(getChannelMessages(channelId));
-
-        // clear state every time channel Id changes
-        return () => dispatch(clearMessages())
-    }, [dispatch, channelId]);
-
-    if (!allMessages) return null;
-
-    const allMessagesArr = Object.values(allMessages);
 
     return (
         <div className='channel-messages-container'>
@@ -41,7 +18,7 @@ function ChannelMessages({ messages }) {
                 <p className="channel-messages-start">This is the start of the #{channel.name} channel.</p>
             </div>
             <div id='scroller'>
-                {allMessagesArr.map(message => (
+                {messages.map(message => (
                     <div key={`message${message.id}`} className='message-item-container'>
                         <MessageItem message={message} />
                     </div>

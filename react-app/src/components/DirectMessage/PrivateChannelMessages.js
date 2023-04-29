@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import MessageItem from "../MessageItem";
 import { getUserFriends } from "../../store/friends";
 import { getServer } from '../../store/server';
-import { clearMessages, getChannelMessages } from "../../store/message";
+import { clearMessages } from "../../store/message";
+import placeholder from '../../static/placeholder.webp';
 import "./PrivateChannelMessages.css";
 
 function PrivateChannelMessages({ messages }) {
@@ -12,8 +13,6 @@ function PrivateChannelMessages({ messages }) {
     const { channelId, serverId } = useParams();
     const currentUser = useSelector(state => state.session.user)
     const userFriends = useSelector(state => state.friends.userFriends)
-
-    console.log(messages)
 
     const server = useSelector(state => state.server.currentServer);
     const dispatch = useDispatch();
@@ -23,9 +22,8 @@ function PrivateChannelMessages({ messages }) {
     useEffect(() => {
         dispatch(getServer(serverId))
         dispatch(getUserFriends(currentUser.id))
-        // clear state every time channel Id changes
-        return () => dispatch(clearMessages())
-    }, [dispatch, channelId, serverId]);
+
+    }, [dispatch, channelId, serverId, currentUser]);
 
 
 
@@ -63,7 +61,7 @@ function PrivateChannelMessages({ messages }) {
         <div className='channel-messages-container'>
             <div className="channel-messages-top">
                 <div className="channel-icon-container">
-                    <img src={friend.prof_pic} className="dm-picture-icon" alt='dm-icon'/>
+                    <img src={friend ? friend.prof_pic : placeholder} className="dm-picture-icon" alt='dm-icon'/>
                 </div>
                 <h2 className="channel-messages-welcome">
                     {server.name.includes("-")

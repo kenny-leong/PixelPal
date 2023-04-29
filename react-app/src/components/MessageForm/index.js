@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { io } from 'socket.io-client';
 import { getChannelDetails } from '../../store/channels';
-import { createMessage } from "../../store/message";
+import { createMessage, getChannelMessages } from "../../store/message";
 import ChannelMessages from "../ChannelMessages";
 import "./MessageForm.css";
 
@@ -15,7 +15,7 @@ function MessageForm() {
     const { serverId, channelId } = useParams();
 
     const [content, setContent] = useState("");
-    const [messages, setMessages] = useState({});
+    const [messages, setMessages] = useState([]);
 
     const user = useSelector(state => state.session.user);
     const channel = useSelector(state => state.channels.oneChannel);
@@ -25,6 +25,16 @@ function MessageForm() {
     useEffect(() => {
         // Load channel details when component mounts or channelId changes
         dispatch(getChannelDetails(channelId));
+
+        // fetch prev messages from server
+        async function fetchPrevMessages() {
+            const prevMsgs = await dispatch(getChannelMessages(channelId));
+            setMessages(Object.values(prevMsgs));
+        }
+
+        // call the async function
+        fetchPrevMessages();
+
     }, [dispatch, serverId, channelId])
 
     useEffect(() => {
@@ -37,7 +47,7 @@ function MessageForm() {
 
             // Listen for incoming chat messages and add them to the messages state
             socket.on("chat", (chat) => {
-                setMessages(chat)
+                setMessages(prevMessages => [...prevMessages, chat])
             })
         }
 

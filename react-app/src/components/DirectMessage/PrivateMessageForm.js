@@ -16,7 +16,6 @@ function PrivateMessageForm() {
     const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user);
     const channel = useSelector(state => state.channels.oneChannel);
-    const allMessages = useSelector(state => state.messages);
 
     useEffect(() => {
         dispatch(getChannelDetails(channelId));
