@@ -51,23 +51,39 @@ export const getNonFriends = () => async (dispatch) => {
 }
 
 // SEND A FRIEND REQUEST THRU SUGGESTIONS
-export const sendFriendReq = (friendId) => async (dispatch) => {
-  const response = await fetch(`/api/friends/users/${friendId}/add`)
+export const sendFriendReq = (currUserId, friendId) => async (dispatch) => {
+  const response = await fetch(`/api/friends/users/${friendId}/add`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ currUserId })
+  });
 
   if (response.ok) {
     const resMsg = await response.json();
     return resMsg;
   }
-}
+};
+
 
 // GET ALL FRIEND REQUESTS FOR CURRENT USER
-export const getFriendRequests = () => async (dispatch) => {
-  const response = await fetch(`/api/friends/requests`)
+export const getFriendRequests = (currUserId) => async (dispatch) => {
+  const response = await fetch(`/api/friends/requests/${currUserId}`)
 
   if (response.ok) {
     const friendReqs = await response.json();
     dispatch(loadFriendRequests(friendReqs.friend_requests));
     return friendReqs.friend_requests;
+  }
+}
+
+
+// REJECT A FRIEND REQUEST OR REMOVE A FRIEND
+export const removeFriendship = (friendId) => async (dispatch) => {
+  const response = await fetch(`/api/friends/users/${friendId}/remove`, { method: 'DELETE' });
+
+  if (response.ok) {
+    const deleteRes = await response.json();
+    return deleteRes
   }
 }
 

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserFriends, getFriendRequests } from "../../store/friends";
+import { removeFriendship, getFriendRequests } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import logo from '../../static/phantasmal-logo-trans.png';
@@ -11,12 +11,11 @@ function Pending() {
 
     const currentUser = useSelector(state => state.session.user);
     const pendingFriends = useSelector(state => state.friends.pendingReqs);
-    const { closeModal } = useModal();
     const history = useHistory();
 
     useEffect(() => {
         // dispatch(getUserFriends(currentUser.id))
-        dispatch(getFriendRequests());
+        dispatch(getFriendRequests(currentUser.id));
     }, [dispatch, currentUser.id])
 
 
@@ -40,12 +39,6 @@ function Pending() {
     }
 
 
-    // placeholder function
-    const handleOptions = (e) => {
-        e.preventDefault();
-        window.alert('More Options Feature Coming Soon!');
-    }
-
     // handles getting all friends
     const openAllFriends = () => {
         history.push(`/channels/@me`);
@@ -60,6 +53,15 @@ function Pending() {
     const openPending = () => {
         history.push(`/friends/pending`);
     }
+
+    // handles rejecting a friend request
+    const rejectRequest = async (friendId) => {
+        await dispatch(removeFriendship(friendId))
+            .then(() => {
+                dispatch(getFriendRequests(currentUser.id));
+            })
+    }
+
 
 
     return (
@@ -79,29 +81,29 @@ function Pending() {
                     <span className="add-friend-txt">Add Friend</span>
                 </div>
             </div>
-            <div className='friendslist-user-container-1 sugg'>
-                <span>Friend Suggestions — {pendingFriends.length}</span>
+            <div className='friendslist-user-container-1 pending'>
+                <span>Friend Requests — {pendingFriends.length}</span>
             </div>
 
             {pendingFriends.map(friend => (
                 <div className='friendslist-user-container' key={`stranger${friend.id}`}>
                     <div className='friendslist-pic-username'>
                         <div>
-                            <img className='friendslist-profile-image' src={friend.prof_pic ? friend.prof_pic : logo} alt='profile_pic_user' />
+                            <img className='friendslist-profile-image' src={friend.user.prof_pic ? friend.user.prof_pic : logo} alt='profile_pic_user' />
                         </div>
                         <div className='friendslist-username'>
-                            <span>{friend.username.split("#")[0]}</span>
+                            <span>{friend.user.username.split("#")[0]}</span>
                         </div>
                         <div className='friendslist-tag'>
-                            <span>#{friend.username.split("#")[1]}</span>
+                            <span>#{friend.user.username.split("#")[1]}</span>
                         </div>
                     </div>
 
                     <div className='friendslist-chat-icon'>
-                        <div className='icon-hover sugg'>
+                        <div className='icon-hover sugg' onClick={null}>
                             <i className="fa-solid fa-check"></i>
                         </div>
-                        <div className='icon-hover sugg' onClick={handleOptions}>
+                        <div className='icon-hover sugg' onClick={() => rejectRequest(friend.user.id)}>
                             <i className="fa-solid fa-xmark"></i>
                         </div>
                     </div>

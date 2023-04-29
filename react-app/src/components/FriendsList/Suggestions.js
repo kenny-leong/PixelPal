@@ -45,8 +45,6 @@ function Suggestions() {
     window.alert('More Options Feature Coming Soon!');
   }
 
-  console.log(strangers)
-
   // handles getting all friends
   const openAllFriends = () => {
     history.push(`/channels/@me`);
@@ -63,7 +61,7 @@ function Suggestions() {
   }
 
   const sendFriendRequest = async (stranger) => {
-    await dispatch(sendFriendReq(stranger.id))
+    await dispatch(sendFriendReq(currentUser.id, stranger.id))
       .then((res) => {
         console.log(res)
         dispatch(getNonFriends())
@@ -108,10 +106,7 @@ function Suggestions() {
 
           <div className='friendslist-chat-icon'>
             <div className='icon-hover sugg' onClick={() => sendFriendRequest(friend)}>
-              <i className="fa-solid fa-check"></i>
-            </div>
-            <div className='icon-hover sugg' onClick={handleOptions}>
-              <i className="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-user-plus"></i>
             </div>
           </div>
         </div>

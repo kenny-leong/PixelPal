@@ -28,10 +28,10 @@ def get_user_friends(id):
 
 
 # GET ALL FRIEND REQUESTS FOR CURRENT USER
-@friend_routes.route("/requests", methods=['GET'])
+@friend_routes.route("/requests/<int:id>", methods=['GET'])
 @login_required
-def get_friend_requests():
-    current_user_id = current_user.id
+def get_friend_requests(id):
+    current_user_id = id
 
     # Get all friend requests sent to the current user
     friend_requests = Friend.query.filter_by(friendId=current_user_id, status='pending').all()
@@ -70,7 +70,7 @@ def get_non_friends():
 @friend_routes.route("/users/<int:friend_id>/add", methods=['POST'])
 @login_required
 def add_friend(friend_id):
-    current_user_id = current_user.id
+    current_user_id = request.json.get('currUserId')
 
     # Check if a pending friendship request already exists between the users
     friendship = Friend.query.filter_by(userId=current_user_id, friendId=friend_id, status='pending').first()
@@ -93,6 +93,7 @@ def add_friend(friend_id):
     db.session.commit()
 
     return jsonify({'message': 'Friendship request sent'})
+
 
 
 # BLOCK A USER
