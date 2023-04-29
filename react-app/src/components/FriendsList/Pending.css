@@ -19,31 +19,15 @@
     font-style: normal;
 }
 
-.friendslist-user-container-1.sugg {
-    font-family: 'Discord Bold';
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    padding-bottom: 15px;
-    padding-top: 15px;
-}
 
-.friendslist-all.sugg {
+.friendslist-all.pend {
     background-color: transparent;
 }
 
-.friendslist-sugg.sugg {
+.friendslist-pending.pend {
     background-color: rgb(66,68,74);
 }
 
-.friendslist-all.sugg:hover, .friendslist-pending.sugg:hover, .friendslist-blocked.sugg:hover {
+.friendslist-all.pend:hover, .friendslist-pending.pend:hover, .friendslist-blocked.pend:hover {
     background-color: rgb(66,68,74);
-}
-
-.icon-hover.sugg .fa-check:hover {
-    color: green;
-}
-
-.icon-hover.sugg .fa-xmark:hover {
-    color: rgba(255, 0, 0, 0.609);
 }

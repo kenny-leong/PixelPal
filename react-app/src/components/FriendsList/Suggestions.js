@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserFriends, getNonFriends } from "../../store/friends";
+import { getUserFriends, getNonFriends, sendFriendReq } from "../../store/friends";
 import { getUserServers, addPrivateServer } from "../../store/server";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
@@ -81,9 +81,22 @@ function Suggestions() {
     history.push(`/channels/@me`);
   }
 
-  // handles getting all friends
+  // handles getting suggestions
   const openSuggestions = () => {
     history.push(`/friends/suggestions`);
+  }
+
+  // handles getting pending requests
+  const openPending = () => {
+    history.push(`/friends/pending`);
+  }
+
+  const sendFriendRequest = async (stranger) => {
+    await dispatch(sendFriendReq(stranger.id))
+      .then((res) => {
+        console.log(res)
+        dispatch(getNonFriends())
+      })
   }
 
 
@@ -95,7 +108,7 @@ function Suggestions() {
                 <div className='friendslist-friends'> Friends </div>
                 <div className="friendlist-opts">
                     <div className='friendslist-all sugg' onClick={openAllFriends}> All </div>
-                    <div className='friendslist-pending sugg'>Pending</div>
+                    <div className='friendslist-pending sugg' onClick={openPending}>Pending</div>
                     <div className='friendslist-sugg sugg' onClick={openSuggestions}>Suggestions</div>
                     <div className='friendslist-blocked sugg'> Blocked </div>
                 </div>
@@ -123,10 +136,10 @@ function Suggestions() {
                     </div>
 
                     <div className='friendslist-chat-icon'>
-                      <div className='icon-hover'>
+                      <div className='icon-hover sugg' onClick={() => sendFriendRequest(friend)}>
                         <i className="fa-solid fa-check"></i>
                       </div>
-                      <div className='icon-hover' onClick={handleOptions}>
+                      <div className='icon-hover sugg' onClick={handleOptions}>
                         <i className="fa-solid fa-xmark"></i>
                       </div>
                     </div>

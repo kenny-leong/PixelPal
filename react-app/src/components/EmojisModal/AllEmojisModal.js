@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect  } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEmojisThunk } from "../../store/emojis";
 import { createReactionThunk } from "../../store/message";
 import '../EmojisModal/GetAllEmojis.css'
 
-export default function EmojisModal({ props: {messageId, sessionUserId} }) {
+export default function EmojisModal({ props: { messageId, sessionUserId } }) {
   const dispatch = useDispatch()
   const ulRef = useRef()
   const [showMenu, setShowMenu] = useState(false);
@@ -49,9 +49,9 @@ export default function EmojisModal({ props: {messageId, sessionUserId} }) {
     <div className='emojis-modal-container'>
       <div className='tooltip-wrap'>
         <div className='addreaction-container'
-        onClick={() => {setClicked(true); openMenu()}}>
-          <i className="fa-solid fa-face-smile-beam open-emojis-modal-button"/>
-          <i className="fa-solid fa-plus open-emojis-modal-button"/>
+          onClick={() => { setClicked(true); openMenu() }}>
+          <i className="fa-solid fa-face-smile-beam open-emojis-modal-button" />
+          <i className="fa-solid fa-plus open-emojis-modal-button" />
         </div>
         <div className='tooltip-content'> Add Reaction </div>
       </div>

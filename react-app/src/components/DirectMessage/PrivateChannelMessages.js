@@ -29,20 +29,20 @@ function PrivateChannelMessages({ messages }) {
     if (!server || !userFriends || !currentUser) {
         return (
             <div className='loading-animation'>
-              <div className="center">
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-              </div>
+                <div className="center">
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                </div>
             </div>
-          )
+        )
     }
 
 
@@ -60,7 +60,7 @@ function PrivateChannelMessages({ messages }) {
         <div className='channel-messages-container'>
             <div className="channel-messages-top">
                 <div className="channel-icon-container">
-                    <img src={friend ? friend.prof_pic : placeholder} className="dm-picture-icon" alt='dm-icon'/>
+                    <img src={friend ? friend.prof_pic : placeholder} className="dm-picture-icon" alt='dm-icon' />
                 </div>
                 <h2 className="channel-messages-welcome">
                     {server.name.includes("-")

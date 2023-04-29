@@ -40,7 +40,7 @@ function PrivateMessageForm() {
             })
         }
         // when component unmounts, disconnect
-        return (() => socket.disconnect() )
+        return (() => socket.disconnect())
     }, [channelId, user])
 
     if (!channel) return null;

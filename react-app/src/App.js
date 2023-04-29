@@ -16,6 +16,7 @@ import DirectMessageBar from "./components/DirectMessage";
 import PrivateMessageForm from "./components/DirectMessage/PrivateMessageForm";
 import PrivateTopBar from "./components/DirectMessage/PrivateTopBar";
 import Suggestions from "./components/FriendsList/Suggestions";
+import Pending from "./components/FriendsList/Pending";
 
 
 
@@ -48,6 +49,12 @@ function App() {
               </Route>
               <Route exact path='/friends/suggestions'>
                 <Suggestions />
+                <UserMenu />
+                <ServersSidebar />
+                <DirectMessageBar />
+              </Route>
+              <Route exact path='/friends/pending'>
+                <Pending />
                 <UserMenu />
                 <ServersSidebar />
                 <DirectMessageBar />

@@ -25,35 +25,35 @@ function DirectMessageBar() {
 
 
     useEffect(() => {
-    socket = io();
+        socket = io();
 
-    if (socket) {
-        socket.on("newServer", (server) => {
-            dispatch(getUserServers(currentUser.id))
-        })
-    }
-    // when component unmounts, disconnect
-    return (() => socket.disconnect() )
-    }, [dispatch])
+        if (socket) {
+            socket.on("newServer", (server) => {
+                dispatch(getUserServers(currentUser.id))
+            })
+        }
+        // when component unmounts, disconnect
+        return (() => socket.disconnect())
+    }, [dispatch, currentUser.id])
 
 
 
     if (!currentUser || !userServers || !userFriends) {
         return (
-          <div className='loading-animation'>
-            <div className="center">
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
-              <div className="wave"></div>
+            <div className='loading-animation'>
+                <div className="center">
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                </div>
             </div>
-          </div>
         )
     }
 
@@ -78,31 +78,31 @@ function DirectMessageBar() {
         <>
             <div className='friendslist-channel-container'>
                 <div className='friendslist-channel-friendscontainer'>
-                <i className="fa-solid fa-user-group" />
-                <div className='friendslist-channel-item'> Friends </div>
+                    <i className="fa-solid fa-user-group" />
+                    <div className='friendslist-channel-item'> Friends </div>
                 </div>
 
                 <div className='friendslist-channel-dm-container'>
-                <div className="direct-message-tab">
-                    <div className='friendslist-channel-dm'> DIRECT MESSAGES </div>
-                    <i className="fa-solid fa-plus" />
-                </div>
-                {privateServerArr.map(server => (
-                    <div className="dm-div-container">
-                        <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
-                            <img src={server.name.includes('-') ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic : placeholder} alt='private-dm-pic' className="dm-picture"/>
-                            <span className="dm-name">
-                                {server.name.includes("-")
-                                    ? server.name.split("-").find(name => name !== sessionUsername)
-                                    : server.name
-                                }
-                            </span>
-                        </div>
-                        <div className="trash-div" onClick={() => deleteDM(server)}>
-                            <i className="fa-solid fa-trash"></i>
-                        </div>
+                    <div className="direct-message-tab">
+                        <div className='friendslist-channel-dm'> DIRECT MESSAGES </div>
+                        <i className="fa-solid fa-plus" />
                     </div>
-                ))}
+                    {privateServerArr.map(server => (
+                        <div className="dm-div-container">
+                            <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
+                                <img src={server.name.includes('-') ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic : placeholder} alt='private-dm-pic' className="dm-picture" />
+                                <span className="dm-name">
+                                    {server.name.includes("-")
+                                        ? server.name.split("-").find(name => name !== sessionUsername)
+                                        : server.name
+                                    }
+                                </span>
+                            </div>
+                            <div className="trash-div" onClick={() => deleteDM(server)}>
+                                <i className="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

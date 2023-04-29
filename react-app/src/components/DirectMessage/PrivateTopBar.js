@@ -14,25 +14,25 @@ function PrivateTopBar() {
 
     useEffect(() => {
         dispatch(getServer(serverId))
-      }, [dispatch, serverId]);
+    }, [dispatch, serverId]);
 
     if (!server || !currentUser) {
         return (
             <div className='loading-animation'>
-              <div className="center">
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-                <div className="wave"></div>
-              </div>
+                <div className="center">
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                </div>
             </div>
-          )
+        )
     }
 
     // const handleThreads = (e) => {

@@ -45,7 +45,7 @@ def get_friend_requests():
     return jsonify({'friend_requests': friend_requests_list})
 
 
-
+# GET ALL USERS THAT ARE NOT FRIENDS OF CURRENT USER
 @friend_routes.route("/users/not_friends", methods=['GET'])
 @login_required
 def get_non_friends():

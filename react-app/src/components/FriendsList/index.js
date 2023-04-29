@@ -26,13 +26,13 @@ export default function FriendsList() {
     socket = io();
 
     if (socket && currentUser) {
-        socket.on("newServer", (server) => {
-          console.log(server)
-          dispatch(getUserServers(currentUser.id))
-        })
+      socket.on("newServer", (server) => {
+        console.log(server)
+        dispatch(getUserServers(currentUser.id))
+      })
     }
     // when component unmounts, disconnect
-    return (() => socket.disconnect() )
+    return (() => socket.disconnect())
   }, [dispatch, currentUser])
 
 
@@ -120,9 +120,14 @@ export default function FriendsList() {
     history.push(`/channels/@me`);
   }
 
-  // handles getting all friends
+  // handles getting suggestions
   const openSuggestions = () => {
     history.push(`/friends/suggestions`);
+  }
+
+  // handles getting pending requests
+  const openPending = () => {
+    history.push(`/friends/pending`);
   }
 
 
@@ -135,7 +140,7 @@ export default function FriendsList() {
             <div className='friendslist-friends'> Friends </div>
             <div className="friendlist-opts">
               <div className='friendslist-all' onClick={openAllFriends}> All </div>
-              <div className='friendslist-pending all'>Pending</div>
+              <div className='friendslist-pending all' onClick={openPending}>Pending</div>
               <div className='friendslist-sugg all' onClick={openSuggestions}>Suggestions</div>
               <div className='friendslist-blocked all'> Blocked </div>
             </div>
@@ -146,19 +151,19 @@ export default function FriendsList() {
         </div>
         <div className='friendslist-user-container-1'> All Friends — {userFriends.length} </div>
         {userFriends.map(friend => (
-            <div className='friendslist-user-container' key={`friend${friend.user.id}`} >
-              <div className='friendslist-pic-username' onClick={() => handleDM(friend.user)}>
-                <div> <img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' /> </div>
-                <div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
-                <div className='friendslist-tag'> #{friend.user.username.split("#")[1]} </div>
-              </div>
-
-              <div className='friendslist-chat-icon'>
-                <div className='icon-hover' onClick={() => handleDM(friend.user)}> <i className="fa-solid fa-message" /> </div>
-                <div className='icon-hover' onClick={handleOptions}> <i className="fa-solid fa-ellipsis-vertical" /></div>
-              </div>
+          <div className='friendslist-user-container' key={`friend${friend.user.id}`} >
+            <div className='friendslist-pic-username' onClick={() => handleDM(friend.user)}>
+              <div> <img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' /> </div>
+              <div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
+              <div className='friendslist-tag'> #{friend.user.username.split("#")[1]} </div>
             </div>
-          )
+
+            <div className='friendslist-chat-icon'>
+              <div className='icon-hover' onClick={() => handleDM(friend.user)}> <i className="fa-solid fa-message" /> </div>
+              <div className='icon-hover' onClick={handleOptions}> <i className="fa-solid fa-ellipsis-vertical" /></div>
+            </div>
+          </div>
+        )
         )}
 
       </div>

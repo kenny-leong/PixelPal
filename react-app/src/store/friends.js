@@ -24,7 +24,7 @@ const getStrangers = (strangers) => ({
 // *************************** Thunks ***********************************
 
 
-export const getUserFriends = (userId) => async dispatch => {
+export const getUserFriends = (userId) => async (dispatch) => {
   const response = await fetch(`/api/friends/users/${userId}`)
 
   if (response.ok) {
@@ -35,13 +35,22 @@ export const getUserFriends = (userId) => async dispatch => {
 }
 
 
-export const getNonFriends = () => async dispatch => {
+export const getNonFriends = () => async (dispatch) => {
   const response = await fetch(`/api/friends/users/not_friends`)
 
   if (response.ok) {
     const nonFriends = await response.json();
     dispatch(getStrangers(nonFriends.non_friends));
     return nonFriends.non_friends;
+  }
+}
+
+export const sendFriendReq = (friendId) => async (dispatch) => {
+  const response = await fetch(`/api/friends/users/${friendId}/add`)
+
+  if (response.ok) {
+    const resMsg = await response.json();
+    return resMsg;
   }
 }
 
