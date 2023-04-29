@@ -45,7 +45,7 @@ function Suggestions() {
     window.alert('More Options Feature Coming Soon!');
   }
 
-
+  console.log(strangers)
 
   // handles getting all friends
   const openAllFriends = () => {

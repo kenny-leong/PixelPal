@@ -33,7 +33,7 @@
 }
 
 .friendslist-container {
-    position: fixed;
+    position: absolute;
     right: 0;
 }
 

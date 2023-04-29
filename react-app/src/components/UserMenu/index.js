@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../../store/session';
+import logo from '../../static/phantasmal-logo-trans.png';
 import './UserMenu.css';
 
 function UserMenu() {
@@ -23,7 +24,7 @@ function UserMenu() {
     <div className='user-menu-container'>
         <div className='user-menu-left-side'>
             <div className='user-menu-profile-pic-container'>
-                <img className='user-menu-profile-pic' src={`${currUser.prof_pic}`} alt={`${currUser.username.slice(0, -5)} Profile Pic`} />
+                <img className='user-menu-profile-pic' src={currUser.prof_pic ? currUser.prof_pic : logo} alt={`${currUser.username.slice(0, -5)} Profile Pic`} />
             </div>
             <div className='user-info'>
                 <p className='user-menu-username'>{currUser.username.slice(0, -5)}</p>
@@ -32,7 +33,7 @@ function UserMenu() {
         </div>
         <div className='user-menu-right-side'>
             <form onSubmit={handleLogout}>
-                <button className='logout-button' type='submit'>Log Out <i className="fa-solid fa-right-from-bracket"></i> </button>
+                <button className='logout-button' type='submit'>Exit <i className="fa-solid fa-right-from-bracket"></i> </button>
             </form>
         </div>
     </div>
