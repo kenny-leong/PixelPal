@@ -55,11 +55,13 @@ export default function FriendsList() {
   const handleDM = async (friend) => {
 
     const friendServers = await dispatch(getFriendServers(friend.id));
-    const friendServerArr = Object.values(friendServers);
-    const friendPrivateServers = friendServerArr.filter(server => server.status === true);
+
 
 
     if (friendServers) {
+
+      const friendServerArr = Object.values(friendServers);
+      const friendPrivateServers = friendServerArr.filter(server => server.status === true);
 
       const index = friend.username.indexOf("#");
       const slicedFriendUsername = friend.username.slice(0, index);
@@ -77,7 +79,6 @@ export default function FriendsList() {
         }
       }
 
-      console.log(friendServers)
       for (let server of friendPrivateServers) {
         const members = server.members.map(member => member.id);
         if (members.includes(currentUser.id) && members.includes(friend.id)) {

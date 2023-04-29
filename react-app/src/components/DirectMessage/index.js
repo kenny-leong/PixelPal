@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserServers, deleteServer } from "../../store/server";
+import { getUserFriends } from "../../store/friends";
+import placeholder from '../../static/placeholder.webp';
 import './DirectMessageBar.css';
 
 function DirectMessageBar() {
@@ -10,14 +12,16 @@ function DirectMessageBar() {
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.session.user)
     const userServers = useSelector(state => state.server.userServers)
+    const userFriends = useSelector(state => state.friends.userFriends)
 
     useEffect(() => {
         dispatch(getUserServers(currentUser.id))
+        dispatch(getUserFriends(currentUser.id))
       }, [dispatch, currentUser.id])
 
 
 
-    if (!currentUser || !userServers) {
+    if (!currentUser || !userServers || !userFriends) {
         return (
           <div className='loading-animation'>
             <div className="center">
@@ -53,7 +57,7 @@ function DirectMessageBar() {
             })
     }
 
-
+    console.log(userFriends)
 
     return (
         <>
@@ -71,10 +75,10 @@ function DirectMessageBar() {
                 {privateServerArr.map(server => (
                     <div className="dm-div-container">
                         <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
-                            <img src={server.server_picture} alt='private-dm-pic' className="dm-picture"/>
+                            <img src={server.name.includes('-') ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic : placeholder} alt='private-dm-pic' className="dm-picture"/>
                             <span className="dm-name">
                                 {server.name.includes("-")
-                                    ? server.name.split("-").find(name => name !== currentUser.username)
+                                    ? server.name.split("-").find(name => name !== sessionUsername)
                                     : server.name
                                 }
                             </span>
