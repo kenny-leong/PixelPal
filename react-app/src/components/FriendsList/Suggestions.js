@@ -75,11 +75,6 @@ function Suggestions() {
 			})
   }
 
-  // open DM in Direct Message Bar
-  const handleDMOpen = (server) => {
-    history.push(`/private-messages/${server.id}/${server.channels[0].id}`);
-  }
-
 
   // handles getting all friends
   const openAllFriends = () => {
@@ -100,9 +95,9 @@ function Suggestions() {
                 <div className='friendslist-friends'> Friends </div>
                 <div className="friendlist-opts">
                     <div className='friendslist-all sugg' onClick={openAllFriends}> All </div>
-                    <div className='friendslist-pending'>Pending</div>
+                    <div className='friendslist-pending sugg'>Pending</div>
                     <div className='friendslist-sugg sugg' onClick={openSuggestions}>Suggestions</div>
-                    <div className='friendslist-blocked'> Blocked </div>
+                    <div className='friendslist-blocked sugg'> Blocked </div>
                 </div>
                 </div>
                 <div className="add-friend-btn">
@@ -114,7 +109,7 @@ function Suggestions() {
             </div>
 
             {strangers.map(friend => (
-                <div className='friendslist-user-container' key={`stranger${friend.id}`} onClick={() => handleDM(friend.username, friend.prof_pic)}>
+                <div className='friendslist-user-container' key={`stranger${friend.id}`}>
                     <div className='friendslist-pic-username'>
                         <div>
                             <img className='friendslist-profile-image' src={friend.prof_pic ? friend.prof_pic : logo} alt='profile_pic_user' />
@@ -128,8 +123,12 @@ function Suggestions() {
                     </div>
 
                     <div className='friendslist-chat-icon'>
-                    <div className='icon-hover' onClick={() => handleDM(friend.username, friend.prof_pic)}> <i className="fa-solid fa-message" /> </div>
-                    <div className='icon-hover' onClick={handleOptions}> <i className="fa-solid fa-ellipsis-vertical" /></div>
+                      <div className='icon-hover'>
+                        <i className="fa-solid fa-check"></i>
+                      </div>
+                      <div className='icon-hover' onClick={handleOptions}>
+                        <i className="fa-solid fa-xmark"></i>
+                      </div>
                     </div>
                 </div>
             ))}

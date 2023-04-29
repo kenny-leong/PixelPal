@@ -68,9 +68,8 @@ function DirectMessageBar() {
 
     const deleteDM = (server) => {
         dispatch(deleteServer(server.id))
-            .then((res) => {
-                dispatch(getUserServers(currentUser.id))
-                socket.emit('newServer', res)
+            .then(() => {
+                socket.emit('newServer', null)
                 history.push(`/channels/@me`)
             })
     }

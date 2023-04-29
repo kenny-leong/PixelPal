@@ -27,6 +27,7 @@ export default function FriendsList() {
 
     if (socket && currentUser) {
         socket.on("newServer", (server) => {
+          console.log(server)
           dispatch(getUserServers(currentUser.id))
         })
     }
@@ -105,7 +106,6 @@ export default function FriendsList() {
         .then((res) => {
           socket.emit('newServer', res)
           history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
-          dispatch(getUserServers(currentUser.id))
         })
     }
 
@@ -135,9 +135,9 @@ export default function FriendsList() {
             <div className='friendslist-friends'> Friends </div>
             <div className="friendlist-opts">
               <div className='friendslist-all' onClick={openAllFriends}> All </div>
-              <div className='friendslist-pending'>Pending</div>
-              <div className='friendslist-sugg' onClick={openSuggestions}>Suggestions</div>
-              <div className='friendslist-blocked'> Blocked </div>
+              <div className='friendslist-pending all'>Pending</div>
+              <div className='friendslist-sugg all' onClick={openSuggestions}>Suggestions</div>
+              <div className='friendslist-blocked all'> Blocked </div>
             </div>
           </div>
           <div className="add-friend-btn">

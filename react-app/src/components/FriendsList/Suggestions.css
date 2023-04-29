@@ -35,3 +35,7 @@
 .friendslist-sugg.sugg {
     background-color: rgb(66,68,74);
 }
+
+.friendslist-all.sugg:hover, .friendslist-pending.sugg:hover, .friendslist-blocked.sugg:hover {
+    background-color: rgb(66,68,74);
+}

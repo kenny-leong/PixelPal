@@ -58,6 +58,10 @@ function MessageForm() {
 
     if (!channel) return null;
 
+
+
+
+
     const handleSubmit = async (e) => {
         // e is undefined if message sent with Enter key, check if it exists (message sent by clicking Send button) before running e.preventDefault()
         if (e) e.preventDefault();
