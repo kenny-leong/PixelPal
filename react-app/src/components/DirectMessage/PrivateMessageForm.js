@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { io } from 'socket.io-client';
 import { getChannelDetails } from '../../store/channels';
-import { createMessage } from "../../store/message";
+import { createMessage, getChannelMessages } from "../../store/message";
 import PrivateChannelMessages from './PrivateChannelMessages';
 
 let socket;
@@ -13,12 +13,22 @@ function PrivateMessageForm() {
     const dispatch = useDispatch();
     const { serverId, channelId } = useParams();
     const [content, setContent] = useState("");
-    const [messages, setMessages] = useState({});
+    const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user);
     const channel = useSelector(state => state.channels.oneChannel);
+    const allMessages = useSelector(state => state.messages);
 
     useEffect(() => {
         dispatch(getChannelDetails(channelId));
+
+        // fetch prev messages from the server
+        async function fetchPrevMessages() {
+            const prevMsgs = await dispatch(getChannelMessages(channelId));
+            setMessages(Object.values(prevMsgs))
+        }
+
+        fetchPrevMessages();
+
     }, [dispatch, serverId, channelId])
 
     useEffect(() => {
@@ -26,7 +36,9 @@ function PrivateMessageForm() {
 
         if (socket && user) {
             socket.emit('join', { channel_id: channelId, username: user.username })
-            socket.on("chat", (chat) => setMessages(chat) )
+            socket.on("chat", (chat) => {
+                setMessages(prevMessages => [...prevMessages, chat])
+            })
         }
         // when component unmounts, disconnect
         return (() => socket.disconnect() )

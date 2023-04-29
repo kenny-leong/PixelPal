@@ -10,14 +10,10 @@ import "./PrivateChannelMessages.css";
 function PrivateChannelMessages({ messages }) {
 
     const { channelId, serverId } = useParams();
-    const allMessages = useSelector(state => state.messages);
     const currentUser = useSelector(state => state.session.user)
     const userFriends = useSelector(state => state.friends.userFriends)
 
-    // if the incoming msg has a channelId, rewrite it in state so that we aren't rendering same data twice
-    if (messages?.channelId === channelId) {
-        allMessages[messages.id] = messages;
-    }
+    console.log(messages)
 
     const server = useSelector(state => state.server.currentServer);
     const dispatch = useDispatch();
@@ -25,16 +21,15 @@ function PrivateChannelMessages({ messages }) {
     //populate store with channelMessages on render and when channel.id changes
     //trying to remove allMessages from dependency array (ADD BACK IN IF NEEDED)
     useEffect(() => {
-        dispatch(getChannelMessages(channelId));
         dispatch(getServer(serverId))
         dispatch(getUserFriends(currentUser.id))
         // clear state every time channel Id changes
         return () => dispatch(clearMessages())
-    }, [dispatch, channelId, serverId]); //allMessages
+    }, [dispatch, channelId, serverId]);
 
 
 
-    if (!allMessages || !server || !userFriends || !currentUser) {
+    if (!server || !userFriends || !currentUser) {
         return (
             <div className='loading-animation'>
               <div className="center">
@@ -52,11 +47,10 @@ function PrivateChannelMessages({ messages }) {
             </div>
           )
     }
-    const allMessagesArr = Object.values(allMessages);
+
+
     const index = currentUser.username.indexOf('#');
     const sessionUsername = currentUser.username.slice(0, index);
-
-
     let friend;
 
 
@@ -85,7 +79,7 @@ function PrivateChannelMessages({ messages }) {
                 </p>
             </div>
             <div id='scroller'>
-                {allMessagesArr.map((message) => {
+                {messages.map((message) => {
                     return (
                         <div key={`message${message.id}`} className='message-item-container'>
                             <MessageItem message={message} />

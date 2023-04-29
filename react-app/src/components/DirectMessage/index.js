@@ -57,8 +57,6 @@ function DirectMessageBar() {
             })
     }
 
-    console.log(userFriends)
-
     return (
         <>
             <div className='friendslist-channel-container'>

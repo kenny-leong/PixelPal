@@ -44,6 +44,7 @@ export const getChannelMessages = (channelId) => async (dispatch) => {
   if (resMessages.ok) {
       const channelMessages = await resMessages.json();
       dispatch(loadMessages(channelMessages));
+      return channelMessages;
     }
 };
 
