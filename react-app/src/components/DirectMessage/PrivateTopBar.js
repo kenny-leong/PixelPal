@@ -9,14 +9,14 @@ function PrivateTopBar() {
     const dispatch = useDispatch();
     const { serverId } = useParams();
     const server = useSelector(state => state.server.currentServer);
-
+    const currentUser = useSelector(state => state.session.user)
 
 
     useEffect(() => {
         dispatch(getServer(serverId))
       }, [dispatch, serverId]);
 
-    if (!server) {
+    if (!server || !currentUser) {
         return (
             <div className='loading-animation'>
               <div className="center">
@@ -50,6 +50,9 @@ function PrivateTopBar() {
     //     window.alert('Pinned Messages Feature Coming Soon...');
     // }
 
+    const index = currentUser.username.indexOf('#');
+    const sessionUsername = currentUser.username.slice(0, index);
+
 
     return (
         <>
@@ -57,7 +60,12 @@ function PrivateTopBar() {
                 <div className='channel-topbar-left-side'>
                     <div className='channel-name'>
                         <span className='at-symbol'>@</span>
-                        <p className='channel-topbar-name private'>{server.name}</p>
+                        <p className='channel-topbar-name private'>
+                            {server.name.includes("-")
+                                ? server.name.split("-").find(name => name !== sessionUsername)
+                                : server.name
+                            }
+                        </p>
                     </div>
                 </div>
                 <div className='channel-topbar-right-side'>
