@@ -20,19 +20,30 @@ function MessageForm() {
     const user = useSelector(state => state.session.user);
     const channel = useSelector(state => state.channels.oneChannel);
 
+
+
     useEffect(() => {
+        // Load channel details when component mounts or channelId changes
         dispatch(getChannelDetails(channelId));
     }, [dispatch, serverId, channelId])
 
     useEffect(() => {
+        // Connect to the Socket.IO server when component mounts or channelId/user changes
         socket = io();
 
         if (socket && user) {
+            // Join the user to the specified channel room
             socket.emit('join', { channel_id: channelId, username: user.username })
-            socket.on("chat", (chat) => setMessages(chat) )
+
+            // Listen for incoming chat messages and add them to the messages state
+            socket.on("chat", (chat) => {
+                setMessages(chat)
+            })
         }
-        // when component unmounts, disconnect
+
+        // When component unmounts, disconnect from the Socket.IO server
         return (() => socket.disconnect() )
+
     }, [channelId, user])
 
     if (!channel) return null;
@@ -41,10 +52,22 @@ function MessageForm() {
         // e is undefined if message sent with Enter key, check if it exists (message sent by clicking Send button) before running e.preventDefault()
         if (e) e.preventDefault();
 
-        let message = { userId: user?.id, channelId: channel.id, content: content, timestamp: new Date(), reactions: [] };
+        // Create a new message object
+        let message = {
+        userId: user?.id,
+        channelId: channel.id,
+        content: content,
+        timestamp: new Date(),
+        reactions: [],
+        };
+
+        // Dispatch the new message to the server
         let createdMsg = await dispatch(createMessage(message));
 
+        // Emit the new message to the Socket.IO server
         if (socket) socket.emit("chat", createdMsg);
+
+        // Clear the message input field
         setContent("");
     };
 

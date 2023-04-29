@@ -8,9 +8,13 @@ import "./ChannelMessages.css";
 function ChannelMessages({ messages }) {
     const channel = useSelector(state => state.channels.oneChannel)
     const allMessages = useSelector(state => state.messages);
-    // if the incoming msg has a channelId, rewrite it in state so that we aren't rendering same data twice
-    if (messages?.channelId) allMessages[messages.id] = messages
     const { channelId } = useParams();
+    // if the incoming msg has a channelId, rewrite it in state so that we aren't rendering same data twice
+    if (messages?.channelId === channelId) {
+        allMessages[messages.id] = messages;
+    }
+
+
 
     const dispatch = useDispatch();
 
@@ -24,9 +28,6 @@ function ChannelMessages({ messages }) {
     }, [dispatch, channelId]);
 
     if (!allMessages) return null;
-
-
-    console.log(allMessages, channelId)
 
     const allMessagesArr = Object.values(allMessages);
 
