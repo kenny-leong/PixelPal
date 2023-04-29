@@ -77,6 +77,7 @@ export default function FriendsList() {
         }
       }
 
+      console.log(friendServers)
       for (let server of friendPrivateServers) {
         const members = server.members.map(member => member.id);
         if (members.includes(currentUser.id) && members.includes(friend.id)) {
@@ -128,8 +129,8 @@ export default function FriendsList() {
         </div>
         <div className='friendslist-user-container-1'> All Friends — {userFriends.length} </div>
         {userFriends.map(friend => (
-            <div className='friendslist-user-container' key={`friend${friend.user.id}`} onClick={() => handleDM(friend.user)} >
-              <div className='friendslist-pic-username'>
+            <div className='friendslist-user-container' key={`friend${friend.user.id}`} >
+              <div className='friendslist-pic-username' onClick={() => handleDM(friend.user)}>
                 <div> <img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' /> </div>
                 <div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
                 <div className='friendslist-tag'> #{friend.user.username.split("#")[1]} </div>

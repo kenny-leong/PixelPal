@@ -49,6 +49,7 @@ function DirectMessageBar() {
         dispatch(deleteServer(server.id))
             .then(() => {
                 dispatch(getUserServers(currentUser.id))
+                history.push(`/channels/@me`)
             })
     }
 
