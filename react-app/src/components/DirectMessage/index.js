@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserServers, deleteServer } from "../../store/server";
 import { getUserFriends } from "../../store/friends";
 import { io } from 'socket.io-client';
-import placeholder from '../../static/placeholder.webp';
+import logo from '../../static/phantasmal-logo-trans.png';
 import './DirectMessageBar.css';
 
 
@@ -90,7 +90,15 @@ function DirectMessageBar() {
                     {privateServerArr.map(server => (
                         <div className="dm-div-container">
                             <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
-                                <img src={server.name.includes('-') ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic : placeholder} alt='private-dm-pic' className="dm-picture" />
+                                <img
+                                    src={server.name.includes('-')
+                                        ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic
+                                            ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic
+                                            : logo
+                                        : logo}
+                                    alt='private-dm-pic'
+                                    className="dm-picture"
+                                />
                                 <span className="dm-name">
                                     {server.name.includes("-")
                                         ? server.name.split("-").find(name => name !== sessionUsername)
