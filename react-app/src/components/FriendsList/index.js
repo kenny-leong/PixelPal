@@ -25,11 +25,6 @@ export default function FriendsList() {
   useEffect(() => {
     socket = io();
 
-    if (socket && currentUser) {
-      socket.on("newServer", (server) => {
-        dispatch(getUserServers(currentUser.id))
-      })
-    }
     // when component unmounts, disconnect
     return (() => socket.disconnect())
   }, [dispatch, currentUser])

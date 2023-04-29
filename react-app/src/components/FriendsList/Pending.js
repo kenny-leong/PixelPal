@@ -25,12 +25,6 @@ function Pending() {
     useEffect(() => {
         socket = io();
 
-        if (socket && currentUser) {
-          socket.on("newRequest", (req) => {
-            dispatch(getNonFriends())
-            dispatch(getUserFriends(currentUser.id))
-          })
-        }
         // when component unmounts, disconnect
         return (() => socket.disconnect())
       }, [dispatch, currentUser])

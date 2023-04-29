@@ -23,12 +23,6 @@ function Suggestions() {
   useEffect(() => {
     socket = io();
 
-    if (socket && currentUser) {
-      socket.on("newRequest", (req) => {
-        dispatch(getNonFriends())
-        dispatch(getFriendRequests(currentUser.id));
-      })
-    }
     // when component unmounts, disconnect
     return (() => socket.disconnect())
   }, [dispatch, currentUser])
