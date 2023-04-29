@@ -95,6 +95,25 @@ def add_friend(friend_id):
     return jsonify({'message': 'Friendship request sent'})
 
 
+# ACCEPT A FRIEND REQUEST
+@friend_routes.route("/users/<int:friend_id>/accept", methods=['PUT'])
+@login_required
+def accept_friend_request(friend_id):
+    current_user_id = request.json.get('currUserId')
+
+    # Find the friend request
+    friend_request = Friend.query.filter_by(userId=friend_id, friendId=current_user_id, status='pending').first()
+
+    if not friend_request:
+        return jsonify({'message': 'Friend request not found'})
+
+    # Update the friend request status to accepted
+    friend_request.status = 'accepted'
+    db.session.commit()
+
+    return jsonify({'message': 'Friend request accepted'})
+
+
 
 # BLOCK A USER
 @friend_routes.route("/users/<int:friend_id>/block", methods=['POST'])

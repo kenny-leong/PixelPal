@@ -65,6 +65,21 @@ export const sendFriendReq = (currUserId, friendId) => async (dispatch) => {
 };
 
 
+// ACCEPT A FRIEND REQUEST
+export const acceptFriendRequest = (currUserId, friendId) => async (dispatch) => {
+  const response = await fetch(`/api/friends/users/${friendId}/accept`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ currUserId })
+  });
+
+  if (response.ok) {
+    const acceptRes = await response.json();
+    return acceptRes
+  }
+}
+
+
 // GET ALL FRIEND REQUESTS FOR CURRENT USER
 export const getFriendRequests = (currUserId) => async (dispatch) => {
   const response = await fetch(`/api/friends/requests/${currUserId}`)

@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { removeFriendship, getFriendRequests } from "../../store/friends";
+import { removeFriendship, getFriendRequests, acceptFriendRequest, getUserFriends } from "../../store/friends";
 import { useHistory } from "react-router-dom";
-import { useModal } from "../../context/Modal";
 import logo from '../../static/phantasmal-logo-trans.png';
 import './Pending.css';
 
@@ -62,6 +61,16 @@ function Pending() {
             })
     }
 
+    // handles accepting a friend request
+    const acceptReq = async (friendId) => {
+        await dispatch(acceptFriendRequest(currentUser.id, friendId))
+            .then(() => {
+                dispatch(getFriendRequests(currentUser.id));
+                dispatch(getUserFriends(currentUser.id))
+            })
+    }
+
+
 
 
     return (
@@ -100,7 +109,7 @@ function Pending() {
                     </div>
 
                     <div className='friendslist-chat-icon'>
-                        <div className='icon-hover sugg' onClick={null}>
+                        <div className='icon-hover sugg' onClick={() => acceptReq(friend.user.id)}>
                             <i className="fa-solid fa-check"></i>
                         </div>
                         <div className='icon-hover sugg' onClick={() => rejectRequest(friend.user.id)}>

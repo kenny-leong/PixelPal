@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { getUserFriends } from "../../store/friends";
 import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import { useHistory } from "react-router-dom";
-import { useModal } from "../../context/Modal";
+import logo from '../../static/phantasmal-logo-trans.png';
 import { io } from 'socket.io-client';
 import './FriendsList.css'
 
@@ -153,7 +153,9 @@ export default function FriendsList() {
         {userFriends.map(friend => (
           <div className='friendslist-user-container' key={`friend${friend.user.id}`} >
             <div className='friendslist-pic-username' onClick={() => handleDM(friend.user)}>
-              <div> <img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' /> </div>
+              <div>
+                <img className='friendslist-profile-image' src={friend.user.prof_pic ? friend.user.prof_pic : logo} alt='profile_pic_user' />
+              </div>
               <div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
               <div className='friendslist-tag'> #{friend.user.username.split("#")[1]} </div>
             </div>
