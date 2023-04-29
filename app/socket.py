@@ -43,3 +43,9 @@ def handle_chat(data):
 @socketio.on('newServer')
 def handle_new_server(server_data):
     emit("newServer", server_data, broadcast=True)
+
+
+# handle new friend request
+@socketio.on('newRequest')
+def handle_new_request(req_data):
+    emit("newRequest", req_data, broadcast=True)

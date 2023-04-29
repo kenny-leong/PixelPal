@@ -27,7 +27,6 @@ export default function FriendsList() {
 
     if (socket && currentUser) {
       socket.on("newServer", (server) => {
-        console.log(server)
         dispatch(getUserServers(currentUser.id))
       })
     }

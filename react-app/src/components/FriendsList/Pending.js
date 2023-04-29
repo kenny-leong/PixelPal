@@ -1,9 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { removeFriendship, getFriendRequests, acceptFriendRequest, getUserFriends } from "../../store/friends";
+import { removeFriendship, getFriendRequests, getNonFriends, acceptFriendRequest, getUserFriends } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import logo from '../../static/phantasmal-logo-trans.png';
+import { io } from 'socket.io-client';
 import './Pending.css';
+
+
+let socket;
 
 function Pending() {
     const dispatch = useDispatch()
@@ -13,9 +17,23 @@ function Pending() {
     const history = useHistory();
 
     useEffect(() => {
-        // dispatch(getUserFriends(currentUser.id))
+
         dispatch(getFriendRequests(currentUser.id));
     }, [dispatch, currentUser.id])
+
+
+    useEffect(() => {
+        socket = io();
+
+        if (socket && currentUser) {
+          socket.on("newRequest", (req) => {
+            dispatch(getNonFriends())
+            dispatch(getUserFriends(currentUser.id))
+          })
+        }
+        // when component unmounts, disconnect
+        return (() => socket.disconnect())
+      }, [dispatch, currentUser])
 
 
     if (!currentUser || !pendingFriends) {
@@ -56,17 +74,16 @@ function Pending() {
     // handles rejecting a friend request
     const rejectRequest = async (friendId) => {
         await dispatch(removeFriendship(friendId))
-            .then(() => {
-                dispatch(getFriendRequests(currentUser.id));
+            .then((res) => {
+                if (socket) socket.emit("newRequest", res)
             })
     }
 
     // handles accepting a friend request
     const acceptReq = async (friendId) => {
         await dispatch(acceptFriendRequest(currentUser.id, friendId))
-            .then(() => {
-                dispatch(getFriendRequests(currentUser.id));
-                dispatch(getUserFriends(currentUser.id))
+            .then((res) => {
+                if (socket) socket.emit("newRequest", res)
             })
     }
 

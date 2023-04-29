@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserServers, deleteServer } from "../../store/server";
-import { getUserFriends } from "../../store/friends";
+import { getUserFriends, getFriendRequests, getNonFriends } from "../../store/friends";
 import { io } from 'socket.io-client';
 import logo from '../../static/phantasmal-logo-trans.png';
 import './DirectMessageBar.css';
@@ -31,6 +31,11 @@ function DirectMessageBar() {
             socket.on("newServer", (server) => {
                 dispatch(getUserServers(currentUser.id))
             })
+            socket.on("newRequest", (req) => {
+                dispatch(getFriendRequests(currentUser.id));
+                dispatch(getNonFriends())
+                dispatch(getUserFriends(currentUser.id))
+              })
         }
         // when component unmounts, disconnect
         return (() => socket.disconnect())

@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getNonFriends, sendFriendReq } from "../../store/friends";
+import { getNonFriends, sendFriendReq, getFriendRequests } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import logo from '../../static/phantasmal-logo-trans.png';
+import { io } from 'socket.io-client';
 import './Suggestions.css';
 
-
+let socket;
 
 function Suggestions() {
   const dispatch = useDispatch()
@@ -17,6 +18,20 @@ function Suggestions() {
   useEffect(() => {
     dispatch(getNonFriends())
   }, [dispatch, currentUser.id])
+
+
+  useEffect(() => {
+    socket = io();
+
+    if (socket && currentUser) {
+      socket.on("newRequest", (req) => {
+        dispatch(getNonFriends())
+        dispatch(getFriendRequests(currentUser.id));
+      })
+    }
+    // when component unmounts, disconnect
+    return (() => socket.disconnect())
+  }, [dispatch, currentUser])
 
 
   if (!currentUser || !strangers) {
@@ -63,8 +78,7 @@ function Suggestions() {
   const sendFriendRequest = async (stranger) => {
     await dispatch(sendFriendReq(currentUser.id, stranger.id))
       .then((res) => {
-        console.log(res)
-        dispatch(getNonFriends())
+        if (socket) socket.emit("newRequest", res)
       })
   }
 
