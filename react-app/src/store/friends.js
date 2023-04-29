@@ -11,6 +11,11 @@ const getStrangers = (strangers) => ({
   strangers
 });
 
+const loadFriendRequests = (pendingFriends) => ({
+  type: 'GET_FRIEND_REQUESTS',
+  pendingFriends
+});
+
 // const  addFriend = (friend) => ({
 //   type: ADD_FRIEND,
 //   friend
@@ -23,7 +28,7 @@ const getStrangers = (strangers) => ({
 
 // *************************** Thunks ***********************************
 
-
+// GET ALL USER'S FRIENDS
 export const getUserFriends = (userId) => async (dispatch) => {
   const response = await fetch(`/api/friends/users/${userId}`)
 
@@ -34,7 +39,7 @@ export const getUserFriends = (userId) => async (dispatch) => {
   }
 }
 
-
+// GET ALL STRANGERS
 export const getNonFriends = () => async (dispatch) => {
   const response = await fetch(`/api/friends/users/not_friends`)
 
@@ -45,12 +50,24 @@ export const getNonFriends = () => async (dispatch) => {
   }
 }
 
+// SEND A FRIEND REQUEST THRU SUGGESTIONS
 export const sendFriendReq = (friendId) => async (dispatch) => {
   const response = await fetch(`/api/friends/users/${friendId}/add`)
 
   if (response.ok) {
     const resMsg = await response.json();
     return resMsg;
+  }
+}
+
+// GET ALL FRIEND REQUESTS FOR CURRENT USER
+export const getFriendRequests = () => async (dispatch) => {
+  const response = await fetch(`/api/friends/requests`)
+
+  if (response.ok) {
+    const friendReqs = await response.json();
+    dispatch(loadFriendRequests(friendReqs.friend_requests));
+    return friendReqs.friend_requests;
   }
 }
 
@@ -62,8 +79,8 @@ export const sendFriendReq = (friendId) => async (dispatch) => {
 
 let initialState = {}
 
-export default function friendsReducer( state = initialState, action) {
-  switch(action.type) {
+export default function friendsReducer(state = initialState, action) {
+  switch (action.type) {
     case "GET_ALL_FRIENDS":
       return {
         ...state,
@@ -74,6 +91,11 @@ export default function friendsReducer( state = initialState, action) {
         ...state,
         strangers: action.strangers
       }
+    case 'GET_FRIEND_REQUESTS':
+      return {
+        ...state,
+        pendingReqs: action.pendingFriends
+      };
     default:
       return state;
   }

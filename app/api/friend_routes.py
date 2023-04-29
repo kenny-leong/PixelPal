@@ -26,6 +26,7 @@ def get_user_friends(id):
     return jsonify({'friends': friends_list})
 
 
+
 # GET ALL FRIEND REQUESTS FOR CURRENT USER
 @friend_routes.route("/requests", methods=['GET'])
 @login_required

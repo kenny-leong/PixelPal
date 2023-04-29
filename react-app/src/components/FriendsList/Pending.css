@@ -31,3 +31,12 @@
 .friendslist-all.pend:hover, .friendslist-pending.pend:hover, .friendslist-blocked.pend:hover {
     background-color: rgb(66,68,74);
 }
+
+.friendslist-container {
+    position: fixed;
+    right: 0;
+}
+
+.spacing-add-friend.pending {
+    width: 100%;
+}

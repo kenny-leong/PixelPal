@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserFriends, getNonFriends, sendFriendReq } from "../../store/friends";
-import { getUserServers, addPrivateServer } from "../../store/server";
+import { getUserFriends, getFriendRequests } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import logo from '../../static/phantasmal-logo-trans.png';
@@ -11,20 +10,17 @@ function Pending() {
     const dispatch = useDispatch()
 
     const currentUser = useSelector(state => state.session.user);
-    const userServers = useSelector(state => state.server.userServers);
-    const userFriends = useSelector(state => state.friends.userFriends);
-    const strangers = useSelector(state => state.friends.strangers);
+    const pendingFriends = useSelector(state => state.friends.pendingReqs);
     const { closeModal } = useModal();
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(getUserFriends(currentUser.id))
-        dispatch(getUserServers(currentUser.id))
-        dispatch(getNonFriends())
+        // dispatch(getUserFriends(currentUser.id))
+        dispatch(getFriendRequests());
     }, [dispatch, currentUser.id])
 
 
-    if (!currentUser || !userFriends || !userServers || !strangers) {
+    if (!currentUser || !pendingFriends) {
         return (
             <div className='loading-animation'>
                 <div className="center">
@@ -43,8 +39,6 @@ function Pending() {
         )
     }
 
-    const serverArr = Object.values(userServers);
-    const privateServerArr = serverArr.filter(server => server.status === true);
 
     // placeholder function
     const handleOptions = (e) => {
@@ -52,34 +46,12 @@ function Pending() {
         window.alert('More Options Feature Coming Soon!');
     }
 
-
-    // Starts or reopens a DM if previously opened
-    const handleDM = async (friendUsername, friendPic) => {
-
-        const index = friendUsername.indexOf("#");
-        const slicedUsername = friendUsername.slice(0, index);
-
-        for (let server of privateServerArr) {
-            if (server.name === slicedUsername) {
-                return history.push(`/private-messages/${server.id}/${server.channels[0].id}`)
-            }
-        }
-
-        await dispatch(addPrivateServer(`${slicedUsername}`, currentUser.id, true, currentUser.username, friendUsername, friendPic))
-            .then((res) => {
-                history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
-                dispatch(getUserServers(currentUser.id))
-                closeModal();
-            })
-    }
-
-
     // handles getting all friends
     const openAllFriends = () => {
         history.push(`/channels/@me`);
     }
 
-    // handles getting all friends
+    // handles getting all friend suggestions
     const openSuggestions = () => {
         history.push(`/friends/suggestions`);
     }
@@ -89,18 +61,10 @@ function Pending() {
         history.push(`/friends/pending`);
     }
 
-    const sendFriendRequest = async (stranger) => {
-        await dispatch(sendFriendReq(stranger.id))
-            .then((res) => {
-                console.log(res)
-                dispatch(getNonFriends())
-            })
-    }
-
 
     return (
         <div className='friendslist-container'>
-            <div className="spacing-add-friend">
+            <div className="spacing-add-friend pending">
                 <div className='friendslist-header-container'>
                     <i className="fa-solid fa-user-group" />
                     <div className='friendslist-friends'> Friends </div>
@@ -116,10 +80,10 @@ function Pending() {
                 </div>
             </div>
             <div className='friendslist-user-container-1 sugg'>
-                <span>Friend Suggestions — {strangers.length}</span>
+                <span>Friend Suggestions — {pendingFriends.length}</span>
             </div>
 
-            {strangers.map(friend => (
+            {pendingFriends.map(friend => (
                 <div className='friendslist-user-container' key={`stranger${friend.id}`}>
                     <div className='friendslist-pic-username'>
                         <div>
@@ -134,7 +98,7 @@ function Pending() {
                     </div>
 
                     <div className='friendslist-chat-icon'>
-                        <div className='icon-hover sugg' onClick={() => sendFriendRequest(friend)}>
+                        <div className='icon-hover sugg'>
                             <i className="fa-solid fa-check"></i>
                         </div>
                         <div className='icon-hover sugg' onClick={handleOptions}>
