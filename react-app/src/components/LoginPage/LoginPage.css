@@ -106,13 +106,13 @@
 #emailOrPhone {
   height: 40px;
   margin-top: 5px;
-  padding-right: 200px;
+  width: 400px;
 }
 
 #password {
   height: 40px;
   margin-top: 5px;
-  padding-right: 200px;
+  width: 400px;
   margin-bottom: 20px;
 }
 
