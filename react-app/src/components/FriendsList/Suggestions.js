@@ -94,7 +94,7 @@ function Suggestions() {
       {strangers.map(friend => (
         <div className='friendslist-user-container' key={`stranger${friend.id}`}>
           <div className='friendslist-pic-username'>
-            <div>
+            <div className="profile-pic-div pending">
               <img className='friendslist-profile-image' src={friend.prof_pic ? friend.prof_pic : logo} alt='profile_pic_user' />
             </div>
             <div className='friendslist-username'>

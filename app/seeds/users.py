@@ -13,19 +13,29 @@ def seed_users():
 
     users = [
     User(
-        username='Demo#1234', email='demo@aa.io', password='password', prof_pic='https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/31NFDGOx0aL.jpg'), #1
+        username='Demo#1234', email='demo@aa.io', password='password', prof_pic='https://w0.peakpx.com/wallpaper/199/848/HD-wallpaper-warrior-girl-trail-warrior-fantasy-girls-artist-artwork-digital-art-deviantart-sword.jpg'), #1
     User(
-        username='Marnie#2345', email='marnie@aa.io', password='password', prof_pic='https://static.vecteezy.com/system/resources/previews/002/082/524/original/cute-shiba-inu-dog-with-sunglasses-crossing-arms-cartoon-illustration-vector.jpg'), #2
+        username='Marnie#2345', email='marnie@aa.io', password='password', prof_pic='https://www.wallpaperflare.com/static/906/424/953/fantasy-art-swordsman-painting-fantasy-wallpaper.jpg'), #2
     User(
-        username='Bobbie#2121', email='bobbie@aa.io', password='password', prof_pic='https://ih1.redbubble.net/image.2279664396.6679/st,small,507x507-pad,600x600,f8f8f8.jpg'), #3
+        username='Bobbie#2121', email='bobbie@aa.io', password='password', prof_pic='https://c4.wallpaperflare.com/wallpaper/80/190/554/fantasy-art-the-wheel-of-time-perrin-battle-wallpaper-preview.jpg'), #3
     User(
-        username='akim#7070', email='aileenkim@gmail.com', password='password', prof_pic='https://preview.redd.it/sed7j1wryt741.jpg?auto=webp&s=efccc659f3693ade42f6b247934cb4fdfc41edd7'), #4
+        username='akim#7070', email='aileenkim@gmail.com', password='password', prof_pic='https://p4.wallpaperbetter.com/wallpaper/210/251/600/guweiz-samurai-artwork-warrior-drawing-hd-wallpaper-preview.jpg'), #4
     User(
-        username='zmarediya#0206', email='zainebmarediya@gmail.com', password='password', prof_pic='https://i.redd.it/6jupfeilyhx71.jpg'),#5
+        username='zmarediya#0206', email='zainebmarediya@gmail.com', password='password', prof_pic='https://wallpapercave.com/wp/wp8716330.jpg'),#5
     User(
-        username='rgoggin#0001', email='ryangoggin@gmail.com', password='password', prof_pic='https://ih1.redbubble.net/image.1580724210.1236/st,small,507x507-pad,600x600,f8f8f8.jpg'), #6
+        username='rgoggin#0001', email='ryangoggin@gmail.com', password='password', prof_pic='https://cdn.pixabay.com/photo/2023/03/19/04/57/viking-7861902_1280.jpg'), #6
     User(
-        username='kleong#0666', email='kennyleong@gmail.com', password='password', prof_pic='https://i.redd.it/6jupfeilyhx71.jpg') #7
+        username='kleong#0666', email='kennyleong@gmail.com', password='password', prof_pic='https://www.wallpaperup.com/uploads/wallpapers/2015/04/19/666548/e2a43730ebc8ef3b1d6ed9198f6ed678-700.jpg'), #7
+    User(
+        username='masano#0410', email='masano@gmail.com', password='password', prof_pic='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMY0U-qNu5EwDECombwDIZgPFQOIdw__ypXg&usqp=CAU', #8
+    ),
+    User(
+        username='apan#1124', email='apan@gmail.com', password='password', prof_pic='https://img4.goodfon.com/wallpaper/nbig/c/28/fentezi-art-iaponiia-drakon-paren-oruzhie.jpg', #9
+    ),
+    User(
+        username='poseidon#5555', email='poseidon@gmail.com', password='password', prof_pic='https://cdnb.artstation.com/p/assets/images/images/004/145/941/large/chong-wen-wang-20130830-jybart-fl-03.jpg?1480779986', #10
+    )
+
     ]
 
     for i in range(100):

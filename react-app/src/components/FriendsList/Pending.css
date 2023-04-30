@@ -24,6 +24,10 @@
     background-color: transparent;
 }
 
+.profile-pic-div.pending {
+    border: none;
+}
+
 .friendslist-pending.pend {
     background-color: rgb(66,68,74);
 }

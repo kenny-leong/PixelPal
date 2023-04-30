@@ -12,6 +12,9 @@ def seed_friends():
     Friend(userId=1, friendId=5, status='accepted'),
     Friend(userId=1, friendId=6, status='accepted'),
     Friend(userId=1, friendId=7, status='accepted'),
+    Friend(userId=1, friendId=8, status='accepted'),
+    Friend(userId=1, friendId=9, status='accepted'),
+    Friend(userId=1, friendId=10, status='accepted'),
 
     #Marnie Friends 2
     Friend(userId=2, friendId=3, status='accepted'),
@@ -38,8 +41,15 @@ def seed_friends():
     #RG Friends 6
     Friend(userId=6, friendId=7, status='accepted'),
 
-    #KL Friends 7
-
+    #FRIEND REQUESTS
+    Friend(userId=20, friendId=1, status='pending'),
+    Friend(userId=21, friendId=1, status='pending'),
+    Friend(userId=22, friendId=1, status='pending'),
+    Friend(userId=23, friendId=1, status='pending'),
+    Friend(userId=24, friendId=1, status='pending'),
+    Friend(userId=25, friendId=1, status='pending'),
+    Friend(userId=26, friendId=1, status='pending'),
+    Friend(userId=27, friendId=1, status='pending'),
     ]
 
     db.session.add_all(friends)

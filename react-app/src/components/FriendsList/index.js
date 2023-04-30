@@ -148,7 +148,7 @@ export default function FriendsList() {
         {userFriends.map(friend => (
           <div className='friendslist-user-container' key={`friend${friend.user.id}`} >
             <div className='friendslist-pic-username' onClick={() => handleDM(friend.user)}>
-              <div>
+              <div className="profile-pic-div">
                 <img className='friendslist-profile-image' src={friend.user.prof_pic ? friend.user.prof_pic : logo} alt='profile_pic_user' />
               </div>
               <div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
