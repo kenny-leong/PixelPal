@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MessageItem from "../MessageItem";
 import { useParams } from 'react-router-dom';
 import "./ChannelMessages.css";
@@ -9,6 +9,7 @@ function ChannelMessages({ messages }) {
     const channel = useSelector(state => state.channels.oneChannel)
     const messageListRef = useRef(null);
     const { channelId } = useParams();
+    const dispatch = useDispatch();
 
     const channelMessages = messages.filter(message => message.channelId == channelId);
 
@@ -17,7 +18,7 @@ function ChannelMessages({ messages }) {
         if (messageListRef.current) {
             messageListRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    }, []);
+    }, [dispatch]);
 
     // Scroll to bottom of message list when a new message is received or sent
     useEffect(() => {

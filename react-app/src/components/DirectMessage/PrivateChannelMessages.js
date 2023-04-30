@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import MessageItem from "../MessageItem";
@@ -10,6 +10,7 @@ import "./PrivateChannelMessages.css";
 function PrivateChannelMessages({ messages }) {
 
     const { channelId, serverId } = useParams();
+    const messageListRef = useRef(null);
     const currentUser = useSelector(state => state.session.user)
     const userFriends = useSelector(state => state.friends.userFriends)
     const channelMessages = messages.filter(message => message.channelId == channelId);
@@ -17,13 +18,24 @@ function PrivateChannelMessages({ messages }) {
     const server = useSelector(state => state.server.currentServer);
     const dispatch = useDispatch();
 
-    //populate store with channelMessages on render and when channel.id changes
-    //trying to remove allMessages from dependency array (ADD BACK IN IF NEEDED)
+
     useEffect(() => {
         dispatch(getServer(serverId))
         dispatch(getUserFriends(currentUser.id))
-
     }, [dispatch, channelId, serverId, currentUser]);
+
+    // Scroll to bottom of message list when it's first rendered
+    useEffect(() => {
+        if (messageListRef.current) {
+            messageListRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [dispatch]);
+
+    // Scroll to bottom of message list when a new message is received or sent
+    useEffect(() => {
+        messageListRef.current.scrollIntoView({ behavior: 'smooth' });
+
+    }, [messages]);
 
 
 
@@ -84,7 +96,7 @@ function PrivateChannelMessages({ messages }) {
                         </div>
                     );
                 })}
-                <div id='anchor'></div>
+                <div ref={messageListRef} />
             </div>
         </div>
     );
