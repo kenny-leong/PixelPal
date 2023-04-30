@@ -1,14 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import MessageItem from "../MessageItem";
+import { useParams } from 'react-router-dom';
 import "./ChannelMessages.css";
 
 
 function ChannelMessages({ messages }) {
     const channel = useSelector(state => state.channels.oneChannel)
-    const scrollerRef = useRef(null);
     const messageListRef = useRef(null);
+    const { channelId } = useParams();
 
+    const channelMessages = messages.filter(message => message.channelId == channelId);
 
     // Scroll to bottom of message list when it's first rendered
     useEffect(() => {
@@ -53,7 +55,7 @@ function ChannelMessages({ messages }) {
                 <p className="channel-messages-start">This is the start of the #{channel.name} channel.</p>
             </div>
             <div className="channel-messages-section">
-                {messages.map(message => (
+                {channelMessages.map(message => (
                     <div key={`message${message.id}`} className='message-item-container'>
                         <MessageItem message={message} />
                     </div>

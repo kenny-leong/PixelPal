@@ -12,6 +12,7 @@ function PrivateChannelMessages({ messages }) {
     const { channelId, serverId } = useParams();
     const currentUser = useSelector(state => state.session.user)
     const userFriends = useSelector(state => state.friends.userFriends)
+    const channelMessages = messages.filter(message => message.channelId == channelId);
 
     const server = useSelector(state => state.server.currentServer);
     const dispatch = useDispatch();
@@ -76,7 +77,7 @@ function PrivateChannelMessages({ messages }) {
                 </p>
             </div>
             <div id='scroller'>
-                {messages.map((message) => {
+                {channelMessages.map((message) => {
                     return (
                         <div key={`message${message.id}`} className='message-item-container'>
                             <MessageItem message={message} />
