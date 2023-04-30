@@ -18,14 +18,7 @@ function ChannelMessages({ messages }) {
         if (messageListRef.current) {
             messageListRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    }, [dispatch]);
-
-    // Scroll to bottom of message list when a new message is received or sent
-    useEffect(() => {
-        messageListRef.current.scrollIntoView({ behavior: 'smooth' });
-
-    }, [messages]);
-
+    }, [dispatch, messages]);
 
     if (!messages) {
         return (
