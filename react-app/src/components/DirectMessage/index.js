@@ -35,6 +35,7 @@ function DirectMessageBar() {
                 dispatch(getFriendRequests(currentUser.id));
                 dispatch(getNonFriends())
                 dispatch(getUserFriends(currentUser.id))
+                dispatch(getUserServers(currentUser.id))
               })
         }
         // when component unmounts, disconnect
@@ -93,7 +94,7 @@ function DirectMessageBar() {
                         <i className="fa-solid fa-plus" />
                     </div>
                     {privateServerArr.map(server => (
-                        <div className="dm-div-container">
+                        <div className="dm-div-container" key={`server ${server.id}`}>
                             <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
                                 <img
                                     src={server.name.includes('-')
