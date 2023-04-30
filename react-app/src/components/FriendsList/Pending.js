@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { removeFriendship, getFriendRequests, getNonFriends, acceptFriendRequest, getUserFriends } from "../../store/friends";
+import { removeFriendship, getFriendRequests, acceptFriendRequest } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { io } from 'socket.io-client';

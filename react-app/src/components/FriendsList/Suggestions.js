@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getNonFriends, sendFriendReq, getFriendRequests } from "../../store/friends";
+import { getNonFriends, sendFriendReq } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { io } from 'socket.io-client';
@@ -47,13 +47,6 @@ function Suggestions() {
     )
   }
 
-
-  // placeholder function
-  const handleOptions = (e) => {
-    e.preventDefault();
-    window.alert('More Options Feature Coming Soon!');
-  }
-
   // handles getting all friends
   const openAllFriends = () => {
     history.push(`/channels/@me`);
@@ -95,7 +88,7 @@ function Suggestions() {
         </div>
       </div>
       <div className='friendslist-user-container-1 sugg'>
-        <span>Friend Suggestions — {strangers.length}</span>
+        <span>Suggested Friends — {strangers.length}</span>
       </div>
 
       {strangers.map(friend => (

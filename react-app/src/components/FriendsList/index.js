@@ -3,19 +3,25 @@ import { useEffect } from "react";
 import { getUserFriends } from "../../store/friends";
 import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import { useHistory } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { io } from 'socket.io-client';
+import FriendOptions from "./FriendOptions";
 import './FriendsList.css'
 
 let socket;
 
 export default function FriendsList() {
   const dispatch = useDispatch()
+  const history = useHistory();
+
+  const { setModalContent } = useModal();
 
   const currentUser = useSelector(state => state.session.user)
   const userServers = useSelector(state => state.server.userServers)
   const userFriends = useSelector(state => state.friends.userFriends)
-  const history = useHistory();
+
+
 
   useEffect(() => {
     dispatch(getUserFriends(currentUser.id))
@@ -54,10 +60,10 @@ export default function FriendsList() {
   const serverArr = Object.values(userServers);
   const privateServerArr = serverArr.filter(server => server.status === true);
 
-  // placeholder function
-  const handleOptions = (e) => {
-    e.preventDefault();
-    window.alert('More Options Feature Coming Soon!');
+
+  // handles friend options such as blocking or removal of friend
+  const handleOptions = (friend) => {
+    setModalContent(<FriendOptions friend={friend}/>);
   }
 
 
@@ -65,8 +71,6 @@ export default function FriendsList() {
   const handleDM = async (friend) => {
 
     const friendServers = await dispatch(getFriendServers(friend.id));
-
-
 
     if (friendServers) {
 
@@ -102,9 +106,6 @@ export default function FriendsList() {
           history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
         })
     }
-
-
-
   }
 
 
@@ -156,7 +157,7 @@ export default function FriendsList() {
 
             <div className='friendslist-chat-icon'>
               <div className='icon-hover' onClick={() => handleDM(friend.user)}> <i className="fa-solid fa-message" /> </div>
-              <div className='icon-hover' onClick={handleOptions}> <i className="fa-solid fa-ellipsis-vertical" /></div>
+              <div className='icon-hover' onClick={() => handleOptions(friend.user)}> <i className="fa-solid fa-ellipsis-vertical" /></div>
             </div>
           </div>
         )
