@@ -31,6 +31,16 @@ function SignupPage() {
     return options;
   };
 
+
+  const generateYear = (start, end) => {
+    const options = [];
+    for (let i = end; i >= start; i--) {
+      options.push(<option key={i} value={i}>{i}</option>);
+    }
+    return options;
+  };
+
+
   return (
     <div className="signup-page-container">
       <img className='wallpaper' src={gif} alt="wallpaper" />
@@ -78,7 +88,7 @@ function SignupPage() {
             </select>
             <select id="year" value={year} onChange={(e) => setYear(e.target.value)} className="signup-dob-select" required>
               <option value="">Year</option>
-              {generateOptions(1940, new Date().getFullYear())}
+              {generateYear(1940, 2017)}
             </select>
           </div>
           <button type="submit" className="signup-submit-btn">Continue</button>
