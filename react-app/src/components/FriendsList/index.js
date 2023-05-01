@@ -130,6 +130,11 @@ export default function FriendsList() {
     history.push(`/friends/pending`);
   }
 
+  // handles getting pending requests
+  const handleFriendRoute = () => {
+    history.push(`/friends/add`);
+  }
+
 
   return (
     <div>
@@ -155,7 +160,7 @@ export default function FriendsList() {
               <div className='friendslist-blocked all'> Blocked </div>
             </div>
           </div>
-          <div className="add-friend-btn">
+          <div className="add-friend-btn" onClick={handleFriendRoute}>
             <span className="add-friend-txt">Add Friend</span>
           </div>
         </div>

@@ -64,6 +64,42 @@ def get_non_friends():
 
     return jsonify({'non_friends': non_friends})
 
+# ADD A NEW FRIEND BY USERNAME (SEND A FRIEND REQUEST)
+@friend_routes.route("/users/add", methods=['POST'])
+@login_required
+def add_friend_by_username():
+    username = request.json.get('username')
+    current_user_id = request.json.get('currUserId')
+
+    # Find the friend's user object by username
+    friend = User.query.filter_by(username=username).first()
+
+    if not friend:
+        return jsonify({'message': "Hm, didn't work. Double check that the capitalization, spelling, any spaces, and numbers are correct."})
+
+    friend_id = friend.id
+
+    # Check if a pending friendship request already exists between the users
+    friendship = Friend.query.filter_by(userId=current_user_id, friendId=friend_id, status='pending').first()
+
+    if friendship:
+        return jsonify({'message': 'You have already sent this user a friend request.'})
+
+    # Check if the friend already exists in the user's friend list
+    friend_check = Friend.query.filter(
+        ((Friend.userId == current_user_id) & (Friend.friendId == friend_id))
+        | ((Friend.userId == friend_id) & (Friend.friendId == current_user_id) & (Friend.status == 'accepted'))
+    ).first()
+
+    if friend_check:
+        return jsonify({'message': 'The user you are attempting to add is already your friend.'})
+
+    # Create a new friendship request
+    new_friendship = Friend(userId=current_user_id, friendId=friend_id, status='pending')
+    db.session.add(new_friendship)
+    db.session.commit()
+
+    return jsonify({'message': 'Woohoo! Your friend request has been successfully sent!'})
 
 
 # ADD A NEW FRIEND BY FRIEND ID (SEND A FRIEND REQUEST)

@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'PixelPal';
+    src: url('../../static/ggsans-Normal.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+  @font-face {
+    font-family: 'Discord Thin';
+    src: url('../../static/Uni\ Sans\ Thin.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+  @font-face {
+    font-family: 'Discord Bold';
+    src: url('../../static/Uni\ Sans\ Heavy.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.friendslist-user-container-1.add-friend {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    border: none;
+}
+
+.title-add-friend {
+    font-family: 'Discord Bold';
+    color: rgb(228, 228, 228);
+}
+
+.add-friend-subtitle {
+    font-family: 'PixelPal';
+    color: rgb(157, 157, 157);
+    margin-top: 15px;
+}
+
+.form-input.user-tag {
+    min-width: 450px;
+    width: 70%;
+    height: 40px;
+    margin-top: 15px;
+}
+
+.form-input.user-tag:focus {
+    outline: 2px solid rgba(110, 209, 226, 0.57);
+}
+
+#usertag {
+    font-size: 18px;
+    font-family: 'PixelPal';
+}
+
+.friend-input-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.send-req-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 43px;
+    margin-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    background-color: rgba(96, 132, 224, 0.695);
+    color: white;
+    cursor: pointer;
+}

@@ -62,3 +62,9 @@
 .icon-hover.sugg .fa-xmark:hover {
     color: rgba(255, 0, 0, 0.609);
 }
+
+.error-add-friend-div {
+    margin-top: 10px;
+    color: rgb(234, 71, 71);
+    font-family: 'PixelPal';
+}

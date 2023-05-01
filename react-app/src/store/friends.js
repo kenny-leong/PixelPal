@@ -64,6 +64,20 @@ export const sendFriendReq = (currUserId, friendId) => async (dispatch) => {
   }
 };
 
+//SEND A FRIEND REQUEST THRU ADD FRIEND BUTTON
+export const addFriendUsername = (currUserId, username) => async (dispatch) => {
+  const response = await fetch(`/api/friends/users/add`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, currUserId })
+  });
+
+  if (response.ok) {
+    const resMsg = await response.json();
+    return resMsg;
+  }
+};
+
 
 // ACCEPT A FRIEND REQUEST
 export const acceptFriendRequest = (currUserId, friendId) => async (dispatch) => {
