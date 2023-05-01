@@ -67,6 +67,11 @@ function Pending() {
         history.push(`/friends/pending`);
     }
 
+    // handles getting pending requests
+    const handleFriendRoute = () => {
+        history.push(`/friends/add`);
+    }
+
     // handles rejecting a friend request
     const rejectRequest = async (friendId) => {
         await dispatch(removeFriendship(friendId))
@@ -109,7 +114,7 @@ function Pending() {
                         <div className='friendslist-blocked pend'> Blocked </div>
                     </div>
                 </div>
-                <div className="add-friend-btn">
+                <div className="add-friend-btn" onClick={handleFriendRoute}>
                     <span className="add-friend-txt">Add Friend</span>
                 </div>
             </div>

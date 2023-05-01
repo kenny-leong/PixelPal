@@ -34,12 +34,14 @@
 .title-add-friend {
     font-family: 'Discord Bold';
     color: rgb(228, 228, 228);
+    cursor: default;
 }
 
 .add-friend-subtitle {
     font-family: 'PixelPal';
     color: rgb(157, 157, 157);
     margin-top: 15px;
+    cursor: default;
 }
 
 .form-input.user-tag {
@@ -124,6 +126,7 @@
     border-radius: 10px;
     width: 400px;
     padding: 10px;
+    cursor: pointer;
 }
 
 .pic-n-title {

@@ -64,6 +64,11 @@ function Suggestions() {
     history.push(`/friends/pending`);
   }
 
+  // handles getting pending requests
+  const handleFriendRoute = () => {
+    history.push(`/friends/add`);
+  }
+
   const sendFriendRequest = async (stranger) => {
     await dispatch(sendFriendReq(currentUser.id, stranger.id))
       .then((res) => {
@@ -95,7 +100,7 @@ function Suggestions() {
             <div className='friendslist-blocked sugg'> Blocked </div>
           </div>
         </div>
-        <div className="add-friend-btn">
+        <div className="add-friend-btn" onClick={handleFriendRoute}>
           <span className="add-friend-txt">Add Friend</span>
         </div>
       </div>

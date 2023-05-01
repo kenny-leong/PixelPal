@@ -94,7 +94,7 @@ function AddFriend() {
                     <div className='friendslist-friends'> Friends </div>
                     <div className="friendlist-opts">
                         <div className='friendslist-all pend' onClick={openAllFriends}> All </div>
-                        <div className='friendslist-pending pend' onClick={openPending}>
+                        <div className='friendslist-pending add' onClick={openPending}>
                             <span>Pending</span>
                             <div className="red-bg-amt">
                                 <span className="num-strangers">{pendingFriends.length}</span>
