@@ -6,10 +6,12 @@ import ServersSidebarItem from "./ServerSidebarItem";
 import OpenModalButton from "../OpenModalButton";
 import ServerCreateModal from "../ServerCreateModal";
 import logo from '../../static/phantasmal-logo-trans.png';
+import { useHistory } from "react-router-dom";
 import './ServerSidebar.css'
 
 const ServersSidebar = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector(state => state.session.user)
   const [selectedServer, setSelectedServer] = useState(null);
   const servers = useSelector(state => state.server.userServers)
@@ -44,47 +46,54 @@ const ServersSidebar = () => {
 
 
   const handleServerSelect = (server) => {
+    history.push(`/channels/${server.id}/${server.channels[0].id}`)
     setSelectedServer(server.id)
+  }
+
+  const returnToChannels = () => {
+    history.push(`/channels/@me`)
   }
 
   return (
     <>
-        <>
-          <div className="server-sidebar">
-            <ul className='server-sidebar-ul'>
-              <NavLink key='Direct Messages' to={'/channels/@me'} className='home-server'>
-                <img className='server-sidebar-icon home' src={logo} alt='preview'></img>
-              </NavLink>
+      <div className="server-sidebar">
+        <div className='server-sidebar-ul'>
+          <div className='home-server' onClick={returnToChannels}>
+            <img className='server-sidebar-icon home' src={logo} alt='preview'></img>
+          </div>
 
-              <div className='server-sidebar-server-group'>
-                {
-                  privateServerArr.map(server => (
-                    <NavLink
-                      style={{ textDecoration: 'none' }}
-                      key={`server-${server.id}`}
-                      to={`/channels/${server.id}/${server.channels[0].id}`}
-                    >
-                      <div className={`server-icon-container ${selectedServer === server.id ? "selected" : ""}`}
-                      onClick={() => handleServerSelect(server)}
-                      title={server.name}
-                      >
-                        <ServersSidebarItem server={server} />
-                      </div>
-                    </NavLink>
-                  ))
-                }
-              </div>
+          <div className='server-sidebar-server-group'>
+            {
+              privateServerArr.map(server => (
+                <div className={`server-icon-container ${selectedServer === server.id ? "selected" : ""}`}
+                  onClick={() => handleServerSelect(server)}
+                  title={server.name}
+                >
+                  <ServersSidebarItem server={server} />
+                </div>
+              ))
+            }
+          </div>
 
-              <li style={{ listStyle: 'none' }} className='server-sidebar-add-server-btn'>
-                <OpenModalButton
-                  buttonText='+'
-                  modalComponent={<ServerCreateModal />}
-                />
-              </li>
+          <div className="sep-border"></div>
 
-            </ul>
-          </div >
-        </>
+          <div className='server-sidebar-add-server-btn'>
+            <OpenModalButton
+              buttonText='+'
+              modalComponent={<ServerCreateModal />}
+            />
+          </div>
+
+          <div className='server-sidebar-explore-servers'>
+            <span>
+              <i className="fa-solid fa-compass"></i>
+            </span>
+          </div>
+
+          <div className="padding-server-bar"></div>
+
+        </div>
+      </div >
     </>
   )
 }

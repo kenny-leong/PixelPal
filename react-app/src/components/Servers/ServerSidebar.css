@@ -82,7 +82,7 @@
     height: 48px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
     font-size: 15px;
     font-weight: bold;
     text-align: center;
@@ -109,13 +109,16 @@
     height: 48px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 1em;
     font-size: 35px;
     color: green;
     font-family: 'PixelPal';
     border: 0px;
-    list-style: none;
     cursor: pointer;
+    transition: color .15s ease-out, background-color .15s ease-out, border-radius .15s ease-out;
+    transition-property: color, background-color, border-radius;
+    transition-duration: 0.15s, 0.15s, 0.15s;
+    transition-timing-function: ease-out, ease-out, ease-out;
+    transition-delay: 0s, 0s, 0s;
 }
 
 .server-sidebar-add-server-btn>button:hover {
@@ -164,5 +167,49 @@
 }
 
 .home-server {
-    border-top: 2px solid rgba(163, 163, 163, 0.698);
+    border-bottom: 2px solid rgba(167, 167, 167, 0.698);
+    padding-bottom: 5px;
+    height: 48px;
+    width: 48px;
+}
+
+.server-sidebar-server-group {
+    margin-top: 15px;
+}
+
+.server-sidebar-explore-servers {
+    background-color: #313338;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    color: green;
+    font-family: 'PixelPal';
+    border: 0px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .15s ease-out, background-color .15s ease-out, border-radius .15s ease-out;
+    transition-property: color, background-color, border-radius;
+    transition-duration: 0.15s, 0.15s, 0.15s;
+    transition-timing-function: ease-out, ease-out, ease-out;
+    transition-delay: 0s, 0s, 0s;
+}
+
+.server-sidebar-explore-servers:hover {
+    color: white;
+    background-color: #2CA45C;
+    border-radius: 40%;
+}
+
+.sep-border {
+    border: 1px solid rgb(124, 124, 124);
+    margin-bottom: 15px;
+}
+
+.padding-server-bar {
+    padding-bottom: 50px;
 }
