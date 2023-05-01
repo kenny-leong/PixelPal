@@ -18,7 +18,37 @@ function ExploreServers() {
     useEffect(() => {
         dispatch(getServers())
         dispatch(getUserServers(sessionUser.id))
-      }, [dispatch])
+    }, [dispatch])
+
+
+    if (!allServers || !userServers || !sessionUser) {
+        return (
+            <div className='loading-animation'>
+                <div className="center">
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                    <div className="wave"></div>
+                </div>
+            </div>
+        )
+    }
+
+
+    const allPublicServers = Object.values(allServers).filter(server => !server.name.includes("-"));
+    console.log(allPublicServers)
+
+
+
+
+
+
 
 
     return (
@@ -32,7 +62,16 @@ function ExploreServers() {
                 <span className='title-commun'>Featured Communities</span>
             </div>
 
-            {}
+            <div className="server-card-section">
+                {allPublicServers.map(server => (
+                    <div key={`server${server.id}`} className="server-card">
+                        <div>
+
+                        </div>
+                    </div>
+                ))}
+            </div>
+
         </div>
     )
 }
