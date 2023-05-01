@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getFriendRequests, getNonFriends, addFriendUsername } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import { io } from 'socket.io-client';
+import friendpic from '../../static/add-friends.png';
 import './AddFriend.css';
 
 
@@ -140,6 +141,22 @@ function AddFriend() {
                         <span className="success-msg-add-friend">{success}</span>
                     </div>
                 )}
+            </div>
+            <div className="other-places">
+                <span className="other-places-title">OTHER PLACES TO MAKE FRIENDS</span>
+                <div className="explore-public-servers">
+                    <div className="pic-n-title">
+                        <div className="compass-div">
+                            <i className="fa-regular fa-compass"></i>
+                        </div>
+                        <span className="explore-server-text">Explore Public Servers</span>
+                    </div>
+                    <i className="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+            <div className="friendpic-div">
+                <img src={friendpic} alt='friendpic' className="friendpic-bottom" />
+                <span className="wumpus">Wumpus is waiting on friends. You don't have to though!</span>
             </div>
         </div>
     )

@@ -26,7 +26,9 @@
     flex-direction: column;
     height: auto;
     width: auto;
-    border: none;
+    border-bottom: 1px solid gray;
+    margin-right: 30px;
+    padding-bottom: 40px;
 }
 
 .title-add-friend {
@@ -86,4 +88,79 @@
     margin-top: 10px;
     color: rgb(92, 140, 231);
     font-family: 'PixelPal';
+}
+
+.other-places {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+}
+
+.other-places-title {
+    margin-top: 30px;
+    font-family: 'Discord Bold';
+    color: rgb(219, 219, 219);
+}
+
+.friendpic-div {
+    display: flex;
+    margin-top: 50px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.friendpic-bottom {
+    width: 400px;
+}
+
+.explore-public-servers {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgb(65, 65, 65);
+    background-color: rgb(39, 39, 39);
+    border-radius: 10px;
+    width: 400px;
+    padding: 10px;
+}
+
+.pic-n-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.compass-div {
+    padding: 7px;
+    background-color: #3BA55C;
+    width: fit-content;
+    border-radius: 10px
+}
+
+.pic-n-title .fa-compass {
+    font-size: 25px;
+    color: #3BA55C;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+}
+
+.explore-server-text {
+    margin-left: 15px;
+    font-family: 'PixelPal';
+    color: whitesmoke;
+}
+
+.explore-public-servers .fa-chevron-right {
+    color: rgb(183, 183, 183);
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.wumpus {
+    margin-left: 15px;
+    font-family: 'PixelPal';
+    color: rgb(164, 164, 164);
+    margin-top: 20px;
 }
