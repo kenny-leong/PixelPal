@@ -54,6 +54,10 @@ const ServersSidebar = () => {
     history.push(`/channels/@me`)
   }
 
+  const openExplore = () => {
+    history.push(`/explore/servers`)
+  }
+
   return (
     <>
       <div className="server-sidebar">
@@ -84,7 +88,7 @@ const ServersSidebar = () => {
             />
           </div>
 
-          <div className='server-sidebar-explore-servers'>
+          <div className='server-sidebar-explore-servers' onClick={openExplore}>
             <span>
               <i className="fa-solid fa-compass"></i>
             </span>

@@ -18,7 +18,7 @@ import PrivateTopBar from "./components/DirectMessage/PrivateTopBar";
 import Suggestions from "./components/FriendsList/Suggestions";
 import Pending from "./components/FriendsList/Pending";
 import AddFriend from "./components/FriendsList/AddFriend";
-
+import ExploreServers from "./components/ExploreServers";
 
 
 function App() {
@@ -48,6 +48,10 @@ function App() {
                 <UserMenu />
                 <ServersSidebar />
                 <DirectMessageBar />
+              </Route>
+              <Route exact path='/explore/servers'>
+                <ExploreServers />
+                <ServersSidebar />
               </Route>
               <Route exact path='/friends/suggestions'>
                 <Suggestions />

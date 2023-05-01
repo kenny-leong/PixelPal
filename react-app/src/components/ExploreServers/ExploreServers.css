@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'PixelPal';
+    src: url('../../static/ggsans-Normal.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+  @font-face {
+    font-family: 'Discord Thin';
+    src: url('../../static/Uni\ Sans\ Thin.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+  @font-face {
+    font-family: 'Discord Bold';
+    src: url('../../static/Uni\ Sans\ Heavy.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.explore-div {
+    margin-left: 60px;
+    height: 100vh;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.top-banner {
+    width: 98%;
+    height: 40%;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+
+.top-banner img {
+    width: 100%;
+}
+
+.title-commun-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.title-commun {
+    color: whitesmoke;
+    font-family: 'PixelPal';
+    font-size: 30px;
+}
