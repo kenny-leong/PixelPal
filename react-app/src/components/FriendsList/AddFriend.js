@@ -16,7 +16,7 @@ function AddFriend() {
     const strangers = useSelector(state => state.friends.strangers);
     const [usertag, setUserTag] = useState('');
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState('');
 
     const history = useHistory();
 
@@ -72,12 +72,13 @@ function AddFriend() {
     // send friend request thru username
     const sendReq = async () => {
         setError('');
-        setSuccess('false')
+        setSuccess('')
         await dispatch(addFriendUsername(currentUser.id, usertag))
             .then((res) => {
                 if (res.message.includes('Hm') || res.message.includes('already')) {
                     setError(res.message)
-
+                } else {
+                    setSuccess(res.message)
                 }
             });
         setUserTag('');
@@ -132,6 +133,11 @@ function AddFriend() {
                 {error && (
                     <div className="error-add-friend-div">
                         <span className="error-msg-add-friend">{error}</span>
+                    </div>
+                )}
+                {success && (
+                    <div className="success-add-friend-div">
+                        <span className="success-msg-add-friend">{success}</span>
                     </div>
                 )}
             </div>

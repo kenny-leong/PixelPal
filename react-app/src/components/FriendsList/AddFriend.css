@@ -43,7 +43,7 @@
 .form-input.user-tag {
     min-width: 450px;
     width: 70%;
-    height: 40px;
+    height: 50px;
     margin-top: 15px;
 }
 
@@ -66,7 +66,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 43px;
+    height: 53px;
     margin-top: 15px;
     padding-left: 10px;
     padding-right: 10px;
@@ -74,4 +74,16 @@
     background-color: rgba(96, 132, 224, 0.695);
     color: white;
     cursor: pointer;
+}
+
+.error-add-friend-div {
+    margin-top: 10px;
+    color: rgb(234, 71, 71);
+    font-family: 'PixelPal';
+}
+
+.success-add-friend-div {
+    margin-top: 10px;
+    color: rgb(92, 140, 231);
+    font-family: 'PixelPal';
 }
