@@ -85,6 +85,10 @@ function AddFriend() {
         setUserTag('');
     }
 
+    const openExplore = () => {
+        history.push(`/explore/servers`)
+    }
+
 
     return (
         <div className='friendslist-container'>
@@ -144,7 +148,7 @@ function AddFriend() {
             </div>
             <div className="other-places">
                 <span className="other-places-title">OTHER PLACES TO MAKE FRIENDS</span>
-                <div className="explore-public-servers">
+                <div className="explore-public-servers" onClick={openExplore}>
                     <div className="pic-n-title">
                         <div className="compass-div">
                             <i className="fa-regular fa-compass"></i>

@@ -129,6 +129,11 @@
     cursor: pointer;
 }
 
+.explore-public-servers:hover {
+    background-color: rgba(64, 64, 64, 0.291);
+    border: 1px solid green;
+}
+
 .pic-n-title {
     display: flex;
     flex-direction: row;
