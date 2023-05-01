@@ -115,8 +115,16 @@
   cursor: pointer;
 }
 
+.friendslist-pending {
+  display: inline-flex;
+}
+
 .friendslist-pending.all:hover, .friendslist-blocked.all:hover, .friendslist-sugg.all:hover {
   background-color: #9c9c9c23;
+}
+
+.friendslist-sugg.all {
+  display: inline-flex;
 }
 
 .add-friend-btn {

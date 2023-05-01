@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getNonFriends, sendFriendReq } from "../../store/friends";
+import { getNonFriends, sendFriendReq, getFriendRequests } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { io } from 'socket.io-client';
@@ -13,10 +13,12 @@ function Suggestions() {
 
   const currentUser = useSelector(state => state.session.user);
   const strangers = useSelector(state => state.friends.strangers);
+  const pendingFriends = useSelector(state => state.friends.pendingReqs);
   const history = useHistory();
 
   useEffect(() => {
     dispatch(getNonFriends())
+    dispatch(getFriendRequests(currentUser.id));
   }, [dispatch, currentUser.id])
 
 
@@ -28,7 +30,7 @@ function Suggestions() {
   }, [dispatch, currentUser])
 
 
-  if (!currentUser || !strangers) {
+  if (!currentUser || !strangers || !pendingFriends) {
     return (
       <div className='loading-animation'>
         <div className="center">
@@ -78,8 +80,18 @@ function Suggestions() {
           <div className='friendslist-friends'> Friends </div>
           <div className="friendlist-opts">
             <div className='friendslist-all sugg' onClick={openAllFriends}> All </div>
-            <div className='friendslist-pending sugg' onClick={openPending}>Pending</div>
-            <div className='friendslist-sugg sugg' onClick={openSuggestions}>Suggestions</div>
+            <div className='friendslist-pending sugg' onClick={openPending}>
+              <span>Pending</span>
+              <div className="red-bg-amt">
+                <span className="num-strangers">{pendingFriends.length}</span>
+              </div>
+            </div>
+            <div className='friendslist-sugg sugg' onClick={openSuggestions}>
+              <span>Suggestions</span>
+              <div className="red-bg-amt">
+                <span className="num-strangers">{strangers.length}</span>
+              </div>
+            </div>
             <div className='friendslist-blocked sugg'> Blocked </div>
           </div>
         </div>

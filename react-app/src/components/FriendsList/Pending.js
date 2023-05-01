@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { removeFriendship, getFriendRequests, acceptFriendRequest } from "../../store/friends";
+import { removeFriendship, getFriendRequests, acceptFriendRequest, getNonFriends } from "../../store/friends";
 import { useHistory } from "react-router-dom";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { io } from 'socket.io-client';
@@ -14,10 +14,12 @@ function Pending() {
 
     const currentUser = useSelector(state => state.session.user);
     const pendingFriends = useSelector(state => state.friends.pendingReqs);
+    const strangers = useSelector(state => state.friends.strangers);
+
     const history = useHistory();
 
     useEffect(() => {
-
+        dispatch(getNonFriends())
         dispatch(getFriendRequests(currentUser.id));
     }, [dispatch, currentUser.id])
 
@@ -27,10 +29,10 @@ function Pending() {
 
         // when component unmounts, disconnect
         return (() => socket.disconnect())
-      }, [dispatch, currentUser])
+    }, [dispatch, currentUser])
 
 
-    if (!currentUser || !pendingFriends) {
+    if (!currentUser || !pendingFriends || !strangers) {
         return (
             <div className='loading-animation'>
                 <div className="center">
@@ -92,8 +94,18 @@ function Pending() {
                     <div className='friendslist-friends'> Friends </div>
                     <div className="friendlist-opts">
                         <div className='friendslist-all pend' onClick={openAllFriends}> All </div>
-                        <div className='friendslist-pending pend' onClick={openPending}>Pending</div>
-                        <div className='friendslist-sugg pend' onClick={openSuggestions}>Suggestions</div>
+                        <div className='friendslist-pending pend' onClick={openPending}>
+                            <span>Pending</span>
+                            <div className="red-bg-amt">
+                                <span className="num-strangers">{pendingFriends.length}</span>
+                            </div>
+                        </div>
+                        <div className='friendslist-sugg pend' onClick={openSuggestions}>
+                            <span>Suggestions</span>
+                            <div className="red-bg-amt">
+                                <span className="num-strangers">{strangers.length}</span>
+                            </div>
+                        </div>
                         <div className='friendslist-blocked pend'> Blocked </div>
                     </div>
                 </div>

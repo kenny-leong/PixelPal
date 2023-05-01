@@ -20,12 +20,11 @@
 }
 
 .friendslist-user-container-1.sugg {
-    font-family: 'Discord Bold';
-    font-size: 13px;
+    font-family: 'PixelPal';
+    font-size: 16px;
     display: flex;
     align-items: center;
-    padding-bottom: 15px;
-    padding-top: 15px;
+    padding-bottom: 10px;
 }
 
 .friendslist-all.sugg {
@@ -34,6 +33,22 @@
 
 .friendslist-sugg.sugg {
     background-color: rgb(66,68,74);
+    display: inline-flex;
+}
+
+.red-bg-amt {
+    border-radius: 50%;
+    background-color: rgb(243, 48, 48);
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.num-strangers {
+    font-size: 12px;
 }
 
 .friendslist-all.sugg:hover, .friendslist-pending.sugg:hover, .friendslist-blocked.sugg:hover {

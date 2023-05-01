@@ -28,8 +28,13 @@
     border: none;
 }
 
+.friendslist-sugg.pend {
+    display: inline-flex;
+}
+
 .friendslist-pending.pend {
     background-color: rgb(66,68,74);
+    display: inline-flex;
 }
 
 .friendslist-all.pend:hover, .friendslist-pending.pend:hover, .friendslist-blocked.pend:hover {

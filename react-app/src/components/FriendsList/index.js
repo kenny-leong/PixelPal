@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserFriends } from "../../store/friends";
+import { getUserFriends, getNonFriends, getFriendRequests } from "../../store/friends";
 import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
@@ -15,17 +15,22 @@ export default function FriendsList() {
   const dispatch = useDispatch()
   const history = useHistory();
 
+
   const { setModalContent } = useModal();
 
   const currentUser = useSelector(state => state.session.user)
   const userServers = useSelector(state => state.server.userServers)
   const userFriends = useSelector(state => state.friends.userFriends)
+  const strangers = useSelector(state => state.friends.strangers);
+  const pendingFriends = useSelector(state => state.friends.pendingReqs);
 
 
 
   useEffect(() => {
     dispatch(getUserFriends(currentUser.id))
     dispatch(getUserServers(currentUser.id))
+    dispatch(getFriendRequests(currentUser.id));
+    dispatch(getNonFriends())
   }, [dispatch, currentUser])
 
   useEffect(() => {
@@ -37,7 +42,7 @@ export default function FriendsList() {
 
 
 
-  if (!currentUser || !userFriends || !userServers) {
+  if (!currentUser || !userFriends || !userServers || !strangers || !pendingFriends) {
     return (
       <div className='loading-animation'>
         <div className="center">
@@ -63,7 +68,7 @@ export default function FriendsList() {
 
   // handles friend options such as blocking or removal of friend
   const handleOptions = (friend) => {
-    setModalContent(<FriendOptions friend={friend}/>);
+    setModalContent(<FriendOptions friend={friend} />);
   }
 
 
@@ -135,8 +140,18 @@ export default function FriendsList() {
             <div className='friendslist-friends'> Friends </div>
             <div className="friendlist-opts">
               <div className='friendslist-all' onClick={openAllFriends}> All </div>
-              <div className='friendslist-pending all' onClick={openPending}>Pending</div>
-              <div className='friendslist-sugg all' onClick={openSuggestions}>Suggestions</div>
+              <div className='friendslist-pending all' onClick={openPending}>
+                <span>Pending</span>
+                <div className="red-bg-amt">
+                  <span className="num-strangers">{pendingFriends.length}</span>
+                </div>
+              </div>
+              <div className='friendslist-sugg all' onClick={openSuggestions}>
+                <span>Suggestions</span>
+                <div className="red-bg-amt">
+                  <span className="num-strangers">{strangers.length}</span>
+                </div>
+              </div>
               <div className='friendslist-blocked all'> Blocked </div>
             </div>
           </div>
