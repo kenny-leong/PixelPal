@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import forestgif from '../../static/forest-bg_2k.gif';
+import mushgif from '../../static/mushroom-bg_2k.gif';
+import placeholder from '../../static/placeholder.webp';
 import { getServers, getUserServers } from '../../store/server';
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from "react-router-dom";
@@ -45,7 +47,9 @@ function ExploreServers() {
     console.log(allPublicServers)
 
 
-
+    const loadServer = (server) => {
+        history.push(`/channels/${server.id}/${server.channels[0].id}`)
+    }
 
 
 
@@ -64,9 +68,21 @@ function ExploreServers() {
 
             <div className="server-card-section">
                 {allPublicServers.map(server => (
-                    <div key={`server${server.id}`} className="server-card">
-                        <div>
-
+                    <div key={`server${server.id}`} className="server-card" onClick={()=> loadServer(server)}>
+                        <div className='card-upper-bg'>
+                            <img src={mushgif} alt='mushgif' />
+                        </div>
+                        <div className="explore-img">
+                            <img src={server.server_picture ? server.server_picture : placeholder} alt='serverimg' className="center-server-pic" />
+                        </div>
+                        <div className="card-gray-bg">
+                            <span className="public-server-name">{server.name}</span>
+                            <div className="member-count-div">
+                                <i className="fa-solid fa-users"></i>
+                                <span className="public-server-member-count">
+                                    {server.members.length > 1 ? `${server.members.length} members` : `${server.members.length} member`}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 ))}
