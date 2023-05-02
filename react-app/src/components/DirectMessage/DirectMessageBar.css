@@ -18,3 +18,10 @@
     margin-right: 15px;
     cursor: pointer;
 }
+
+.friendslist-channel-dm.direct {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}

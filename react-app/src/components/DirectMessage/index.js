@@ -79,8 +79,11 @@ function DirectMessageBar() {
 
                 <div className='friendslist-channel-dm-container'>
                     <div className="direct-message-tab">
-                        <div className='friendslist-channel-dm'> DIRECT MESSAGES </div>
-                        <i className="fa-solid fa-plus" />
+                        <div className='friendslist-channel-dm direct'>
+                            <span>DIRECT MESSAGES</span>
+                            <i className="fa-solid fa-angle-down"></i>
+                        </div>
+                        {/* <i className="fa-solid fa-plus" /> */}
                     </div>
                     {userFriends.length > 0 && privateServerArr.map(server => (
                         <div className="dm-div-container" key={`server ${server.id}`}>

@@ -43,7 +43,7 @@ function NewChannel({ serverId }) {
                             <input type="radio" id="text" name="channel-type" value="text" checked={channelType === "text"} onChange={() => setChannelType("text")} />
                         </div>
                     </div>
-                    <div className="radio-buttons-container">
+                    {/* <div className="radio-buttons-container">
                         <div className="radio-button-na">
                             <i className="fa-solid fa-volume-high"></i>
                             <div className="text-radio-option voice">
@@ -52,7 +52,7 @@ function NewChannel({ serverId }) {
                             </div>
                             <input type="radio" id="text" name="channel-type" value="text" disabled />
                         </div>
-                    </div>
+                    </div> */}
                     <span className="channel-name-text">CHANNEL NAME</span>
                     <span className="hashtag-channel-name">#</span>
                     <input

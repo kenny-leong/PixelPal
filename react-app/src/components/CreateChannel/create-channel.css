@@ -23,7 +23,7 @@
 
 .create-channel-modal {
     background-color: #313338;
-    height: 430px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     border: rgb(0, 0, 0) 1px solid;
@@ -159,7 +159,7 @@ input[type="radio"] {
     font-size: 20px;
     color: #9ba0a8;
     position: fixed;
-    margin-top: 292px;
+    margin-top: 207px;
     margin-left: 15px;
 }
 
