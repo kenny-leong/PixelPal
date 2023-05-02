@@ -130,14 +130,14 @@ const ServerMembersSidebar = () => {
             <h1 className='create-server-header'>Members in {server.name}!</h1>
             <p className='create-server-para'>The following users are members of {server.name}:</p>
             {/* COMMENT BACK IN AFTER GREENLIGHT */}
-            {/* {server.owner_id === currentUser.id && (
+            {server.owner_id === currentUser.id && (
                 <div className='server-members-setting-btn' onClick={() => openModal(server)}>
                     <div className="server-member-btn">
                         <i className="fa-solid fa-user-plus"></i>
                         <span className="add-member-txt">Add a new server member</span>
                     </div>
                 </div>
-            )} */}
+            )}
             <div className='server-members-list-container'>
                 {members.map(member => (
                     <div className='server-member-list-card' key={`member${member.id}`}>

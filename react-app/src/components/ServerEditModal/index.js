@@ -8,7 +8,6 @@ function ServerEditModal({ server, serverId }) {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector(state => state.session.user)
 	const [newServer, setNewServer] = useState({ ...server })
-	const [formErrors, setFormErrors] = useState({});
 	const { closeModal } = useModal();
 
 	const handleUpdate = async (e) => {
@@ -58,7 +57,6 @@ function ServerEditModal({ server, serverId }) {
 							value={newServer.server_picture}
 							onChange={handleUpdate}
 						/>
-						<div className='edit-server-error'>{formErrors.serverImage}</div>
 					</div>
 					<br></br>
 					<div>

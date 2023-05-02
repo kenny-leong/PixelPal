@@ -9,33 +9,33 @@ import "./ServerCreate.css";
 function ServerMemberAdd({ server }) {
 
 	const members = server.members;
-	const user = useSelector(state => state.session.user);
+	const currentUser = useSelector(state => state.session.user);
 	const friends = useSelector(state => state.friends.userFriends)
 	const { closeModal } = useModal();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getUserFriends(user.id))
-	}, [dispatch, user])
+		dispatch(getUserFriends(currentUser.id))
+	}, [dispatch, currentUser])
 
 
-	if (!friends || !user) {
+	if (!friends || !currentUser) {
 		return (
 			<div className='loading-animation'>
-			  <div className="center">
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-				<div className="wave"></div>
-			  </div>
+				<div className="center">
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+					<div className="wave"></div>
+				</div>
 			</div>
-		  )
+		)
 	}
 
 	const isMember = (friend) => {
@@ -45,14 +45,12 @@ function ServerMemberAdd({ server }) {
 		return false;
 	}
 
-	const handleAdd = async (e, friend) => {
-		e.preventDefault();
+	const handleAdd = async (friend) => {
 
-		await dispatch(addServerMember(server.id, friend))
+		console.log(friend)
+		await dispatch(addServerMember(server.id, friend.user.username))
 			.then(() => {
-				dispatch(getServers(user));
 				dispatch(getServer(server.id));
-				dispatch(getServerChannels(server.id));
 				closeModal();
 			})
 	}
@@ -63,16 +61,21 @@ function ServerMemberAdd({ server }) {
 				<h1 className='create-server-header'>Add a Friend to {server.name}</h1>
 				{friends.map(friend => (
 					<>
-						{!isMember(friend.user) ?
-							<div onClick={(e) => handleAdd(e, friend.user)} className='friendslist-user-container' id="server-members-add-container" key={`member${friend.user.id}`}>
+						{!isMember(friend.user) && (
+							<div onClick={() => handleAdd(friend)} className='friendslist-user-container' key={`member${friend.user.id}`}>
 								<div className='friendslist-pic-username'>
-									<div> <img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' /> </div>
-									<div className='friendslist-username'> {friend.user.username.split("#")[0]} </div>
-									<div className='friendslist-tag'> #{friend.user.username.split("#")[1]} </div>
+									<div className="div-img">
+										<img className='friendslist-profile-image' src={friend.user.prof_pic} alt='profile_pic_user' />
+									</div>
+									<div className='friendslist-username'>
+										<span>{friend.user.username.split("#")[0]} </span>
+									</div>
+									<div className='friendslist-tag'>
+										<span>#{friend.user.username.split("#")[1]} </span>
+									</div>
 								</div>
 							</div>
-							:
-							""}
+						)}
 					</>
 				))}
 			</div >
