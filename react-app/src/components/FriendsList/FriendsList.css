@@ -63,7 +63,9 @@
   padding-top: 10px;
   height: 30px;
   color: rgb(179,184,191);
-  font-family: 'PixelPal'
+  font-family: 'PixelPal';
+  display: flex;
+  flex-direction: column;
 }
 
 .friendslist-friends,
@@ -135,14 +137,15 @@
   margin-right: 30px;
   background-color: rgb(67, 106, 221);
   height: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
   border-radius: 5px;
   cursor: pointer;
   color: rgb(255, 255, 255);
-  transition: transform 250ms;
 }
 
 .add-friend-btn:hover {
-  transform: scale(1.03);
+  background-color: rgb(88, 120, 216);
 }
 
 .spacing-add-friend {
@@ -367,4 +370,12 @@
 .friendslist-channel-dm-container > i:hover {
   color: rgb(212, 218, 227);
   cursor: pointer;
+}
+
+
+.form-input.friend-username {
+  height: 40px;
+  margin-top: 20px;
+  width: 90%;
+  margin-left: 20px;
 }

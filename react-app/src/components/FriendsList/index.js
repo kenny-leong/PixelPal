@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { getUserFriends, getNonFriends, getFriendRequests } from "../../store/friends";
 import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import { useHistory } from "react-router-dom";
@@ -23,6 +23,8 @@ export default function FriendsList() {
   const userFriends = useSelector(state => state.friends.userFriends)
   const strangers = useSelector(state => state.friends.strangers);
   const pendingFriends = useSelector(state => state.friends.pendingReqs);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredArr, setFilteredArr] = useState([]);
 
 
 
@@ -39,6 +41,15 @@ export default function FriendsList() {
     // when component unmounts, disconnect
     return (() => socket.disconnect())
   }, [dispatch, currentUser])
+
+  useEffect(() => {
+    if (userFriends) {
+      const filteredFriends = userFriends.filter((friend) =>
+        friend.user.username.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredArr(filteredFriends);
+    }
+  }, [searchQuery]);
 
 
 
@@ -60,6 +71,7 @@ export default function FriendsList() {
       </div>
     )
   }
+
 
 
   const serverArr = Object.values(userServers);
@@ -164,8 +176,17 @@ export default function FriendsList() {
             <span className="add-friend-txt">Add Friend</span>
           </div>
         </div>
-        <div className='friendslist-user-container-1'> All Friends — {userFriends.length} </div>
-        {userFriends.map(friend => (
+        <input
+          className="form-input friend-username"
+          type="text"
+          value={searchQuery}
+          placeholder="Search Friends"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <div className='friendslist-user-container-1'>
+          <span>All Friends — {userFriends.length} </span>
+        </div>
+        {filteredArr.map(friend => (
           <div className='friendslist-user-container' key={`friend${friend.user.id}`} >
             <div className='friendslist-pic-username' onClick={() => handleDM(friend.user)}>
               <div className="profile-pic-div">
