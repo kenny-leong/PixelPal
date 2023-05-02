@@ -82,11 +82,11 @@ function DirectMessageBar() {
                         <div className='friendslist-channel-dm'> DIRECT MESSAGES </div>
                         <i className="fa-solid fa-plus" />
                     </div>
-                    {privateServerArr.map(server => (
+                    {userFriends.length > 0 && privateServerArr.map(server => (
                         <div className="dm-div-container" key={`server ${server.id}`}>
                             <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
                                 <img
-                                    src={userFriends.length > 1 && server.name.includes('-')
+                                    src={server.name.includes('-')
                                         ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic
                                             ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic
                                             : logo
