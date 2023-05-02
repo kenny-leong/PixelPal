@@ -65,9 +65,9 @@ function MessageItem({ message }) {
     let props = { messageId, sessionUserId }
 
 
-    const addReaction = async (sessionUserId, messageId, emojiId ) => {
+    const addReaction = async (sessionUserId, messageId, emojiId) => {
         dispatch(createReactionThunk(sessionUserId, messageId, emojiId))
-        }
+    }
 
 
     const deleteReaction = async (reactionId, messageId) => {
@@ -94,30 +94,30 @@ function MessageItem({ message }) {
                     </div>
                     <div className='reactions-container'>
 
-                        {reactionsArr.length ?
-                        <>
-                        {reactionsArr.map((reaction) => {
-                            return (
-                                <div>
-                                    <div
-                                        className={+reaction.userId === +sessionUserId ? 'user-emoji-reaction' : 'other-user-reaction'}
-                                        key={`reaction${reaction.id}`}
-                                        onClick={+reaction.userId === +sessionUserId ? () => { deleteReaction(reaction.id, messageId) } : () => { addReaction(reaction.emojiId, messageId, sessionUserId) }}
-                                    >
-                                        <p className='emojis-emojichar'> {String.fromCodePoint(reaction.emoji.url)}</p>
-                                        <p className='emojis-count'> 1 </p>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                        </>
-                        : null}
+                        {/* {reactionsArr.length ?
+                            <>
+                                {reactionsArr.map((reaction) => {
+                                    return (
+                                        <div>
+                                            <div
+                                                className={+reaction.userId === +sessionUserId ? 'user-emoji-reaction' : 'other-user-reaction'}
+                                                key={`reaction${reaction.id}`}
+                                                onClick={+reaction.userId === +sessionUserId ? () => { deleteReaction(reaction.id, messageId) } : () => { addReaction(reaction.emojiId, messageId, sessionUserId) }}
+                                            >
+                                                <p className='emojis-emojichar'> {String.fromCodePoint(reaction.emoji.url)}</p>
+                                                <p className='emojis-count'> 1 </p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </>
+                            : null} */}
                     </div>
                 </div>
             </div>
-            <div className='message-right-side'>
+            {/* <div className='message-right-side'>
                 <EmojisModal props={props} />
-            </div>
+            </div> */}
         </div>
     );
 };

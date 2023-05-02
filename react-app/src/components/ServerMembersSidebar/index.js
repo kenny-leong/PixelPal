@@ -115,6 +115,7 @@ const ServerMembersSidebar = () => {
         await dispatch(sendFriendReq(currentUser.id, stranger.id))
             .then((res) => {
                 dispatch(getUserFriends(currentUser.id))
+                dispatch(getNonFriends())
             })
     }
 
