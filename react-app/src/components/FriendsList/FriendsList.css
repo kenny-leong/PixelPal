@@ -63,7 +63,8 @@
   padding-top: 10px;
   height: 30px;
   color: rgb(179,184,191);
-  font-family: 'PixelPal';
+  font-family: 'Discord Bold';
+  font-size: 15px;
   display: flex;
   flex-direction: column;
 }

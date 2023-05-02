@@ -121,7 +121,6 @@ function Pending() {
             <div className='friendslist-user-container-1 pending'>
                 <span>Friend Requests — {pendingFriends.length}</span>
             </div>
-
             {pendingFriends.map(friend => (
                 <div className='friendslist-user-container' key={`stranger${friend.id}`}>
                     <div className='friendslist-pic-username'>

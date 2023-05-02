@@ -51,5 +51,7 @@
 }
 
 .friendslist-user-container-1.pending {
-    font-family: 'PixelPal';
+    font-family: 'Discord Bold';
+    font-size: 15px;
+    margin-top: 15px;
 }
