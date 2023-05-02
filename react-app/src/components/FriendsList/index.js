@@ -169,7 +169,7 @@ export default function FriendsList() {
                   <span className="num-strangers">{strangers.length}</span>
                 </div>
               </div>
-              <div className='friendslist-blocked all'> Blocked </div>
+              {/* <div className='friendslist-blocked all'> Blocked </div> */}
             </div>
           </div>
           <div className="add-friend-btn" onClick={handleFriendRoute}>

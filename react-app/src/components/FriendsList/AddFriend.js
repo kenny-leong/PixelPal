@@ -110,7 +110,7 @@ function AddFriend() {
                                 <span className="num-strangers">{strangers.length}</span>
                             </div>
                         </div>
-                        <div className='friendslist-blocked pend'> Blocked </div>
+                        {/* <div className='friendslist-blocked pend'> Blocked </div> */}
                     </div>
                 </div>
                 <div className="add-friend-btn">

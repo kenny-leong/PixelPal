@@ -97,7 +97,7 @@ function Suggestions() {
                 <span className="num-strangers">{strangers.length}</span>
               </div>
             </div>
-            <div className='friendslist-blocked sugg'> Blocked </div>
+            {/* <div className='friendslist-blocked sugg'> Blocked </div> */}
           </div>
         </div>
         <div className="add-friend-btn" onClick={handleFriendRoute}>
