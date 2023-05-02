@@ -13,7 +13,7 @@ function PrivateChannelMessages({ messages }) {
     const messageListRef = useRef(null);
     const currentUser = useSelector(state => state.session.user)
     const userFriends = useSelector(state => state.friends.userFriends)
-    const channelMessages = messages.filter(message => message.channelId == channelId);
+    const channelMessages = messages.filter(message => message.channelId === parseInt(channelId));
 
     const server = useSelector(state => state.server.currentServer);
     const dispatch = useDispatch();

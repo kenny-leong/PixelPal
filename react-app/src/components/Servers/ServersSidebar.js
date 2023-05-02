@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserServers } from "../../store/server";
-import { NavLink } from 'react-router-dom';
 import ServersSidebarItem from "./ServerSidebarItem";
 import OpenModalButton from "../OpenModalButton";
 import ServerCreateModal from "../ServerCreateModal";

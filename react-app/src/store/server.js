@@ -4,8 +4,6 @@ const LOAD_SERVER = 'servers/load_one'
 const ADD_SERVER = 'servers/create'
 const EDIT_SERVER = 'servers/edit'
 const DELETE_SERVER = 'servers/delete'
-const ADD_SERVER_MEMBER = 'servers/members/add'
-const DELETE_SERVER_MEMBER = 'servers/members/add'
 
 // ----------------------------------- action creators ----------------------------------------
 const loadServers = (servers) => ({

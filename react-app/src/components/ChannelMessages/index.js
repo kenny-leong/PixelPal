@@ -11,7 +11,8 @@ function ChannelMessages({ messages }) {
     const { channelId } = useParams();
     const dispatch = useDispatch();
 
-    const channelMessages = messages.filter(message => message.channelId == channelId);
+
+    const channelMessages = messages.filter(message => message.channelId === parseInt(channelId));
 
     // Scroll to bottom of message list when it's first rendered
     useEffect(() => {

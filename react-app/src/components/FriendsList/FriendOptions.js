@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal"
-import { removeFriendship, getNonFriends } from '../../store/friends';
+import { removeFriendship } from '../../store/friends';
 import { getUserServers, deleteServer } from "../../store/server";
 import { io } from 'socket.io-client';
 

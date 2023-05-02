@@ -49,7 +49,7 @@ export default function FriendsList() {
       );
       setFilteredArr(filteredFriends);
     }
-  }, [searchQuery]);
+  }, [searchQuery, userFriends]);
 
 
 

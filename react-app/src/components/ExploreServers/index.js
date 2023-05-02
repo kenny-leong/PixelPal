@@ -20,7 +20,7 @@ function ExploreServers() {
     useEffect(() => {
         dispatch(getServers())
         dispatch(getUserServers(currentUser.id))
-    }, [dispatch])
+    }, [dispatch, currentUser.id])
 
 
     if (!allServers || !userServers || !currentUser) {
