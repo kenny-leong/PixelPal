@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { addServerMember, getServer, getServers } from "../../store/server";
-import { getServerChannels } from "../../store/channels";
+import { addServerMember, getServer } from "../../store/server";
 import { getUserFriends } from "../../store/friends";
 import "./ServerCreate.css";
 
