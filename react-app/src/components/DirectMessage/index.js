@@ -104,9 +104,9 @@ function DirectMessageBar() {
                                     }
                                 </span>
                             </div>
-                            <div className="trash-div" onClick={() => deleteDM(server)}>
+                            {/* <div className="trash-div" onClick={() => deleteDM(server)}>
                                 <i className="fa-solid fa-trash"></i>
-                            </div>
+                            </div> */}
                         </div>
                     ))}
                 </div>
