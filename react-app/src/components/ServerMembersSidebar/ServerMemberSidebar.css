@@ -57,6 +57,10 @@
     overflow-y: auto;
 }
 
+.friendslist-user-container.server {
+    cursor: default;
+}
+
 .friendslist-profile-image.members {
     height: 50px;
     width: 50px;
@@ -71,10 +75,11 @@
     background-color: #1c1c1c;
     border-radius: 50%;
     padding: 3px;
+    cursor: pointer;
 }
 
 .friendslist-chat-icon-smember {
-
+    cursor: pointer;
     display: flex;
     flex-direction: row;
 }
@@ -92,8 +97,13 @@
     border-radius: 50%;
     padding: 4px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .padding-buffer {
     padding-bottom: 30px;
+}
+
+.create-server-header {
+    color: rgb(235, 173, 59);
 }

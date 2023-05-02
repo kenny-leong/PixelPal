@@ -126,7 +126,7 @@ const ServerMembersSidebar = () => {
 
     return (
         <div className="member-sidebar">
-            <h1 className='create-server-header'>Members in {server.name}!</h1>
+            <h1 className='create-server-header'>Members in {server.name}</h1>
             <p className='create-server-para'>The following users are members of {server.name}:</p>
             {/* COMMENT BACK IN AFTER GREENLIGHT */}
             {server.owner_id === currentUser.id && (
@@ -140,7 +140,7 @@ const ServerMembersSidebar = () => {
             <div className='server-members-list-container'>
                 {members.map(member => (
                     <div className='server-member-list-card' key={`member${member.id}`}>
-                        <div className='friendslist-user-container' id="server-members-container">
+                        <div className='friendslist-user-container server' id="server-members-container">
                             <div className='friendslist-pic-username'>
                                 <div>
                                     <img className='friendslist-profile-image members' src={member.prof_pic ? member.prof_pic : logo} alt='profile_pic_user' />
