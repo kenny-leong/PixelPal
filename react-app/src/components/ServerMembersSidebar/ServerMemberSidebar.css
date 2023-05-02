@@ -1,20 +1,36 @@
 
-.sidebar {
+.member-sidebar {
     position: fixed;
-    top: 51px;
-    bottom: 49px;
-    right: 0px;
+    top: 0;
+    right: 0;
     background-color: #404249;
     padding: 20px;
-    /* border: 1px solid #ddd; */
     width: 400px;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .server-members-setting-btn {
-    position: fixed;
-    right: 20px;
-    top: 73px;
-    color: #60636B;
+    display: flex;
+    justify-content: center;
+}
+
+.server-member-btn {
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'PixelPal';
+    font-size: 17px;
+    color: #ffffff;
+    background-color: rgba(46, 171, 46, 0.685);
+    border-radius: 5px;
+}
+
+.server-member-btn:hover {
+    background-color: rgba(51, 140, 51, 0.815);
+}
+
+.add-member-txt {
+    margin-left: 10px;
 }
 
 .server-members-setting-btn button {
@@ -39,4 +55,14 @@
 
 #server-members-container {
     overflow-y: auto;
+}
+
+.friendslist-profile-image.members {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.server-members-list-container {
+    padding-top: 15px;
 }
