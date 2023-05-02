@@ -159,9 +159,11 @@ export default function FriendsList() {
               <div className='friendslist-all' onClick={openAllFriends}> All </div>
               <div className='friendslist-pending all' onClick={openPending}>
                 <span>Pending</span>
-                <div className="red-bg-amt">
-                  <span className="num-strangers">{pendingFriends.length}</span>
-                </div>
+                {pendingFriends.length > 0 && (
+                  <div className="red-bg-amt">
+                    <span className="num-strangers">{pendingFriends.length}</span>
+                  </div>
+                )}
               </div>
               <div className='friendslist-sugg all' onClick={openSuggestions}>
                 <span>Suggestions</span>

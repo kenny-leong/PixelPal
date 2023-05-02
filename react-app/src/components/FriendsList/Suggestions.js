@@ -87,9 +87,11 @@ function Suggestions() {
             <div className='friendslist-all sugg' onClick={openAllFriends}> All </div>
             <div className='friendslist-pending sugg' onClick={openPending}>
               <span>Pending</span>
-              <div className="red-bg-amt">
-                <span className="num-strangers">{pendingFriends.length}</span>
-              </div>
+              {pendingFriends.length > 0 && (
+                <div className="red-bg-amt">
+                  <span className="num-strangers">{pendingFriends.length}</span>
+                </div>
+              )}
             </div>
             <div className='friendslist-sugg sugg' onClick={openSuggestions}>
               <span>Suggestions</span>

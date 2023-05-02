@@ -101,9 +101,11 @@ function Pending() {
                         <div className='friendslist-all pend' onClick={openAllFriends}> All </div>
                         <div className='friendslist-pending pend' onClick={openPending}>
                             <span>Pending</span>
-                            <div className="red-bg-amt">
-                                <span className="num-strangers">{pendingFriends.length}</span>
-                            </div>
+                            {pendingFriends.length > 0 && (
+                                <div className="red-bg-amt">
+                                    <span className="num-strangers">{pendingFriends.length}</span>
+                                </div>
+                            )}
                         </div>
                         <div className='friendslist-sugg pend' onClick={openSuggestions}>
                             <span>Suggestions</span>
