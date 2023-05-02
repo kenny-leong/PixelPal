@@ -103,10 +103,9 @@ const ServerMembersSidebar = () => {
         }
     }
 
-    const handleDelete = async (e, member) => {
-        e.preventDefault();
+    const handleDelete = async (member) => {
 
-        await dispatch(deleteServerMember(server.id, member))
+        await dispatch(deleteServerMember(server.id, member.username))
             .then(() => {
                 dispatch(getServer(server.id));
             })
@@ -167,7 +166,7 @@ const ServerMembersSidebar = () => {
                                 </div>
                             )}
                             {server.owner_id === currentUser.id && member.id !== server.owner_id && (
-                                <div className='friendslist kick-icon' onClick={(e) => handleDelete(e, member)}>
+                                <div className='friendslist kick-icon' onClick={() => handleDelete(member)}>
                                     <i className="fa-solid fa-ban"></i>
                                 </div>
                             )}
