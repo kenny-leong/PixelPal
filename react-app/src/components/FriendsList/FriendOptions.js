@@ -74,10 +74,10 @@ function FriendOptions({ friend }) {
             <div className='remove-friend remove' onClick={removeFriend}>
                 <span>Remove {friend.username} from Friends</span>
             </div>
-            <div className='remove-friend block'>
+            {/* <div className='remove-friend block'>
                 <i className="fa-solid fa-ban"></i>
                 <span>Block {friend.username}</span>
-            </div>
+            </div> */}
             <div className='remove-friend cancel' onClick={returnHome}>
                 <span>Cancel</span>
             </div>

@@ -69,11 +69,11 @@
 }
 
 .remove-friend.cancel {
-    background-color: rgba(206, 104, 211, 0.478);
+    background-color: rgba(204, 204, 204, 0.478);
 }
 
 .remove-friend.cancel:hover {
-    box-shadow: 0 0 10px rgba(173, 117, 223, 0.5);
+    box-shadow: 0 0 10px rgba(211, 211, 211, 0.5);
 }
 
 .remove-friend .fa-ban {
