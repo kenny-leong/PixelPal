@@ -3,14 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import ServerMemberAdd from "../ServerMemberAdd";
 import { useHistory } from "react-router-dom";
 import { getServer, deleteServerMember } from "../../store/server";
-import { getUserFriends, sendFriendReq } from "../../store/friends";
+import { getUserFriends, sendFriendReq, getNonFriends } from "../../store/friends";
 import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { useModal } from "../../context/Modal";
 import "./ServerMemberSidebar.css";
-
-
-let socket;
 
 
 const ServerMembersSidebar = () => {
@@ -23,16 +20,18 @@ const ServerMembersSidebar = () => {
     const server = useSelector(state => state.server.currentServer);
     const userServers = useSelector(state => state.server.userServers)
     const userFriends = useSelector(state => state.friends.userFriends)
+    const strangers = useSelector(state => state.friends.strangers);
     const members = server.members;
 
     useEffect(() => {
         dispatch(getUserFriends(currentUser.id))
         dispatch(getUserServers(currentUser.id))
+        dispatch(getNonFriends())
     }, [dispatch, currentUser])
 
 
 
-    if (!currentUser || !userFriends || !userServers) {
+    if (!currentUser || !userFriends || !userServers || !strangers) {
         return (
             <div className='loading-animation'>
                 <div className="center">
@@ -54,9 +53,14 @@ const ServerMembersSidebar = () => {
     const serverArr = Object.values(userServers);
     const privateServerArr = serverArr.filter(server => server.status === true);
     const friendObj = {}
+    const strangerObj = {}
 
     for (let friend of userFriends) {
         friendObj[friend.user.id] = friend;
+    }
+
+    for (let stranger of strangers) {
+        strangerObj[stranger.id] = stranger;
     }
 
     // Starts or reopens a DM if previously opened
@@ -156,7 +160,7 @@ const ServerMembersSidebar = () => {
 
                                 </div>
                             )}
-                            {!friendObj[member.id] && member.id !== server.owner_id && (
+                            {strangerObj[member.id] && member.id !== server.owner_id && (
                                 <div className="friendslist-adduser-icon" onClick={() => addFriend(member)}>
                                     <i className="fa-solid fa-user-plus"></i>
                                 </div>
