@@ -53,6 +53,7 @@ function ExploreServers() {
         await dispatch(addServerMember(server.id, currentUser.username))
             .then(() => {
                 dispatch(getUserServers(currentUser.id))
+                dispatch(getServers())
             })
     }
 
@@ -60,6 +61,7 @@ function ExploreServers() {
         await dispatch(deleteServerMember(server.id, currentUser.username))
             .then(() => {
                 dispatch(getUserServers(currentUser.id))
+                dispatch(getServers())
             })
     }
 
