@@ -66,3 +66,34 @@
 .server-members-list-container {
     padding-top: 15px;
 }
+
+.friendslist-adduser-icon {
+    background-color: #1c1c1c;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.friendslist-chat-icon-smember {
+
+    display: flex;
+    flex-direction: row;
+}
+
+.friendslist.chat-icon {
+    background-color: #318056;
+    border-radius: 50%;
+    padding: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.friendslist.kick-icon {
+    background-color: #b23426d2;
+    border-radius: 50%;
+    padding: 4px;
+    margin-left: 10px;
+}
+
+.padding-buffer {
+    padding-bottom: 30px;
+}

@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserServers } from "../../store/server";
 import ServersSidebarItem from "./ServerSidebarItem";
 import OpenModalButton from "../OpenModalButton";
+import { getUserFriends, getFriendRequests, getNonFriends } from "../../store/friends";
 import ServerCreateModal from "../ServerCreateModal";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { useHistory } from "react-router-dom";
+import { io } from 'socket.io-client';
 import './ServerSidebar.css'
+
+
+let socket;
+
 
 const ServersSidebar = () => {
   const dispatch = useDispatch();
@@ -18,6 +24,25 @@ const ServersSidebar = () => {
   useEffect(() => {
     dispatch(getUserServers(sessionUser.id))
   }, [dispatch, sessionUser])
+
+
+  useEffect(() => {
+    socket = io();
+
+    if (socket) {
+      socket.on("newServer", (server) => {
+        dispatch(getUserServers(sessionUser.id))
+      })
+      socket.on("newRequest", (req) => {
+        dispatch(getFriendRequests(sessionUser.id));
+        dispatch(getNonFriends())
+        dispatch(getUserFriends(sessionUser.id))
+        dispatch(getUserServers(sessionUser.id))
+      })
+    }
+    // when component unmounts, disconnect
+    return (() => socket.disconnect())
+  }, [dispatch, sessionUser.id])
 
 
   if (!servers) {

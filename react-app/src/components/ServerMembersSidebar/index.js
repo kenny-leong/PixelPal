@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import ServerMemberAdd from "../ServerMemberAdd";
 import { useHistory } from "react-router-dom";
 import { getServer, deleteServerMember } from "../../store/server";
-import { getUserFriends, getNonFriends, getFriendRequests } from "../../store/friends";
+import { getUserFriends, sendFriendReq } from "../../store/friends";
 import { getUserServers, addPrivateServer, getFriendServers } from "../../store/server";
 import logo from '../../static/phantasmal-logo-trans.png';
 import { useModal } from "../../context/Modal";
-import { io } from 'socket.io-client';
 import "./ServerMemberSidebar.css";
 
 
@@ -18,7 +17,7 @@ const ServerMembersSidebar = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const { setModalContent } = useModal();
+    const { setModalContent, closeModal } = useModal();
 
     const currentUser = useSelector(state => state.session.user);
     const server = useSelector(state => state.server.currentServer);
@@ -26,19 +25,11 @@ const ServerMembersSidebar = () => {
     const userFriends = useSelector(state => state.friends.userFriends)
     const members = server.members;
 
-
-
     useEffect(() => {
         dispatch(getUserFriends(currentUser.id))
         dispatch(getUserServers(currentUser.id))
     }, [dispatch, currentUser])
 
-    useEffect(() => {
-        socket = io();
-
-        // when component unmounts, disconnect
-        return (() => socket.disconnect())
-    }, [dispatch, currentUser])
 
 
     if (!currentUser || !userFriends || !userServers) {
@@ -62,10 +53,14 @@ const ServerMembersSidebar = () => {
 
     const serverArr = Object.values(userServers);
     const privateServerArr = serverArr.filter(server => server.status === true);
+    const friendObj = {}
+
+    for (let friend of userFriends) {
+        friendObj[friend.user.id] = friend;
+    }
 
     // Starts or reopens a DM if previously opened
     const handleDM = async (friend) => {
-
         const friendServers = await dispatch(getFriendServers(friend.id));
 
         if (friendServers) {
@@ -98,8 +93,8 @@ const ServerMembersSidebar = () => {
 
             await dispatch(addPrivateServer(`${privateServerName}`, currentUser.id, true, currentUser.username, friend.username))
                 .then((res) => {
-                    socket.emit('newServer', res)
                     history.push(`/private-messages/${res.id}/${res.channels[0].id}`)
+                    closeModal();
                 })
         }
     }
@@ -110,6 +105,13 @@ const ServerMembersSidebar = () => {
         await dispatch(deleteServerMember(server.id, member))
             .then(() => {
                 dispatch(getServer(server.id));
+            })
+    }
+
+    const addFriend = async (stranger) => {
+        await dispatch(sendFriendReq(currentUser.id, stranger.id))
+            .then((res) => {
+                dispatch(getUserFriends(currentUser.id))
             })
     }
 
@@ -133,8 +135,8 @@ const ServerMembersSidebar = () => {
             )}
             <div className='server-members-list-container'>
                 {members.map(member => (
-                    <div className='server-member-list-card'>
-                        <div className='friendslist-user-container' id="server-members-container" key={`member${member.id}`}>
+                    <div className='server-member-list-card' key={`member${member.id}`}>
+                        <div className='friendslist-user-container' id="server-members-container">
                             <div className='friendslist-pic-username'>
                                 <div>
                                     <img className='friendslist-profile-image members' src={member.prof_pic ? member.prof_pic : logo} alt='profile_pic_user' />
@@ -146,17 +148,28 @@ const ServerMembersSidebar = () => {
                                     #{member.username.split("#")[1]}
                                 </div>
                             </div>
-                            <div className='friendslist-chat-icon'>
-                                <div className='icon-hover' onClick={handleDM}> <i className="fa-solid fa-message" /> </div>
-                                {server.owner_id === currentUser.id && member.id !== server.owner_id && (
-                                    <div className='icon-hover' onClick={(e) => handleDelete(e, member)}>
-                                        <i className="fa-solid fa-ban"></i>
+                            {friendObj[member.id] && member.id !== server.owner_id && (
+                                <div className='friendslist-chat-icon-smember'>
+                                    <div className='friendslist chat-icon' onClick={() => handleDM(member)}>
+                                        <i className="fa-solid fa-message" />
                                     </div>
-                                )}
-                            </div>
+
+                                </div>
+                            )}
+                            {!friendObj[member.id] && member.id !== server.owner_id && (
+                                <div className="friendslist-adduser-icon" onClick={() => addFriend(member)}>
+                                    <i className="fa-solid fa-user-plus"></i>
+                                </div>
+                            )}
+                            {server.owner_id === currentUser.id && member.id !== server.owner_id && (
+                                <div className='friendslist kick-icon' onClick={(e) => handleDelete(e, member)}>
+                                    <i className="fa-solid fa-ban"></i>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}
+                <div className="padding-buffer"></div>
             </div>
         </div >
     );

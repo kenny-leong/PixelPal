@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserServers, deleteServer } from "../../store/server";
-import { getUserFriends, getFriendRequests, getNonFriends } from "../../store/friends";
+import { getUserFriends } from "../../store/friends";
 import { io } from 'socket.io-client';
 import logo from '../../static/phantasmal-logo-trans.png';
 import './DirectMessageBar.css';
@@ -27,17 +27,6 @@ function DirectMessageBar() {
     useEffect(() => {
         socket = io();
 
-        if (socket) {
-            socket.on("newServer", (server) => {
-                dispatch(getUserServers(currentUser.id))
-            })
-            socket.on("newRequest", (req) => {
-                dispatch(getFriendRequests(currentUser.id));
-                dispatch(getNonFriends())
-                dispatch(getUserFriends(currentUser.id))
-                dispatch(getUserServers(currentUser.id))
-              })
-        }
         // when component unmounts, disconnect
         return (() => socket.disconnect())
     }, [dispatch, currentUser.id])
@@ -97,7 +86,7 @@ function DirectMessageBar() {
                         <div className="dm-div-container" key={`server ${server.id}`}>
                             <div className="private-dm-container" onClick={() => handleDMOpen(server)}>
                                 <img
-                                    src={server.name.includes('-')
+                                    src={userFriends.length > 1 && server.name.includes('-')
                                         ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic
                                             ? userFriends.find(friend => friend.user.username.startsWith(server.name.split('-').find(name => name !== sessionUsername))).user.prof_pic
                                             : logo
