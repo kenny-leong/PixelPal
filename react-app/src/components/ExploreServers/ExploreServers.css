@@ -133,3 +133,27 @@
     background-color: rgb(24, 24, 24);
     padding: 2px;
 }
+
+.join-ser-div {
+    margin-top: 15px;
+}
+
+.join-ser-card {
+    font-family: 'Discord Bold';
+    color: rgb(74, 155, 195);
+}
+
+.join-ser-card:hover {
+    text-shadow: 0 0 10px rgba(89, 178, 223, 0.8);
+}
+
+.already-joined-div {
+    margin-top: 10px;
+}
+
+.already-joined-card .fa-check{
+    color: whitesmoke;
+    background-color: #A67B5B;
+    padding: 5px;
+    border-radius: 50%;
+}

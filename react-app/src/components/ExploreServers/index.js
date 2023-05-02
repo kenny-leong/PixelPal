@@ -44,8 +44,6 @@ function ExploreServers() {
 
 
     const allPublicServers = Object.values(allServers).filter(server => !server.name.includes("-"));
-    console.log(allPublicServers)
-
 
     const loadServer = (server) => {
         history.push(`/channels/${server.id}/${server.channels[0].id}`)
@@ -68,7 +66,7 @@ function ExploreServers() {
 
             <div className="server-card-section">
                 {allPublicServers.map(server => (
-                    <div key={`server${server.id}`} className="server-card" onClick={()=> loadServer(server)}>
+                    <div key={`server${server.id}`} className="server-card" onClick={() => loadServer(server)}>
                         <div className='card-upper-bg'>
                             <img src={mushgif} alt='mushgif' />
                         </div>
@@ -83,6 +81,18 @@ function ExploreServers() {
                                     {server.members.length > 1 ? `${server.members.length} members` : `${server.members.length} member`}
                                 </span>
                             </div>
+                            {!userServers[server.id] && (
+                                <div className="join-ser-div">
+                                    <span className="join-ser-card">Join Server</span>
+                                </div>
+                            )}
+                            {userServers[server.id] && (
+                                <div className="already-joined-div">
+                                    <span className="already-joined-card">
+                                        <i className="fa-solid fa-check"></i>
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}
