@@ -69,7 +69,7 @@ const ServersSidebar = () => {
           <div className='server-sidebar-server-group'>
             {
               privateServerArr.map(server => (
-                <div className={`server-icon-container ${selectedServer === server.id ? "selected" : ""}`}
+                <div key={`server${server.id}`} className={`server-icon-container ${selectedServer === server.id ? "selected" : ""}`}
                   onClick={() => handleServerSelect(server)}
                   title={server.name}
                 >

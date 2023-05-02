@@ -38,14 +38,6 @@ const removeServer = (id) => ({
   serverId: id
 });
 
-const createServerMember = () => ({
-  type: ADD_SERVER_MEMBER
-});
-
-const removeServerMember = () => ({
-  type: DELETE_SERVER_MEMBER
-});
-
 
 // ----------------------------------- thunk action creators ----------------------------------------
 
@@ -229,31 +221,31 @@ export const deleteServer = (serverId) => async (dispatch) => {
 
 // ADD SERVER MEMEBER //
 
-export const addServerMember = (serverId, user) => async (dispatch) => {
+export const addServerMember = (serverId, username) => async (dispatch) => {
   const response = await fetch(`/api/servers/${serverId}/members`, {
     method: 'POST',
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
+    body: JSON.stringify({username})
   })
 
   if (response.ok) {
-    dispatch(createServerMember());
-    return null;
+    const res = await response.json();
+    return res;
   }
 }
 
 // REMOVE SERVER MEMEBER //
 
-export const deleteServerMember = (serverId, user) => async (dispatch) => {
+export const deleteServerMember = (serverId, username) => async (dispatch) => {
   const response = await fetch(`/api/servers/${serverId}/members`, {
     method: 'DELETE',
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
+    body: JSON.stringify({username})
   })
 
   if (response.ok) {
-    dispatch(removeServerMember());
-    return null;
+    const res = await response.json();
+    return res;
   }
 }
 
@@ -314,14 +306,6 @@ export default function serverReducer(state = initialState, action) {
     case DELETE_SERVER: {
       const newState = { ...state }
       return newState;
-    }
-
-    case ADD_SERVER_MEMBER: {
-      return { ...state };
-    }
-
-    case DELETE_SERVER_MEMBER: {
-      return { ...state };
     }
 
     default:

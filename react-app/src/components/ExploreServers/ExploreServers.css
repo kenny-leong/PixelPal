@@ -70,7 +70,6 @@
     margin: 10px;
     border: rgb(133, 133, 133) 1px solid;
     border-radius: 20px;
-    cursor: pointer;
     position: relative;
 }
 
@@ -105,6 +104,7 @@
     color: rgb(233, 161, 53);
     font-size: 22px;
     text-shadow: 0 0 10px rgba(255, 128, 0, 0.8);
+    cursor: pointer;
 }
 
 .member-count-div {
@@ -122,7 +122,8 @@
 .explore-img {
     position: absolute;
     top: 40%;
-    left: 44%;
+    left: 42%;
+    cursor: pointer;
 }
 
 .center-server-pic {
@@ -136,6 +137,7 @@
 
 .join-ser-div {
     margin-top: 15px;
+    cursor: pointer;
 }
 
 .join-ser-card {
@@ -149,11 +151,16 @@
 
 .already-joined-div {
     margin-top: 10px;
+    cursor: pointer;
 }
 
-.already-joined-card .fa-check{
+.already-joined-card .fa-check {
     color: whitesmoke;
     background-color: #A67B5B;
     padding: 5px;
     border-radius: 50%;
+}
+
+.already-joined-card .fa-check:hover {
+    box-shadow: 0px 0px 10px 0px rgba(139, 69, 19, 0.5);
 }
