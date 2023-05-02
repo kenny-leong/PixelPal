@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { editServer, getServer, getServers } from "../../store/server";
+import { editServer, getServer, getUserServers } from "../../store/server";
 import "./EditServer.css";
 
 function ServerEditModal({ server, serverId }) {
 	const dispatch = useDispatch();
-
+	const sessionUser = useSelector(state => state.session.user)
 	const [newServer, setNewServer] = useState({ ...server })
 	const [formErrors, setFormErrors] = useState({});
 	const { closeModal } = useModal();
@@ -15,38 +15,15 @@ function ServerEditModal({ server, serverId }) {
 		setNewServer({ ...newServer, [e.target.name]: e.target.value })
 	}
 
-	const validateForm = () => {
-		let err = {};
-
-		if (newServer.name === '') {
-			err.name = 'Server Name is required';
-		}
-
-		if (newServer.server_picture === null) {
-			newServer.server_picture = "";
-		}
-
-		if (newServer.server_picture !== "" && !(newServer.server_picture.endsWith('.jpg') || newServer.server_picture.endsWith('.jpeg') || newServer.server_picture.endsWith('.png'))) {
-			err.serverImage = 'Server Image must end in .jpg, .jpeg, or .png';
-		}
-
-		setFormErrors({ ...err });
-		return (Object.keys(err).length === 0);
-	}
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (!validateForm(newServer)) {
-			return;
-		};
-
 		await dispatch(editServer(server.id, newServer))
-		.then(() => {
-			dispatch(getServers());
-			dispatch(getServer(serverId));
-			closeModal();
-		});
+			.then(() => {
+				dispatch(getUserServers(sessionUser.id))
+				dispatch(getServer(serverId));
+				closeModal();
+			});
 
 	};
 
@@ -55,7 +32,7 @@ function ServerEditModal({ server, serverId }) {
 			<div className='edit-server-modal-content'>
 				<form className='edit-server-form' onSubmit={handleSubmit}>
 					<h1 className='edit-server-header'>Edit A Server </h1>
-					<p className='edit-server-para'>Your server is where your and your pals hang out. Personalize it to make it yours. </p>
+					<p className='edit-server-para'>Your server is where your groups hang out. Personalize it to make it yours. </p>
 					<div className='edit-server-form-group'>
 						<span className='edit-server-form-label'>
 							Server Name
@@ -66,9 +43,7 @@ function ServerEditModal({ server, serverId }) {
 							name="name"
 							value={newServer.name}
 							onChange={handleUpdate}
-
 						/>
-						<div className='edit-server-error'>{formErrors.name}</div>
 					</div>
 					<br></br>
 					<div className='edit-server-form-group'>
