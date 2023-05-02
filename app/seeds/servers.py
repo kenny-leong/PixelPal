@@ -1,6 +1,8 @@
 from app.models import db, User, Server, environment, SCHEMA
 from sqlalchemy.sql import text
 from app.models import User
+from random import randint, sample
+
 
 
 # Adds a demo server, you can add other servers here if you want
@@ -100,12 +102,10 @@ def seed_servers():
 
     users = User.query.all()
 
-
-    # first_group = list(users) #demo bobbie marnie
-    # second_group = list(users[0:3]) #demo bobbie marnie ak
-
-    for i in range(0, len(servers)):
-        servers[i].members.extend(users)
+    for server in servers:
+        num_members = randint(20, 108)
+        members = sample(users, num_members)
+        server.members.extend(members)
 
 
     db.session.add_all(servers)
